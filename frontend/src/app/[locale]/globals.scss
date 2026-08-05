@@ -1,14 +1,13 @@
-/* Make sure you place the base color of the website in a variable */
 :root {
-  --main-color: #07f;
+  --main-color: #F56C00;
 
-  --background: #ffffff;
-  --text: #111111;
+  --background: #F8F9FA;
+  --color: #000;
 }
 
 .dark {
-  --background: #0e1217;
-  --text: #ffffff;
+  --background: #121212;
+  --color: #fff;
 }
 
 
@@ -17,39 +16,26 @@
   box-sizing: border-box;
   max-width: 100%;
 }
+
 html {
   scroll-behavior: smooth;
-  /* For change scroll bar in firefox*/
-  scrollbar-color: var(--main-color, #07f) #fff;
-  scrollbar-width: thin; /*or auto*/
+  scrollbar-color: var(--main-color) var(--background);
+  scrollbar-width: thin;
 
-  background: var(--background);
-  color: var(--text);
+  background-color: var(--background);
+  color: var(--color);
 }
+
 body {
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-cairo), sans-serif;
 }
 ::selection {
-  background-color: var(--main-color, #07f);
+  background-color: var(--main-color);
   color: #fff;
 }
 
-/* For change scroll bar */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: var(--main-background, #fff);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--main-color, #07f);
-}
-::-webkit-scrollbar-thumb:hover {
-  border: 1px solid #fff;
-}
 
 /* global values */
 h1 { font-size: 2.2em; }
@@ -83,14 +69,14 @@ img {
 input {
   border: none;
   outline: none;
-  caret-color: var(--main-color, #07f);
+  caret-color: var(--main-color);
 }
 [type="submit"] {
   cursor: pointer;
   text-transform: capitalize;
 }
 textarea {
-  resize: vertical; /* both */
+  resize: vertical;
 }
 
 /* Container */

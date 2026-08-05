@@ -1,3 +1,6 @@
 {
-
+  "links": {
+    "home": "Home",
+    "products": "Products"
+  }
 }
