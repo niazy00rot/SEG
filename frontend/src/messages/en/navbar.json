@@ -1,6 +1,15 @@
 {
   "links": {
     "home": "Home",
-    "products": "Products"
+    "products": "Products",
+    "shop": "Shop",
+    "categories": "Categories",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "search": "Search...",
+  "accounts": {
+    "login": "Login",
+    "signup": "Create Account"
   }
 }

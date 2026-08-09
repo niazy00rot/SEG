@@ -2,6 +2,7 @@
 
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import "./button.scss"
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
@@ -18,7 +19,7 @@ export default function LanguageSwitcher() {
 
   return (
     <button onClick={changeLanguage}>
-      {locale === "en" ? "العربية" : "English"}
+      {locale === "en" ? "Ar" : "En"}
     </button>
   );
 }

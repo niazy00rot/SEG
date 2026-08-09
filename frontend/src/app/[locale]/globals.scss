@@ -1,12 +1,15 @@
 :root {
-  --main-color: #F56C00;
+  --main-color: #DD201C;
 
   --background: #F8F9FA;
+  --box-color: #fff;
   --color: #000;
+  --p-color: #AAAAAC;
 }
 
 .dark {
-  --background: #121212;
+  --background: #0D0E12;
+  --box-color: #161820;
   --color: #fff;
 }
 
@@ -15,13 +18,12 @@
 * {
   box-sizing: border-box;
   max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 html {
   scroll-behavior: smooth;
-  scrollbar-color: var(--main-color) var(--background);
-  scrollbar-width: thin;
-
   background-color: var(--background);
   color: var(--color);
 }
@@ -32,8 +34,25 @@ body {
   font-family: var(--font-cairo), sans-serif;
 }
 ::selection {
-  background-color: var(--main-color);
+  background-color: color-mix(in srgb, var(--main-color), transparent 50%);
   color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+}
+
+section {
+  padding-top: 90px;
 }
 
 
@@ -41,6 +60,7 @@ body {
 h1 { font-size: 2.2em; }
 p {
   line-height: 2;
+  color: var(--p-color);
 }
 @media (max-width: 500px) {
   h1 { font-size: 1.7em; }

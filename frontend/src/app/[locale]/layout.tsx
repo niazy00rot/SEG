@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import {NextIntlClientProvider} from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
 import ThemeProvider from "@/providers/ThemeProvider";
-import { getMessages } from 'next-intl/server';
+import { getMessages } from "next-intl/server";
 import { Cairo } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -9,7 +9,7 @@ import "./globals.scss";
 
 const cairo = Cairo({
   variable: "--font-cairo",
-  subsets: ["latin", "arabic"]
+  subsets: ["latin", "arabic"],
 });
 
 export async function generateMetadata({
@@ -34,7 +34,11 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className={`${cairo.variable}`}>
+    <html
+      lang={locale}
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      className={`${cairo.variable}`}
+    >
       <body>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>

@@ -8,6 +8,8 @@ import ThemeToggle from "../ui/ThemeToggle";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+import { FaSearch } from "react-icons/fa";
+
 
 export default function Navbar(): ReactElement {
   const t = useTranslations("navbar");
@@ -116,40 +118,48 @@ export default function Navbar(): ReactElement {
         <div className="container">
           <div className="logo">
             <Link href="/">
-              <Image src="/logo.png" alt="SEG" width={50} height={50} />
+              <Image src="/icon.png" alt="SEG" width={50} height={50} />
             </Link>
           </div>
+
           <div className="linksBox">
-            <div
-              className={`closeButton ${isMenuOpen ? "toggle" : ""}`}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
+            <div className={`closeButton ${isMenuOpen ? "toggle" : ""}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <div className="bar"></div>
               <div className="bar"></div>
               <div className="bar"></div>
             </div>
             <div className="links">
-              <Link
-                href="/"
-                onClick={() => setIsMenuOpen(false)}
-                className={
-                  pathname === "/" && activeSection === "home" ? "active" : ""
-                }
-              >
+              <Link href="/" onClick={() => setIsMenuOpen(false)} className={pathname === "/" && activeSection === "home" || 1 ? "active" : "" }>
                 {t("links.home")}
               </Link>
-              <Link
-                href="/products"
-                onClick={() => setIsMenuOpen(false)}
-                className={pathname === "/products" ? "active" : ""}
-              >
-                {t("links.products")}
+              <Link href="/#shop" onClick={() => setIsMenuOpen(false)} className={pathname === "/" && activeSection === "shop" ? "active" : "" }>
+                {t("links.shop")}
               </Link>
+              <Link href="/#categories" onClick={() => setIsMenuOpen(false)} className={pathname === "/" && activeSection === "categories" ? "active" : "" }>
+                {t("links.categories")}
+              </Link>
+
+              {/* <Link href="/products" onClick={() => setIsMenuOpen(false)} className={pathname === "/products" ? "active" : ""}>
+                {t("links.products")}
+              </Link> */}
             </div>
-            {/* <div className="modes">
+          </div>
+
+          <div className="group">
+            <div className="search">
+              <input type="text" placeholder={t("search")} />
+              <button><FaSearch /></button>
+            </div>
+
+            <div className="buttons">
               <LanguageSwitcher />
               <ThemeToggle />
-            </div> */}
+            </div>
+          </div>
+
+          <div className="accounts">
+            <Link href="/login">{t("accounts.login")}</Link>
+            <Link href="/signup">{t("accounts.signup")}</Link>
           </div>
         </div>
       </nav>

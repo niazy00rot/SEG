@@ -1,3 +1,16 @@
 {
-
+  "home": {
+    "popupText": "Free Shipping on Orders Over $150",
+    "homeTitle1": "Quality Parts.",
+    "homeTitle2": "<highlight>Better</highlight> Performance.",
+    "paragraph": "SEG delivers genuine, performance-grade automotive spare parts to keep your vehicle running at its best. Trusted by 80,000+ drivers.",
+    "button1": "Shop Parts",
+    "button2": "Explore Categories",
+    "ranks": {
+      "one": "Parts in Stock",
+      "two": "Brands Available",
+      "three": "Orders Delivered",
+      "four": "Customer Rating"
+    }
+  }
 }

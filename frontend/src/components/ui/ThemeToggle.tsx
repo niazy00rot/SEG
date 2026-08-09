@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import { FaSun, FaMoon } from "react-icons/fa6";
+import "./button.scss"
 
 export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -21,7 +23,7 @@ export default function ThemeToggle() {
         setTheme(resolvedTheme === "dark" ? "light" : "dark")
       }
     >
-      {resolvedTheme === "dark" ? "☀️" : "🌙"}
+      {resolvedTheme === "dark" ? <FaSun /> : <FaMoon />}
     </button>
   );
 }
