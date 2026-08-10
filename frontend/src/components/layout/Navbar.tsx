@@ -118,7 +118,7 @@ export default function Navbar(): ReactElement {
         <div className="container">
           <div className="logo">
             <Link href="/">
-              <Image src="/icon.png" alt="SEG" width={50} height={50} />
+              <Image src="/images/icon.png" alt="SEG" width={50} height={50} />
             </Link>
           </div>
 

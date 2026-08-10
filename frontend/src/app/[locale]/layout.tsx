@@ -3,8 +3,6 @@ import { NextIntlClientProvider } from "next-intl";
 import ThemeProvider from "@/providers/ThemeProvider";
 import { getMessages } from "next-intl/server";
 import { Cairo } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import "./globals.scss";
 
 const cairo = Cairo({
@@ -42,9 +40,7 @@ export default async function RootLayout({
       <body>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
-            <Navbar />
             {children}
-            <Footer />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

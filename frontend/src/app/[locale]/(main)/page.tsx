@@ -48,10 +48,6 @@ export default function Home() {
           </h1>
           <p>{t("home.paragraph")}</p>
 
-          <p style={{ marginTop: "1rem", fontSize: "0.95rem" }}>
-            {backendStatus}
-          </p>
-
           <div className="links">
             <Link href="/parts">
               {t("home.button1")}

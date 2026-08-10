@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///D:/projects/web_projects/SEG/frontend/src/app/[locale]/(auth)/auth.scss"],"sourcesContent":["form {\r\n  margin-top: 100px;\r\n}"],"names":[],"mappings":"AAAA"}}]
-}
