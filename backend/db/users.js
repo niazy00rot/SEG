@@ -1,0 +1,58 @@
+const {pool}= require('../../database/db.js')
+const bcrypt = require('bcrypt')
+
+async function registeration(name,email,password,phone){
+    try{
+        const client = await pool.connect()
+        const hashedPassword = await bcrypt.hash(password, 10)
+        await client.query('INSERT INTO users(name,email,password,phone) VALUES($1,$2,$3,$4)',[name,email,hashedPassword,phone])
+        return {success: true}
+    }
+    catch(err){
+        console.error('Error occurred while registering user:', err)
+        return {error: 'Error occurred while registering user'}
+    }
+    finally{
+        client.release()
+    }
+}
+
+async function login(email,password){
+    try{
+        const client = await pool.connect()
+        const result = await client.query('SELECT id,email,password FROM users Where email=$1',[email])
+        if (result.rows.length === 0){
+            return {error: 'User not found'}
+        }
+        const user = result.rows[0]
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+        if (!isPasswordValid){
+            return {error:' Invalid password'}
+        }
+        return {success: true, user: {id: user.id}}
+    }
+    catch(err){
+        console.error('Error occurred while logging in:', err)
+        return {error: 'Error occurred while logging in'}
+    }
+    finally{
+        client.release()
+    }
+}
+
+async function getUserById(id){
+    try{
+        const client = await pool.connect()
+        const r= await client.query('SELECT id,name,email,phone FROM users WHERE id=$1',[id])
+        return {success: true, user: r.rows[0]}
+    }
+    catch(err){
+        console.error('Error occurred while fetching user:', err)
+        return {error: 'Error occurred while fetching user'}
+    }
+    finally{
+        client.release()
+    }
+}
+
+module.exports = {registeration,login,getUserById}
