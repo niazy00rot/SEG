@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/projects/web_projects/SEG/frontend/src/app/[locale]/(auth)/login/page.tsx"],"sourcesContent":["'use client'\r\nimport {useTranslations} from \"next-intl\";\r\nimport { FcGoogle } from \"react-icons/fc\";\r\n\r\nimport Link from 'next/link';\r\nimport '../auth.scss';\r\n\r\nexport default function LoginPage() {\r\n  const t = useTranslations(\"auth.login\");\r\n  return (\r\n    <>\r\n      <section className=\"authentication\">\r\n        <div className=\"background\">\r\ntest\r\n        </div>\r\n        <div className=\"container\">\r\n          <div className=\"form\"></div>\r\n        </div>\r\n      </section>\r\n    </>\r\n  );\r\n}"],"names":["LoginPage","t","className"],"mappings":";;;;;AACA;;;AADA;;;AAOe,SAASA;;IACtB,MAAMC,IAAI,IAAA,4MAAe,EAAC;IAC1B,qBACE;kBACE,cAAA,6LAAC;YAAQC,WAAU;;8BACjB,6LAAC;oBAAIA,WAAU;8BAAa;;;;;;8BAG5B,6LAAC;oBAAIA,WAAU;8BACb,cAAA,6LAAC;wBAAIA,WAAU;;;;;;;;;;;;;;;;;;;;;;AAKzB;GAdwBF;;QACZ,4MAAe;;;KADHA"}}]
+}

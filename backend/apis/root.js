@@ -1,8 +1,7 @@
 const router = require('express').Router()
-const path = require('path')
 
-router.get('/', async (req,res)=>{
-    res.sendFile(path.join(__dirname,'../../frontend/file.html'))
+router.get('/', async (req, res) => {
+    res.json({ message: 'API is running' })
 })
 
 module.exports = router

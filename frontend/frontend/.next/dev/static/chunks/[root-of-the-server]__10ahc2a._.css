@@ -1,0 +1,510 @@
+/* [next]/internal/font/google/cairo_b668c0e7.module.css [app-client] (css) */
+@font-face {
+  font-family: Cairo;
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url("../media/9ff27b8a0a8f3dc0-s.p.40_3w74kn95bo.woff2") format("woff2");
+  unicode-range: U+6??, U+750-77F, U+870-88E, U+890-891, U+897-8E1, U+8E3-8FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+}
+
+@font-face {
+  font-family: Cairo;
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url("../media/a5b03b231ce290a0-s.0nlsxckj73qpt.woff2") format("woff2");
+  unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: Cairo;
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url("../media/d41831e24743a3c1-s.p.08tn9snzkmifr.woff2") format("woff2");
+  unicode-range: U+??, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: Cairo Fallback;
+  src: local(Arial);
+  ascent-override: 137.65%;
+  descent-override: 60.32%;
+  line-gap-override: 0.0%;
+  size-adjust: 94.66%;
+}
+
+.cairo_b668c0e7-module__dPLcuG__className {
+  font-family: Cairo, Cairo Fallback;
+  font-style: normal;
+}
+
+.cairo_b668c0e7-module__dPLcuG__variable {
+  --font-cairo: "Cairo", "Cairo Fallback";
+}
+
+/* [project]/src/components/ui/button.scss.css [app-client] (css) */
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* [project]/src/components/layout/navbar.scss.css [app-client] (css) */
+.scroll {
+  z-index: 999999999;
+  background-color: #000;
+  border-radius: 0 10px 10px 0;
+  width: 0;
+  height: 3px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.dark .scroll {
+  background-color: #fff;
+}
+
+nav {
+  z-index: 99999999;
+  will-change: transform;
+  width: 100vw;
+  height: fit-content;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  transition: all .3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+nav.sticky {
+  background-color: color-mix(in srgb, var(--background) 80%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #ffffff0d;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  box-shadow: 0 10px 30px #0000004d, 0 1px 8px #0077ff0d;
+}
+
+nav .container {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+nav .container .logo {
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 768px) {
+  nav .container .logo {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+nav .container .logo a {
+  display: block;
+}
+
+nav .container .logo a img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+nav .container .linksBox .closeButton {
+  cursor: pointer;
+  z-index: 2147483647;
+  flex-direction: column;
+  width: 25px;
+  display: none;
+  position: relative;
+}
+
+@media (max-width: 650px) {
+  nav .container .linksBox .closeButton {
+    display: flex;
+  }
+}
+
+nav .container .linksBox .closeButton .bar {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  height: 3px;
+  transition: all .3s;
+}
+
+nav .container .linksBox .closeButton .bar:nth-of-type(2) {
+  margin: 5px 0;
+}
+
+nav .container .linksBox .closeButton.toggle .bar:first-of-type {
+  transform: rotateZ(45deg)translate(6px, 6px);
+}
+
+nav .container .linksBox .closeButton.toggle .bar:nth-of-type(2) {
+  opacity: 0;
+}
+
+nav .container .linksBox .closeButton.toggle .bar:nth-of-type(3) {
+  transform: rotateZ(-45deg)translate(6px, -6px);
+}
+
+nav .container .linksBox .closeButton.toggle + .links {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+nav .container .linksBox .links {
+  gap: 10px;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  nav .container .linksBox .links {
+    background: color-mix(in srgb, var(--background) 95%, #000);
+    -webkit-backdrop-filter: blur(20px);
+    opacity: 0;
+    visibility: hidden;
+    border: 1px solid #ffffff14;
+    border-radius: 12px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 12px;
+    padding: 25px;
+    transition: all .3s cubic-bezier(.16, 1, .3, 1);
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 20px;
+    right: 20px;
+    transform: translateY(-10px)scale(.98);
+    box-shadow: 0 25px 50px #000000b3, inset 0 1px #ffffff1a;
+  }
+}
+
+nav .container .linksBox .links a {
+  color: var(--p-color);
+  border-radius: 15px;
+  padding: 2px 10px;
+  font-size: 20px;
+  transition: all .3s;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  nav .container .linksBox .links a {
+    text-align: center;
+    background: #ffffff05;
+    border: 1px solid #ffffff0a;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 18px;
+  }
+
+  nav .container .linksBox .links a:hover, nav .container .linksBox .links a.active {
+    background: #ffffff0d;
+    border-color: #ffffff1a;
+  }
+}
+
+nav .container .linksBox .links a.active {
+  background-color: color-mix(in srgb, var(--main-color), transparent 80%);
+  color: var(--main-color);
+}
+
+nav .container .linksBox .links a:hover:not(.active) {
+  color: var(--color);
+  background-color: #fff3;
+}
+
+nav .container .group {
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  display: flex;
+}
+
+nav .container .group .search {
+  flex: 1;
+  max-width: 280px;
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  nav .container .group .search {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 868px) {
+  nav .container .group .search {
+    flex: unset;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+nav .container .group .search input {
+  width: 100%;
+  height: 42px;
+  color: var(--color, #111);
+  background-color: #aaaaac0f;
+  border: 1px solid #aaaaac1f;
+  border-radius: 12px;
+  outline: none;
+  padding-inline: 42px 15px;
+  font-size: 15px;
+  transition: all .25s;
+}
+
+nav .container .group .search input::placeholder {
+  color: var(--p-color);
+}
+
+nav .container .group .search input:focus {
+  border-color: var(--main-color);
+  background-color: color-mix(in srgb, var(--background) 100%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--main-color) 15%, transparent);
+}
+
+nav .container .group .search input:focus ~ button {
+  color: var(--main-color);
+}
+
+nav .container .group .search button {
+  top: 50%;
+  color: var(--p-color);
+  cursor: pointer;
+  background: none;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  font-size: 15px;
+  transition: color .2s;
+  display: flex;
+  position: absolute;
+  inset-inline-start: 10px;
+  transform: translateY(-50%);
+}
+
+nav .container .group .search button:hover {
+  color: var(--main-color);
+}
+
+nav .container .group .buttons {
+  align-items: center;
+  gap: 12px;
+  display: flex;
+}
+
+nav .container .group .buttons button {
+  color: var(--p-color);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 18px;
+  transition: color .2s;
+}
+
+nav .container .group .buttons button:hover {
+  color: var(--main-color);
+}
+
+nav .container .accounts {
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
+
+nav .container .accounts a {
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all .25s;
+}
+
+nav .container .accounts a:first-of-type {
+  color: #fff;
+  background: none;
+}
+
+nav .container .accounts a:first-of-type:hover {
+  color: var(--main-color);
+}
+
+nav .container .accounts a:nth-of-type(2) {
+  color: #fff;
+  background-color: var(--main-color);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--main-color) 30%, transparent);
+}
+
+nav .container .accounts a:nth-of-type(2):hover {
+  opacity: .9;
+  transform: translateY(-1px);
+}
+
+/* [project]/src/app/[locale]/globals.scss.css [app-client] (css) */
+:root {
+  --main-color: #dd201c;
+  --background: #f8f9fa;
+  --box-color: #fff;
+  --color: #000;
+  --p-color: #aaaaac;
+}
+
+.dark {
+  --background: #0d0e12;
+  --box-color: #161820;
+  --color: #fff;
+}
+
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--color);
+}
+
+body {
+  font-family: var(--font-cairo),sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--main-color), transparent 50%);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+}
+
+section {
+  padding-top: 90px;
+}
+
+h1 {
+  font-size: 2.2em;
+}
+
+p {
+  color: var(--p-color);
+  line-height: 2;
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 1.7em;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 350px) {
+  h1 {
+    font-size: 1.5em;
+  }
+
+  p {
+    font-size: 12px;
+  }
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  -webkit-user-select: none;
+  user-select: none;
+  text-decoration: none;
+}
+
+nav, footer {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+img {
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input {
+  caret-color: var(--main-color);
+  border: none;
+  outline: none;
+}
+
+[type="submit"] {
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+/*# sourceMappingURL=%5Broot-of-the-server%5D__10ahc2a._.css.map*/

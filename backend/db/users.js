@@ -1,11 +1,23 @@
-const {pool}= require('../../database/db.js')
+const {pool}= require('../database/db.js')
 const bcrypt = require('bcrypt')
 
-async function registeration(name,email,password,phone){
+async function registration(name,email,password,phone){
+    let client
     try{
-        const client = await pool.connect()
+        client = await pool.connect()
+
+        const roleResult = await client.query('SELECT id FROM roles WHERE name = $1', ['Client'])
+        const roleId = roleResult.rows[0]?.id
+
+        if (!roleId) {
+            return {error: 'Default role not found'}
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10)
-        await client.query('INSERT INTO users(name,email,password,phone) VALUES($1,$2,$3,$4)',[name,email,hashedPassword,phone])
+        await client.query(
+            'INSERT INTO users(name,email,password,phone,role_id) VALUES($1,$2,$3,$4,$5)',
+            [name,email,hashedPassword,phone,roleId]
+        )
         return {success: true}
     }
     catch(err){
@@ -13,7 +25,9 @@ async function registeration(name,email,password,phone){
         return {error: 'Error occurred while registering user'}
     }
     finally{
-        client.release()
+        if (client) {
+            client.release()
+        }
     }
 }
 
@@ -55,4 +69,4 @@ async function getUserById(id){
     }
 }
 
-module.exports = {registeration,login,getUserById}
+module.exports = {registration,login,getUserById}

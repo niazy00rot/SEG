@@ -4,11 +4,32 @@ import Link from "next/dist/client/link";
 import "./landing.scss";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 import { useTranslations } from "next-intl";
 
 export default function Home() {
   const t = useTranslations("landing");
+  const [backendStatus, setBackendStatus] = useState(
+    "Checking backend connection...",
+  );
+
+  useEffect(() => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
+    fetch(`${apiUrl}/`)
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error(`Request failed with status ${res.status}`);
+        }
+
+        const data = await res.json();
+        setBackendStatus(data.message || "Backend connected");
+      })
+      .catch((err) => {
+        setBackendStatus(`Connection error: ${err.message}`);
+      });
+  }, []);
 
   return (
     <>
@@ -27,8 +48,15 @@ export default function Home() {
           </h1>
           <p>{t("home.paragraph")}</p>
 
+          <p style={{ marginTop: "1rem", fontSize: "0.95rem" }}>
+            {backendStatus}
+          </p>
+
           <div className="links">
-            <Link href="/parts">{t("home.button1")}<FaArrowRightLong /></Link>
+            <Link href="/parts">
+              {t("home.button1")}
+              <FaArrowRightLong />
+            </Link>
             <Link href="/categories">{t("home.button2")}</Link>
           </div>
 
@@ -49,7 +77,10 @@ export default function Home() {
             </div>
 
             <div className="box">
-              <p>4.8<FaStar /></p>
+              <p>
+                4.8
+                <FaStar />
+              </p>
               <p>{t("home.ranks.four")}</p>
             </div>
           </div>
