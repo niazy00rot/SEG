@@ -13,6 +13,18 @@ import arAuth from "../messages/ar/auth.json";
 export default getRequestConfig(async ({ requestLocale }) => {
   const locale = await requestLocale;
 
+  if (locale !== "en" && locale !== "ar") {
+    return {
+      locale: "en",
+      messages: {
+        navbar: enNavbar,
+        footer: enFooter,
+        landing: enLanding,
+        auth: enAuth,
+      },
+    };
+  }
+
   return {
     locale,
     messages:

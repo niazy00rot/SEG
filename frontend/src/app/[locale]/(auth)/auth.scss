@@ -12,6 +12,22 @@ section.signup {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    .container {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      h1 {
+        max-width: 250px;
+        font-weight: 800;
+        line-height: 1.2;
+        font-size: 40px;
+        .highlight {
+          color: var(--main-color);
+        }
+      }
+    }
   }
   
   .right {

@@ -1,0 +1,42 @@
+/* [project]/src/app/[locale]/(auth)/auth.scss.css [app-client] (css) */
+section.signup {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-top: 0;
+  display: flex;
+}
+
+section.signup .left {
+  background-image: linear-gradient(#0009), url("/images/auth/signup.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 50%;
+  height: 100%;
+}
+
+section.signup .left .container {
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  display: flex;
+}
+
+section.signup .left .container h1 {
+  max-width: 250px;
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+section.signup .left .container h1 .highlight {
+  color: var(--main-color);
+}
+
+section.signup .right {
+  width: 50%;
+  height: 100%;
+}
+
+/*# sourceMappingURL=src_app_%5Blocale%5D_%28auth%29_auth_scss_1gxq7-b.css.map*/

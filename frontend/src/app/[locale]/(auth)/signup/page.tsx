@@ -3,9 +3,11 @@
 import "../auth.scss";
 import { FormEvent } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { useTranslations } from "next-intl";
 
 
 export default function Signup() {
+  const t = useTranslations("auth");
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -36,14 +38,22 @@ export default function Signup() {
     <>
       <section className="signup">
         <div className="left">
-          <h1>Join 80,000+ Drivers Who Trust SEG.</h1>
-          <p>Create your account to save your vehicles, track orders, and unlock member-only pricing.</p>
-          <ul>
-            <li>Save multiple vehicles & get fitment alerts</li>
-            <li>Exclusive member discounts on top brands</li>
-            <li>Order history & one-click reorders</li>
-            <li>Priority customer support</li>
-          </ul>
+          <div className="container">
+            <h1>
+              {t.rich("signup.title", {
+                highlight: (chunks) => (
+                  <span className="highlight">{chunks}</span>
+                ),
+              })}
+            </h1>
+            <p>{t("signup.paragraph")}</p>
+            <ul>
+              <li>{t("signup.ul.li1")}</li>
+              <li>{t("signup.ul.li2")}</li>
+              <li>{t("signup.ul.li3")}</li>
+              <li>{t("signup.ul.li4")}</li>
+            </ul>
+          </div>
         </div>
 
 
