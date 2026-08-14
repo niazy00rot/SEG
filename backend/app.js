@@ -9,11 +9,13 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-const root_router = require('./apis/root.js')
-const users_router = require('./apis/users.js')
+const root_router = require('./controller/root.js')
+const users_router = require('./controller/users.js')
+const vehicles_router = require('./controller/vehicles.js')
 
 app.use('/',root_router)
 app.use('/',users_router)
+app.use('/',vehicles_router)
 
 
 const port = 3001

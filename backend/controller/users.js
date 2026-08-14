@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {registration, login} = require('../db/users.js')
+const {registration, login} = require('../service/users.js')
 const jwt= require('jsonwebtoken')
 
 router.post('/register', async(req, res)=>{
