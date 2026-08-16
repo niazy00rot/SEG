@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }))
 
 const root_router = require('./controller/root.js')
 const users_router = require('./controller/users.js')
-const vehicles_router = require('./controller/vehicles.js')
+const vehicles_router = require('./controller/brands.js')
 
 app.use('/',root_router)
 app.use('/',users_router)

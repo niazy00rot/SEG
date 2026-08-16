@@ -173,6 +173,7 @@ async function delete_model(id){
 }
 
 
+
 module.exports = {
     add_brand,
     get_brands,
