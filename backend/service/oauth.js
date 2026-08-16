@@ -73,3 +73,11 @@ async function get_user_id(googleId){
         client.release()
     }
 }
+
+module.exports = {
+    is_registered,
+    add_user,
+    get_user_id,
+    is_google_id_registered,
+    add_google_id
+}
