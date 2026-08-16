@@ -164,7 +164,7 @@ export default function Signup() {
           <p>{t("signup.description")}</p>
 
           <a
-            href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}
+            href={`${process.env.API_URL}/auth/google`}
             className="google"
           >
             <FcGoogle />
