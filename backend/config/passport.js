@@ -1,7 +1,13 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const { is_registered, add_user, get_user_id, is_google_id_registered, add_google_id } = require('../service/oauth.js');
-const jwt = require('jsonwebtoken')
+
+const {
+    is_registered,
+    add_user,
+    get_user_id,
+    is_google_id_registered,
+    add_google_id
+} = require('../service/oauth.js');
 
 passport.use(
     new GoogleStrategy(
@@ -15,31 +21,44 @@ passport.use(
             try {
                 console.log('Google profile:', profile);
 
+                const googleId = profile.id;
+                const name = profile.displayName;
+                const email = profile.emails[0].value;
+
+                let userId;
+
+                if (await is_registered(email)) {
+
+                    if (await is_google_id_registered(googleId)) {
+
+                        userId = await get_user_id(googleId);
+
+                    } else {
+
+                        await add_google_id(googleId, email);
+
+                        userId = await get_user_id(googleId);
+                    }
+
+                } else {
+
+                    await add_user(googleId, name, email);
+
+                    userId = await get_user_id(googleId);
+                }
+
                 const user = {
-                    googleId: profile.id,
-                    name: profile.displayName,
-                    email: profile.emails[0].value
+                    id: userId,
+                    googleId,
+                    name,
+                    email
                 };
-                if(await is_registered(user.email) ){
-                    if(await is_google_id_registered(user.googleId)){
-                        const user_id = await get_user_id(user.googleId);
-                        const token = jwt.sign({ id: user_id }, process.env.jwt_secret, { expiresIn: '1h' });
-                        return done(token);
-                    }
-                    else{
-                        await add_google_id(user.googleId, user.email);
-                        const user_id = await get_user_id(user.googleId);
-                        const token = jwt.sign({ id: user_id }, process.env.jwt_secret, { expiresIn: '1h' });
-                        return done(token);
-                    }
-                }
-                else{
-                    await add_user(user.googleId, user.name, user.email);
-                    const user_id = await get_user_id(user.googleId);
-                    const token = jwt.sign({ id: user_id }, process.env.jwt_secret, { expiresIn: '1h' });
-                    return done(token);
-                }
+
+                return done(null, user);
+
             } catch (error) {
+                console.error('Error in GoogleStrategy:', error);
+
                 return done(error, null);
             }
         }
