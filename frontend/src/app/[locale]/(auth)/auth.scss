@@ -1,37 +1,492 @@
-section.signup {
+.signup {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding-top: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--color);
+  overflow: hidden;
+
   .left {
     width: 50%;
-    height: 100%;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6)), url("/images/auth/signup.jpg");
+    min-height: 100vh;
+    flex-shrink: 0;
+
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)),
+      url("/images/auth/signup.jpg");
 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
+    display: flex;
+    align-items: center;
+    padding: 3rem clamp(2rem, 5vw, 5rem);
+
     .container {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+
       h1 {
-        max-width: 250px;
         font-weight: 800;
-        line-height: 1.2;
-        font-size: 40px;
-        .highlight {
+        line-height: 1.15;
+        font-size: clamp(32px, 3vw, 44px);
+        color: #fff;
+
+        span {
           color: var(--main-color);
         }
       }
+
+      p {
+        max-width: 460px;
+        color: var(--p-color);
+        font-size: 15px;
+        margin: 15px 0 25px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        li {
+          color: #e5e7eb;
+          font-size: 14px;
+          line-height: 1.5;
+
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+
+          &::before {
+            content: "✓";
+            flex: 0 0 22px;
+
+            width: 22px;
+            height: 22px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+            background: rgba(221, 32, 28, 0.15);
+            color: var(--main-color);
+
+            font-size: 12px;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 1100px) {
+      padding: 2.5rem;
+    }
+
+    @media (max-width: 968px) {
+      display: none;
     }
   }
-  
+
   .right {
     width: 50%;
-    height: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 3rem clamp(1.5rem, 4vw, 4rem);
+
+    background-color: var(--background);
+
+    overflow-y: auto;
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+      margin: auto;
+
+      h1 {
+        font-size: 28px;
+        line-height: 1.25;
+        font-weight: 700;
+        color: var(--color);
+        margin: 0 0 0.5rem;
+
+        @media (max-width: 600px) {
+          font-size: 24px;
+        }
+
+        @media (max-width: 380px) {
+          font-size: 22px;
+        }
+      }
+
+      > p {
+        color: var(--p-color);
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0 0 1.5rem;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+          margin-bottom: 1.25rem;
+        }
+
+        @media (max-width: 380px) {
+          font-size: 12px;
+        }
+      }
+
+      .google {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        padding: 0.8rem 1rem;
+
+        background-color: var(--box-color);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+
+        color: var(--color);
+        font-size: 14px;
+        font-weight: 500;
+
+        cursor: pointer;
+
+        transition:
+          background-color 0.2s ease,
+          border-color 0.2s ease;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        @media (max-width: 600px) {
+          min-height: 44px;
+          padding: 0.7rem 0.9rem;
+        }
+
+        @media (max-width: 380px) {
+          font-size: 13px;
+        }
+      }
+
+      .email {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 1.3rem 0;
+
+        color: var(--p-color);
+        font-size: 12px;
+
+        &::before,
+        &::after {
+          content: "";
+
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+
+          width: 30%;
+          height: 1px;
+
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        &::before {
+          left: 0;
+        }
+
+        &::after {
+          right: 0;
+        }
+
+        @media (max-width: 600px) {
+          margin: 1.15rem 0;
+
+          &::before,
+          &::after {
+            width: 27%;
+          }
+        }
+
+        @media (max-width: 380px) {
+          font-size: 11px;
+
+          &::before,
+          &::after {
+            width: 24%;
+          }
+        }
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+
+          margin: 0;
+
+          label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--p-color);
+
+            @media (max-width: 600px) {
+              font-size: 11px;
+            }
+          }
+
+          input {
+            width: 100%;
+            min-height: 46px;
+
+            padding: 0.7rem 1rem;
+
+            background-color: var(--box-color);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+
+            color: var(--color);
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+
+            &::placeholder {
+              color: rgba(170, 170, 172, 0.5);
+            }
+
+            &:focus {
+              border-color: var(--main-color);
+              box-shadow: 0 0 0 2px rgba(221, 32, 28, 0.08);
+            }
+
+            @media (max-width: 600px) {
+              min-height: 44px;
+              padding: 0.65rem 0.85rem;
+              font-size: 14px;
+            }
+
+            @media (max-width: 380px) {
+              min-height: 42px;
+            }
+          }
+
+          .error-msg {
+            margin: 0;
+
+            font-size: 11px;
+            line-height: 1.3;
+            color: var(--main-color);
+            font-weight: 500;
+          }
+        }
+
+        .terms-container {
+          margin: 0;
+
+          .terms-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+
+            input[type="checkbox"] {
+              flex: 0 0 auto;
+
+              width: 16px;
+              height: 16px;
+
+              margin-top: 2px;
+
+              accent-color: var(--main-color);
+              cursor: pointer;
+            }
+
+            label {
+              font-size: 12px;
+              line-height: 1.5;
+
+              color: var(--p-color);
+
+              text-transform: none;
+              letter-spacing: normal;
+              font-weight: 400;
+
+              a {
+                color: var(--main-color);
+                text-decoration: none;
+
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+
+              @media (max-width: 600px) {
+                font-size: 11px;
+              }
+            }
+
+            @media (max-width: 600px) {
+              gap: 0.5rem;
+            }
+          }
+
+          .error-msg {
+            display: block;
+
+            margin-top: 0.35rem;
+
+            font-size: 11px;
+            color: var(--main-color);
+          }
+        }
+
+        button[type="submit"] {
+          width: 100%;
+          min-height: 46px;
+
+          padding: 0.8rem 1rem;
+          margin-top: 0.2rem;
+
+          background-color: var(--main-color);
+          color: #fff;
+
+          border: none;
+          border-radius: 8px;
+
+          font-size: 14px;
+          font-weight: 600;
+
+          cursor: pointer;
+
+          transition:
+            opacity 0.2s ease,
+            transform 0.1s ease;
+
+          &:hover {
+            opacity: 0.9;
+          }
+
+          &:active {
+            transform: scale(0.99);
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+
+          @media (max-width: 600px) {
+            min-height: 44px;
+            font-size: 14px;
+          }
+
+          @media (max-width: 380px) {
+            min-height: 42px;
+          }
+        }
+
+        @media (max-width: 600px) {
+          gap: 0.75rem;
+        }
+      }
+
+      > p:last-of-type {
+        margin: 1.3rem 0 0;
+
+        text-align: center;
+
+        color: var(--p-color);
+        font-size: 13px;
+        line-height: 1.5;
+
+        a {
+          color: var(--main-color);
+          font-weight: 500;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        @media (max-width: 600px) {
+          margin-top: 1.15rem;
+          font-size: 12px;
+        }
+      }
+    }
+
+    @media (max-width: 1100px) {
+      padding: 2.5rem;
+    }
+
+    @media (max-width: 968px) {
+      width: 100%;
+      min-height: 100vh;
+
+      padding: 3rem 2rem;
+
+      align-items: flex-start;
+
+      .container {
+        max-width: 480px;
+        margin: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      min-height: 100dvh;
+      padding: 2rem 1.25rem;
+
+      .container {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 380px) {
+      padding: 1.5rem 1rem;
+    }
+
+    @media (max-height: 700px) and (min-width: 601px) {
+      align-items: flex-start;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 968px) {
+    display: block;
+    min-height: 100vh;
+    overflow: visible;
   }
 }

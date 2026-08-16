@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///D:/projects/web_projects/SEG/frontend/src/components/ui/button.scss"],"sourcesContent":["button {\r\n  background: none;\r\n  border: none;\r\n  outline: none;\r\n  cursor: pointer;\r\n}"],"names":[],"mappings":"AAAA"}}]
+}

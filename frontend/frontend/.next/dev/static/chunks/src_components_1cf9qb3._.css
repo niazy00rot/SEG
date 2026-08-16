@@ -1,0 +1,313 @@
+/* [project]/src/components/ui/button.scss.css [app-client] (css) */
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* [project]/src/components/layout/navbar.scss.css [app-client] (css) */
+.scroll {
+  z-index: 999999999;
+  background-color: #000;
+  border-radius: 0 10px 10px 0;
+  width: 0;
+  height: 3px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.dark .scroll {
+  background-color: #fff;
+}
+
+nav {
+  z-index: 99999999;
+  will-change: transform;
+  width: 100vw;
+  height: fit-content;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  transition: all .3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+nav.sticky {
+  background-color: color-mix(in srgb, var(--background) 80%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #ffffff0d;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  box-shadow: 0 10px 30px #0000004d, 0 1px 8px #0077ff0d;
+}
+
+nav .container {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+nav .container .logo {
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 768px) {
+  nav .container .logo {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+nav .container .logo a {
+  display: block;
+}
+
+nav .container .logo a img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+nav .container .linksBox .closeButton {
+  cursor: pointer;
+  z-index: 2147483647;
+  flex-direction: column;
+  width: 25px;
+  display: none;
+  position: relative;
+}
+
+@media (max-width: 650px) {
+  nav .container .linksBox .closeButton {
+    display: flex;
+  }
+}
+
+nav .container .linksBox .closeButton .bar {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  height: 3px;
+  transition: all .3s;
+}
+
+nav .container .linksBox .closeButton .bar:nth-of-type(2) {
+  margin: 5px 0;
+}
+
+nav .container .linksBox .closeButton.toggle .bar:first-of-type {
+  transform: rotateZ(45deg)translate(6px, 6px);
+}
+
+nav .container .linksBox .closeButton.toggle .bar:nth-of-type(2) {
+  opacity: 0;
+}
+
+nav .container .linksBox .closeButton.toggle .bar:nth-of-type(3) {
+  transform: rotateZ(-45deg)translate(6px, -6px);
+}
+
+nav .container .linksBox .closeButton.toggle + .links {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+nav .container .linksBox .links {
+  gap: 10px;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  nav .container .linksBox .links {
+    background: color-mix(in srgb, var(--background) 95%, #000);
+    -webkit-backdrop-filter: blur(20px);
+    opacity: 0;
+    visibility: hidden;
+    border: 1px solid #ffffff14;
+    border-radius: 12px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 12px;
+    padding: 25px;
+    transition: all .3s cubic-bezier(.16, 1, .3, 1);
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 20px;
+    right: 20px;
+    transform: translateY(-10px)scale(.98);
+    box-shadow: 0 25px 50px #000000b3, inset 0 1px #ffffff1a;
+  }
+}
+
+nav .container .linksBox .links a {
+  color: var(--p-color);
+  border-radius: 15px;
+  padding: 2px 10px;
+  font-size: 20px;
+  transition: all .3s;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  nav .container .linksBox .links a {
+    text-align: center;
+    background: #ffffff05;
+    border: 1px solid #ffffff0a;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 18px;
+  }
+
+  nav .container .linksBox .links a:hover, nav .container .linksBox .links a.active {
+    background: #ffffff0d;
+    border-color: #ffffff1a;
+  }
+}
+
+nav .container .linksBox .links a.active {
+  background-color: color-mix(in srgb, var(--main-color), transparent 80%);
+  color: var(--main-color);
+}
+
+nav .container .linksBox .links a:hover:not(.active) {
+  color: var(--color);
+  background-color: #fff3;
+}
+
+nav .container .group {
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  display: flex;
+}
+
+nav .container .group .search {
+  flex: 1;
+  max-width: 280px;
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  nav .container .group .search {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 868px) {
+  nav .container .group .search {
+    flex: unset;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+nav .container .group .search input {
+  width: 100%;
+  height: 42px;
+  color: var(--color, #111);
+  background-color: #aaaaac0f;
+  border: 1px solid #aaaaac1f;
+  border-radius: 12px;
+  outline: none;
+  padding-inline: 42px 15px;
+  font-size: 15px;
+  transition: all .25s;
+}
+
+nav .container .group .search input::placeholder {
+  color: var(--p-color);
+}
+
+nav .container .group .search input:focus {
+  border-color: var(--main-color);
+  background-color: color-mix(in srgb, var(--background) 100%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--main-color) 15%, transparent);
+}
+
+nav .container .group .search input:focus ~ button {
+  color: var(--main-color);
+}
+
+nav .container .group .search button {
+  top: 50%;
+  color: var(--p-color);
+  cursor: pointer;
+  background: none;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  font-size: 15px;
+  transition: color .2s;
+  display: flex;
+  position: absolute;
+  inset-inline-start: 10px;
+  transform: translateY(-50%);
+}
+
+nav .container .group .search button:hover {
+  color: var(--main-color);
+}
+
+nav .container .group .buttons {
+  align-items: center;
+  gap: 12px;
+  display: flex;
+}
+
+nav .container .group .buttons button {
+  color: var(--p-color);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 18px;
+  transition: color .2s;
+}
+
+nav .container .group .buttons button:hover {
+  color: var(--main-color);
+}
+
+nav .container .accounts {
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
+
+nav .container .accounts a {
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all .25s;
+}
+
+nav .container .accounts a:first-of-type {
+  color: #fff;
+  background: none;
+}
+
+nav .container .accounts a:first-of-type:hover {
+  color: var(--main-color);
+}
+
+nav .container .accounts a:nth-of-type(2) {
+  color: #fff;
+  background-color: var(--main-color);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--main-color) 30%, transparent);
+}
+
+nav .container .accounts a:nth-of-type(2):hover {
+  opacity: .9;
+  transform: translateY(-1px);
+}
+
+/*# sourceMappingURL=src_components_1cf9qb3._.css.map*/

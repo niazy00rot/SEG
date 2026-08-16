@@ -1,0 +1,18 @@
+{
+  "landing": {
+    "title": "Admin Dashboard",
+    "description": "Manage your store data from one place.",
+    "users": {
+      "title": "Users",
+      "description": "Manage users and their account information."
+    },
+    "parts": {
+      "title": "Car Parts",
+      "description": "Add, edit, delete and manage car parts."
+    },
+    "cars": {
+      "title": "Cars",
+      "description": "Manage cars, brands, models and specifications."
+    }
+  }
+}

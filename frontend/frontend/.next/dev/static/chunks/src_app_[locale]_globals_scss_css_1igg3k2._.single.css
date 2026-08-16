@@ -1,20 +1,18 @@
+/* [project]/src/app/[locale]/globals.scss.css [app-client] (css) */
 :root {
-  --main-color: #DD201C;
-
-  --background: #F8F9FA;
+  --main-color: #dd201c;
+  --background: #f8f9fa;
   --box-color: #fff;
   --color: #000;
-  --p-color: #AAAAAC;
+  --p-color: #aaaaac;
 }
 
 .dark {
-  --background: #0D0E12;
+  --background: #0d0e12;
   --box-color: #161820;
   --color: #fff;
 }
 
-
-/* The main styles */
 * {
   box-sizing: border-box;
   max-width: 100%;
@@ -29,10 +27,11 @@ html {
 }
 
 body {
+  font-family: var(--font-cairo),sans-serif;
   margin: 0;
   padding: 0;
-  font-family: var(--font-cairo), sans-serif;
 }
+
 ::selection {
   background-color: color-mix(in srgb, var(--main-color), transparent 50%);
   color: #fff;
@@ -51,76 +50,99 @@ body {
   background: var(--main-color);
 }
 
-// section {
-//   padding-top: 90px;
-// }
+h1 {
+  font-size: 2.2em;
+}
 
-
-/* global values */
-h1 { font-size: 2.2em; }
 p {
-  line-height: 2;
   color: var(--p-color);
+  line-height: 2;
 }
+
 @media (max-width: 500px) {
-  h1 { font-size: 1.7em; }
-  p { font-size: 14px; }
+  h1 {
+    font-size: 1.7em;
+  }
+
+  p {
+    font-size: 14px;
+  }
 }
+
 @media (max-width: 350px) {
-  h1 { font-size: 1.5em; }
-  p { font-size: 12px;}
+  h1 {
+    font-size: 1.5em;
+  }
+
+  p {
+    font-size: 12px;
+  }
 }
 
 ul, ol {
   margin: 0;
   padding: 0;
 }
-li { list-style: none; }
+
+li {
+  list-style: none;
+}
+
 a {
+  -webkit-user-select: none;
+  user-select: none;
   text-decoration: none;
+}
+
+nav, footer {
+  -webkit-user-select: none;
   user-select: none;
 }
-nav, footer { user-select: none; }
+
 img {
   pointer-events: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 
 input {
+  caret-color: var(--main-color);
   border: none;
   outline: none;
-  caret-color: var(--main-color);
 }
+
 [type="submit"] {
   cursor: pointer;
   text-transform: capitalize;
 }
+
 textarea {
   resize: vertical;
 }
 
-/* Container */
 .container {
-  padding-left: 15px;
-  padding-right: 15px;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-/* Small screens */
+
 @media (min-width: 768px) {
   .container {
     width: 750px;
   }
 }
-/* Medium screens */
+
 @media (min-width: 992px) {
   .container {
     width: 970px;
   }
 }
-/* Large screens */
+
 @media (min-width: 1200px) {
   .container {
     width: 1170px;
   }
 }
+
+/*# sourceMappingURL=src_app_%5Blocale%5D_globals_scss_css_1igg3k2._.single.css.map*/

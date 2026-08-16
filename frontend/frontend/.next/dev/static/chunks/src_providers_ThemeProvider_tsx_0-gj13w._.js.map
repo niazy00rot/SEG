@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/projects/web_projects/SEG/frontend/src/providers/ThemeProvider.tsx"],"sourcesContent":["\"use client\";\r\n\r\nimport { ThemeProvider as NextThemesProvider } from \"next-themes\";\r\nimport { ReactNode } from \"react\";\r\n\r\ninterface ThemeProviderProps {\r\n  children: ReactNode;\r\n}\r\n\r\nexport default function ThemeProvider({\r\n  children,\r\n}: ThemeProviderProps) {\r\n  return (\r\n    <NextThemesProvider attribute=\"class\" defaultTheme=\"system\" enableSystem disableTransitionOnChange>\r\n      {children}\r\n    </NextThemesProvider>\r\n  );\r\n}"],"names":["ThemeProvider","children","attribute","defaultTheme","enableSystem","disableTransitionOnChange"],"mappings":";;;;;AAEA;AAFA;;;AASe,SAASA,cAAc,EACpCC,QAAQ,EACW;IACnB,qBACE,6LAAC,oKAAkB;QAACC,WAAU;QAAQC,cAAa;QAASC,YAAY;QAACC,yBAAyB;kBAC/FJ;;;;;;AAGP;KARwBD"}}]
+}
