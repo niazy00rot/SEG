@@ -1,17 +1,30 @@
 const router = require('express').Router();
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
 const google_call_back = async (req, res) => {
     try {
-        console.log(req.user);
+        const token = jwt.sign(
+            {
+                id: req.user.id
+            },
+            process.env.jwt_secret,
+            {
+                expiresIn: '15m'
+            }
+        );
 
-        res.json({
-            message: 'Google login successful',
-            user: req.user
+        res.cookie('accessToken', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            maxAge: 15 * 60 * 1000
         });
 
+        res.redirect('https://seg-navy.vercel.app/en');
+
     } catch (error) {
-        console.error(error);
+        console.error('Google callback error:', error);
 
         res.status(500).json({
             message: 'Something went wrong'

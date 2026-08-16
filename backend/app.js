@@ -2,12 +2,23 @@ const path = require('path')
 const express = require('express')
 const app = express()
 
+
+
 require('dotenv').config({ path: path.join(__dirname, './.env') })
 
 const cors = require('cors')
 const helmet = require('helmet')
+const cookieParser = require("cookie-parser");
 app.use(helmet())
-app.use(cors())
+
+app.use(
+    cors({
+        origin: "https://seg-navy.vercel.app",
+        credentials: true
+    })
+);
+app.use(cookieParser());
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
