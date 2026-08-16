@@ -40,7 +40,9 @@ passport.use(
                     return done(token);
                 }
             } catch (error) {
+                console.error('Error in GoogleStrategy:', error);
                 return done(error, null);
+                
             }
         }
     )
