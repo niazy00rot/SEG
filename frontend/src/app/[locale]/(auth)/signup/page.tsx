@@ -2,8 +2,9 @@
 
 import "../auth.scss";
 import { FormEvent, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { useTranslations } from "next-intl";
+import GoogleAuth from "@/components/auth/GoogleButton";
+
 import Link from "next/link";
 
 export default function Signup() {
@@ -163,13 +164,7 @@ export default function Signup() {
 
           <p>{t("signup.description")}</p>
 
-          <a
-            href={`${process.env.API_URL}/auth/google`}
-            className="google"
-          >
-            <FcGoogle />
-            {t("signup.google")}
-          </a>
+          <GoogleAuth />
 
           <div className="email">
             {t("signup.orEmail")}
