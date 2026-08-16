@@ -1,3 +1,28 @@
+-- DROP TABLES IF THEY EXIST
+DROP TABLE IF EXISTS roles CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS refresh_tokens CASCADE;
+DROP TABLE IF EXISTS otp CASCADE;
+DROP TABLE IF EXISTS brands CASCADE;
+DROP TABLE IF EXISTS models CASCADE;
+DROP TABLE IF EXISTS vehicles CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS product_types CASCADE;
+DROP TABLE IF EXISTS products CASCADE;
+DROP TABLE IF EXISTS product_images CASCADE;
+DROP TABLE IF EXISTS product_compatibility CASCADE;
+DROP TABLE IF EXISTS carts CASCADE;
+DROP TABLE IF EXISTS cart_items CASCADE;
+DROP TABLE IF EXISTS order_statuses CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS order_items CASCADE;
+DROP TABLE IF EXISTS part_request_statuses CASCADE;
+DROP TABLE IF EXISTS part_requests CASCADE;
+DROP TABLE IF EXISTS logs CASCADE;
+
+
+
+
 -- ======================================================
 -- SEG Auto Parts E-Commerce Database
 -- PostgreSQL
@@ -122,7 +147,10 @@ CREATE TABLE models (
     CONSTRAINT fk_models_brand
         FOREIGN KEY(brand_id)
         REFERENCES brands(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    
+    CONSTRAINT uq_models_brand_name
+        UNIQUE(brand_id, name)
 );
 
 -- ======================================================
@@ -130,13 +158,9 @@ CREATE TABLE models (
 -- ======================================================
 
 CREATE TABLE vehicles (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     brand_id UUID NOT NULL,
-
     model_id UUID NOT NULL,
-
     year INTEGER NOT NULL,
 
     CONSTRAINT fk_vehicle_brand
@@ -145,7 +169,10 @@ CREATE TABLE vehicles (
 
     CONSTRAINT fk_vehicle_model
         FOREIGN KEY(model_id)
-        REFERENCES models(id)
+        REFERENCES models(id),
+
+    CONSTRAINT uq_vehicle
+        UNIQUE(brand_id, model_id, year)
 );
 
 -- ======================================================
@@ -600,9 +627,9 @@ VALUES
     ((SELECT id FROM brands WHERE name = 'Fiat'), '500'),
     ((SELECT id FROM brands WHERE name = 'Fiat'), 'Panda'),
     ((SELECT id FROM brands WHERE name = 'Fiat'), 'Tipo'),
-    ((SELECT id FROM brands WHERE name = 'Fiat'), 'Punto'),
+    ((SELECT id FROM brands WHERE name = 'Fiat'), 'Punto')
     
-ON CONFLICT (name) DO NOTHING;
+ON CONFLICT (brand_id, name) DO NOTHING;
 
 -- ======================================================
 -- DEFAULT VEHICLES
@@ -615,8 +642,6 @@ VALUES
     ((SELECT id FROM brands WHERE name = 'Toyota'), (SELECT id FROM models WHERE name = 'Camry'), 2013),
     ((SELECT id FROM brands WHERE name = 'Toyota'), (SELECT id FROM models WHERE name = 'Camry'), 2014),
     ((SELECT id FROM brands WHERE name = 'Toyota'), (SELECT id FROM models WHERE name = 'Camry'), 2015),
-    ((SELECT id FROM brands WHERE name = 'Toyota'), (SELECT id FROM models WHERE name = 'Camry'), 2016),
-    ((SELECT id FROM brands WHERE name = 'Toyota'), (SELECT id FROM models WHERE name = 'Camry'), 2017),
     ((SELECT id FROM brands WHERE name = 'Toyota'), (SELECT id FROM models WHERE name = 'Camry'), 2016),
     ((SELECT id FROM brands WHERE name = 'Toyota'), (SELECT id FROM models WHERE name = 'Camry'), 2017),
     ((SELECT id FROM brands WHERE name = 'Toyota'), (SELECT id FROM models WHERE name = 'Camry'), 2018),
@@ -758,5 +783,6 @@ VALUES
     ((SELECT id FROM brands WHERE name = 'Hyundai'), (SELECT id FROM models WHERE name = 'Verna'), 2023),
     ((SELECT id FROM brands WHERE name = 'Hyundai'), (SELECT id FROM models WHERE name = 'Verna'), 2024),
     ((SELECT id FROM brands WHERE name = 'Hyundai'), (SELECT id FROM models WHERE name = 'Verna'), 2025),
-    ((SELECT id FROM brands WHERE name = 'Hyundai'), (SELECT id FROM models WHERE name = 'Verna'), 2026);
+    ((SELECT id FROM brands WHERE name = 'Hyundai'), (SELECT id FROM models WHERE name = 'Verna'), 2026)
 
+ON CONFLICT (brand_id, model_id, year) DO NOTHING;

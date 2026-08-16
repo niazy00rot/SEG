@@ -7,7 +7,7 @@ const {add_brand,get_brands,get_brand_by_id,
 const {is_admin} = require('../service/admin.js')
 const {is_employee} = require('../service/employee.js')
 
-const jwt = reqire('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 router.post('/brands', async(req, res) =>{
     try{
