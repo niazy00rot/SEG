@@ -15,10 +15,9 @@ const google_call_back = async (req, res) => {
             }
         );
 
-        res.json({
-            message: 'Google login successful',
-            token
-        });
+        res.redirect(
+            `https://seg-navy.vercel.app/oauth-success?token=${token}`
+        );
 
     } catch (error) {
         console.error(error);
