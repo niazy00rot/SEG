@@ -355,6 +355,22 @@
   display: block;
 }
 
+.signup .right .container form .forgot-password {
+  justify-content: flex-end;
+  margin-top: -.2rem;
+  display: flex;
+}
+
+.signup .right .container form .forgot-password a {
+  color: var(--main-color);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.signup .right .container form .forgot-password a:hover {
+  text-decoration: underline;
+}
+
 .signup .right .container form button[type="submit"] {
   background-color: var(--main-color);
   color: #fff;

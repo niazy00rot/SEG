@@ -29,15 +29,21 @@ export default function Signup() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
+
     setFormDataState((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    setErrors((prev) => ({ ...prev, [name]: "" }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
   };
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     const newErrors = {
       name: "",
       email: "",
@@ -46,49 +52,58 @@ export default function Signup() {
       confirmPassword: "",
       terms: "",
     };
+
     let isValid = true;
 
     if (!formDataState.name.trim()) {
-      newErrors.name = "Name is required.";
+      newErrors.name = t("signup.name.error");
       isValid = false;
     }
 
     const emailRegex = /^[^\s@]+@(gmail\.com|outlook\.com)$/i;
+
     if (!formDataState.email.trim()) {
-      newErrors.email = "Email address is required.";
+      newErrors.email = t("signup.email.errorRequired");
       isValid = false;
     } else if (!emailRegex.test(formDataState.email)) {
-      newErrors.email = "Please use a valid email ending with @gmail.com or @outlook.com.";
+      newErrors.email = t("signup.email.errorInvalid");
       isValid = false;
     }
 
     const phoneRegex = /^\+[1-9]\d{7,14}$/;
+
     if (!formDataState.phone.trim()) {
-      newErrors.phone = "Phone number is required.";
+      newErrors.phone = t("signup.phone.errorRequired");
       isValid = false;
     } else if (!phoneRegex.test(formDataState.phone)) {
-      newErrors.phone = "Please enter a valid phone number.";
+      newErrors.phone = t("signup.phone.errorInvalid");
       isValid = false;
     }
 
     if (!formDataState.password) {
-      newErrors.password = "Password is required.";
+      newErrors.password = t("signup.password.errorRequired");
       isValid = false;
     } else if (formDataState.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters.";
+      newErrors.password = t("signup.password.errorMinLength");
       isValid = false;
     }
 
     if (!formDataState.confirmPassword) {
-      newErrors.confirmPassword = "Confirm password is required.";
+      newErrors.confirmPassword = t(
+        "signup.confirmPassword.errorRequired"
+      );
       isValid = false;
-    } else if (formDataState.password !== formDataState.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match!";
+    } else if (
+      formDataState.password !== formDataState.confirmPassword
+    ) {
+      newErrors.confirmPassword = t(
+        "signup.confirmPassword.errorMismatch"
+      );
       isValid = false;
     }
 
     if (!formDataState.terms) {
-      newErrors.terms = "You must agree to the terms and privacy policy.";
+      newErrors.terms = t("signup.terms.error");
       isValid = false;
     }
 
@@ -103,136 +118,214 @@ export default function Signup() {
       phone: formDataState.phone,
     };
 
-    const response = await fetch(`${process.env.API_URL}/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
-    const result = await response.json();
-    console.log(result);
+      const result = await response.json();
+
+      console.log(result);
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   }
 
   return (
-    <>
-      <section className="signup">
-        <div className="left">
-          <div className="container">
-            <h1>Join 80,000+</h1>
-            <h1><span>Drivers</span> Who</h1>
-            <h1>Trust SEG.</h1>
-            <p>{t("signup.paragraph")}</p>
-            <ul>
-              <li>{t("signup.ul.li1")}</li>
-              <li>{t("signup.ul.li2")}</li>
-              <li>{t("signup.ul.li3")}</li>
-              <li>{t("signup.ul.li4")}</li>
-            </ul>
-          </div>
+    <section className="signup">
+      <div className="left">
+        <div className="container">
+          <h1>
+            {t("signup.title")}
+          </h1>
+
+          <p>{t("signup.paragraph")}</p>
+
+          <ul>
+            <li>{t("signup.ul.li1")}</li>
+            <li>{t("signup.ul.li2")}</li>
+            <li>{t("signup.ul.li3")}</li>
+            <li>{t("signup.ul.li4")}</li>
+          </ul>
         </div>
+      </div>
 
-        <div className="right">
-          <div className="container">
-            <h1>Create Your SEG Account</h1>
-            <p>Start shopping genuine parts in minutes.</p>
+      <div className="right">
+        <div className="container">
+          <h1>{t("signup.heading")}</h1>
 
-            <Link href={`${process.env.API_URL}/auth/google`} className="google">
-              <FcGoogle />Sign up with Google
+          <p>{t("signup.description")}</p>
+
+          <a
+            href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}
+            className="google"
+          >
+            <FcGoogle />
+            {t("signup.google")}
+          </a>
+
+          <div className="email">
+            {t("signup.orEmail")}
+          </div>
+
+          <form onSubmit={handleSubmit} noValidate>
+            <div className="input-group">
+              <label htmlFor="name">
+                {t("signup.name.label")}
+              </label>
+
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder={t("signup.name.placeholder")}
+                value={formDataState.name}
+                onChange={handleChange}
+              />
+
+              {errors.name && (
+                <span className="error-msg">
+                  {errors.name}
+                </span>
+              )}
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="email">
+                {t("signup.email.label")}
+              </label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder={t("signup.email.placeholder")}
+                value={formDataState.email}
+                onChange={handleChange}
+              />
+
+              {errors.email && (
+                <span className="error-msg">
+                  {errors.email}
+                </span>
+              )}
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="phone">
+                {t("signup.phone.label")}
+              </label>
+
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder={t("signup.phone.placeholder")}
+                value={formDataState.phone}
+                onChange={handleChange}
+              />
+
+              {errors.phone && (
+                <span className="error-msg">
+                  {errors.phone}
+                </span>
+              )}
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="password">
+                {t("signup.password.label")}
+              </label>
+
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder={t("signup.password.placeholder")}
+                value={formDataState.password}
+                onChange={handleChange}
+              />
+
+              {errors.password && (
+                <span className="error-msg">
+                  {errors.password}
+                </span>
+              )}
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="confirmPassword">
+                {t("signup.confirmPassword.label")}
+              </label>
+
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder={t(
+                  "signup.confirmPassword.placeholder"
+                )}
+                value={formDataState.confirmPassword}
+                onChange={handleChange}
+              />
+
+              {errors.confirmPassword && (
+                <span className="error-msg">
+                  {errors.confirmPassword}
+                </span>
+              )}
+            </div>
+
+            <div className="terms-container">
+              <div className="terms-group">
+                <input
+                  type="checkbox"
+                  name="terms"
+                  id="terms"
+                  checked={formDataState.terms}
+                  onChange={handleChange}
+                />
+
+                <label htmlFor="terms">
+                  {t("signup.terms.text")}{" "}
+                  <Link href="/terms">
+                    {t("signup.terms.terms")}
+                  </Link>{" "}
+                  {t("signup.terms.and")}{" "}
+                  <Link href="/privacy">
+                    {t("signup.terms.privacy")}
+                  </Link>
+                  .
+                </label>
+              </div>
+
+              {errors.terms && (
+                <span className="error-msg">
+                  {errors.terms}
+                </span>
+              )}
+            </div>
+
+            <button type="submit">
+              {t("signup.submit")}
+            </button>
+          </form>
+
+          <p>
+            {t("signup.loginPrompt")}{" "}
+            <Link href="/login">
+              {t("signup.login")}
             </Link>
-            <div className="email">Or sign up with email</div>
-
-            <form onSubmit={handleSubmit} noValidate>
-              <div className="input-group">
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="John Doe"
-                  value={formDataState.name}
-                  onChange={handleChange}
-                />
-                {errors.name && <span className="error-msg">{errors.name}</span>}
-              </div>
-
-              <div className="input-group">
-                <label htmlFor="email">Email Address</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="you@gmail.com"
-                  value={formDataState.email}
-                  onChange={handleChange}
-                />
-                {errors.email && <span className="error-msg">{errors.email}</span>}
-              </div>
-
-              <div className="input-group">
-                <label htmlFor="phone">Phone Number</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="+20 123 456 7890"
-                  value={formDataState.phone}
-                  onChange={handleChange}
-                />
-                {errors.phone && <span className="error-msg">{errors.phone}</span>}
-              </div>
-
-              <div className="input-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Min. 8 characters"
-                  value={formDataState.password}
-                  onChange={handleChange}
-                />
-                {errors.password && <span className="error-msg">{errors.password}</span>}
-              </div>
-
-              <div className="input-group">
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  placeholder="Re-enter your password"
-                  value={formDataState.confirmPassword}
-                  onChange={handleChange}
-                />
-                {errors.confirmPassword && <span className="error-msg">{errors.confirmPassword}</span>}
-              </div>
-
-              <div className="terms-container">
-                <div className="terms-group">
-                  <input
-                    type="checkbox"
-                    name="terms"
-                    id="terms"
-                    checked={formDataState.terms}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="terms">
-                    I agree to the <Link href="/terms">Terms of Service</Link> and{" "}
-                    <Link href="/privacy">Privacy Policy</Link>.
-                  </label>
-                </div>
-                {errors.terms && <span className="error-msg">{errors.terms}</span>}
-              </div>
-
-              <button type="submit">Sign Up</button>
-            </form>
-
-            <p>Already have an account? <Link href="/login">Login</Link></p>
-          </div>
+          </p>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

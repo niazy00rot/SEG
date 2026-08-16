@@ -370,6 +370,22 @@
           }
         }
 
+        .forgot-password {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: -0.2rem;
+
+          a {
+            color: var(--main-color);
+            font-size: 12px;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
         button[type="submit"] {
           width: 100%;
           min-height: 46px;
