@@ -10,24 +10,24 @@ const google_call_back = async (req, res) => {
             },
             process.env.jwt_secret,
             {
-                expiresIn: '15m'
+                expiresIn: "15m"
             }
         );
 
-        res.cookie('accessToken', token, {
+        res.cookie("accessToken", token, {
             httpOnly: true,
             secure: true,
-            sameSite: 'none',
+            sameSite: "none",
             maxAge: 15 * 60 * 1000
         });
 
-        res.redirect('https://seg-navy.vercel.app/en');
+        res.redirect("https://seg-navy.vercel.app/en");
 
     } catch (error) {
-        console.error('Google callback error:', error);
+        console.error("Google callback error:", error);
 
         res.status(500).json({
-            message: 'Something went wrong'
+            message: "Something went wrong"
         });
     }
 };
