@@ -1,13 +1,23 @@
 const router = require('express').Router();
 const passport = require('passport');
 
+const jwt = require('jsonwebtoken');
+
 const google_call_back = async (req, res) => {
     try {
-        console.log(req.user);
+        const token = jwt.sign(
+            {
+                id: req.user.id
+            },
+            process.env.jwt_secret,
+            {
+                expiresIn: '1h'
+            }
+        );
 
         res.json({
             message: 'Google login successful',
-            user: req.user
+            token
         });
 
     } catch (error) {
