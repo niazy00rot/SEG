@@ -18,6 +18,18 @@ async function is_employee(userId){
     }
 }
 
+async function add_employee(name, email, password){
+    const client = await pool.connect()
+    try{
+        const role_result = await client.query(`SELECT id FROM roles WHERE name = 'employee'`)
+        const role_id = role_result.rows[0].id
+        const result = await client.query(`
+            INSERT INTO users (name, email, password, role_id) VALUES ($1, $2, $3, $4)
+        `, [name, email, password, role_id])
+
+    }
+}
+
 module.exports={
     is_employee
 }

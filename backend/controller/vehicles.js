@@ -17,10 +17,13 @@ router.post('/vehicle', async(req,res)=>{
         const employee = await is_employee(id)
         if(admin || employee){
             const result = add_vehicles(brand_id,model_id,year)
-            if(result.err){}
+            if(result.err){
+                return res.status(400).json({message: result.err})
+            }
+            return res.status(201).json({message: 'Vehicle added successfully'})
         }
     }
     catch(err){
+        return res.status(500).json({message: 'Something went wrong'})
     }
-
 })

@@ -69,4 +69,25 @@ async function getUserById(id){
     }
 }
 
-module.exports = {registration,login,getUserById}
+async function get_user_role(id){
+    const client = await pool.connect()
+    try{
+        const result = await client.query(`
+            SELECT roles.name FROM users
+            JOIN roles on users.role_id = roles.id
+            WHERE users.id = $1`, [id])
+        if (result.rows.length === 0){
+            return {error: 'User not found'}
+        }
+        return result.rows[0].name    
+    }
+    catch(err){
+        console.error('Error occurred while fetching user role:', err)
+        return {error: 'Error occurred while fetching user role'}
+    }
+    finally{
+        client.release()
+    }
+}
+
+module.exports = {registration,login,getUserById,get_user_role}
