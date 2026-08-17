@@ -96,7 +96,7 @@ export default function LoginPage() {
         return;
       }
 
-      if (result.role === "admin") {
+      if (result.role === "Admin") {
         router.push("/admin");
       } else {
         router.push("/");
