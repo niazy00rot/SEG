@@ -1,0 +1,63 @@
+.mobile-app-popup {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 380px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    z-index: 9999;
+    padding: 20px 16px 16px 16px;
+  }
+}
+
+.popup-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: center;
+
+  .close-btn {
+    position: absolute;
+    top: -12px;
+    right: -6px;
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: #888888;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: color 0.2s ease;
+  }
+
+  p {
+    margin: 0;
+    font-size: 15px;
+    color: #333333;
+    font-family: inherit;
+    line-height: 1.4;
+    padding-top: 4px;
+  }
+
+  a {
+    background-color: var(--main-color);
+    color: #ffffff;
+    border: none;
+    padding: 5px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+}

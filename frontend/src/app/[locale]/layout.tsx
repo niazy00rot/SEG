@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import ThemeProvider from "@/providers/ThemeProvider";
 import { getMessages } from "next-intl/server";
 import { Cairo } from "next/font/google";
+import AppButton from "@/components/ui/AppButton";
 import "./globals.scss";
 
 const cairo = Cairo({
@@ -41,6 +42,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             {children}
+            <AppButton />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
