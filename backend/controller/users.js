@@ -44,6 +44,25 @@ router.post('/login', async(req, res)=>{
         console.error('Error occurred while logging in:', err)
         res.status(500).json({error: 'Error occurred while logging in'})
     }
+    
 })
+
+router.get('/user/:id/role', async(req, res)=>{
+    const {id} = req.params
+    try{
+        const role = await get_user_role(id)
+        if(role.error){
+            res.status(404).json({error: role.error})
+        }
+        else{
+            res.status(200).json({role})
+        }
+    }
+    catch(err){
+        console.error('Error occurred while fetching user role:', err)
+        res.status(500).json({error: 'Error occurred while fetching user role'})
+    }
+})
+
 
 module.exports = router
