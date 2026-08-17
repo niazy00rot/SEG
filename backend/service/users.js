@@ -32,8 +32,8 @@ async function registration(name,email,password,phone){
 }
 
 async function login(email,password){
+    const client = await pool.connect()
     try{
-        const client = await pool.connect()
         const result = await client.query('SELECT id,email,password FROM users Where email=$1',[email])
         if (result.rows.length === 0){
             return {error: 'User not found'}
