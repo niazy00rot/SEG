@@ -5,6 +5,7 @@ async function get_employees(){
     try{
         const res = await client.query(``)
     }
+    catch(err){}
 }
 
 async function is_employee(userId){
