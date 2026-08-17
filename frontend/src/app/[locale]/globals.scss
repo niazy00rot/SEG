@@ -4,12 +4,14 @@
   --background: #F8F9FA;
   --box-color: #fff;
   --color: #000;
-  --p-color: #AAAAAC;
+  --p-color: #6B6D72;
 }
 
 .dark {
   --background: #0D0E12;
   --box-color: #161820;
+  --p-color: #AAAAAC;
+  
   --color: #fff;
 }
 
@@ -51,9 +53,6 @@ body {
   background: var(--main-color);
 }
 
-// section {
-//   padding-top: 90px;
-// }
 
 
 /* global values */

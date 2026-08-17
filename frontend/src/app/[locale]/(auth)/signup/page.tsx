@@ -1,6 +1,7 @@
 "use client";
 
 import "../auth.scss";
+import "./signup.scss";
 import { FormEvent, useState } from "react";
 import { useTranslations } from "next-intl";
 import GoogleAuth from "@/components/auth/GoogleButton";
@@ -140,12 +141,14 @@ export default function Signup() {
   }
 
   return (
-    <section className="signup">
+    <section className="auth signup">
       <div className="left">
         <div className="container">
-          <h1>
-            {t("signup.title")}
-          </h1>
+
+          <h1>{t("signup.title.one")}</h1>
+          <h1><span>{t("signup.title.span")}</span> {t("signup.title.two")}</h1>
+          <h1>{t("signup.title.three")}</h1>
+
 
           <p>{t("signup.paragraph")}</p>
 
@@ -160,8 +163,8 @@ export default function Signup() {
 
       <div className="right">
         <div className="container">
-          <h1>{t("signup.heading")}</h1>
 
+          <h1>{t("signup.heading")}</h1>
           <p>{t("signup.description")}</p>
 
           <GoogleAuth />
@@ -171,10 +174,9 @@ export default function Signup() {
           </div>
 
           <form onSubmit={handleSubmit} noValidate>
+
             <div className="input-group">
-              <label htmlFor="name">
-                {t("signup.name.label")}
-              </label>
+              <label htmlFor="name">{t("signup.name.label")}</label>
 
               <input
                 type="text"

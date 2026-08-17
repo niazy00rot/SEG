@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import GoogleAuth from "@/components/auth/GoogleButton";
 import Link from "next/link";
 import "../auth.scss";
+import "./login.scss";
 
 export default function LoginPage() {
   const t = useTranslations("auth.login");
@@ -88,19 +89,28 @@ export default function LoginPage() {
   }
 
   return (
-    <section className="signup">
+    <section className="auth login">
       <div className="left">
         <div className="container">
-          <h1>{t("title")}</h1>
+          <h1>{t("title.one")}</h1>
+          <h1>{t("title.two")}</h1>
 
           <p>{t("paragraph")}</p>
 
-          <ul>
-            <li>{t("ul.li1")}</li>
-            <li>{t("ul.li2")}</li>
-            <li>{t("ul.li3")}</li>
-            <li>{t("ul.li4")}</li>
-          </ul>
+          <div className="boxes">
+            <div className="box">
+              <h2>{t("box1.title")}</h2>
+              <p>{t("box1.description")}</p>
+            </div>
+            <div className="box">
+              <h2>{t("box2.title")}</h2>
+              <p>{t("box2.description")}</p>
+            </div>
+            <div className="box">
+              <h2>{t("box3.title")}</h2>
+              <p>{t("box3.description")}</p>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -1,0 +1,35 @@
+.login {
+  .left {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)), url("/images/auth/login.jpg");
+    .container {
+      h1 {
+        font-weight: 800;
+        line-height: 1.15;
+        font-size: clamp(32px, 3vw, 44px);
+        color: #fff;
+
+        &:nth-child(2) {
+          color: var(--main-color);
+        }
+      }
+
+      > p {
+        max-width: 400px;
+        color: #AAAAAC;
+        font-size: 15px;
+        margin: 15px 0 25px;
+      }
+
+      .boxes {
+        display: flex;
+        gap: 25px;
+
+        .box {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
