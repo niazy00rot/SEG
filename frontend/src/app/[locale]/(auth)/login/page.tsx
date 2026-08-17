@@ -96,6 +96,8 @@ export default function LoginPage() {
         return;
       }
 
+      localStorage.setItem('role', result.role);
+      
       if (result.role === "Admin") {
         router.push("/admin");
       } else {
