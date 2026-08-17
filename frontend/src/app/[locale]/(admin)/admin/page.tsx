@@ -1,16 +1,14 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { FaUsers } from "react-icons/fa";
 import { HiWrenchScrewdriver } from "react-icons/hi2";
 import { IoCarSport } from "react-icons/io5";
 import "./admin.scss";
-import Link from "next/dist/client/link";
+import Link from "next/link";
 
 export default function Home() {
   const t = useTranslations("admin");
-  const router = useRouter();
 
   return (
     <section className="admin" id="admin">
@@ -25,20 +23,20 @@ export default function Home() {
 
           <Link href="/admin/users" className="admin-card">
             <div className="admin-card-icon"><FaUsers /></div>
-            <h2>{t("landing.title")}</h2>
-            <p>{t("landing.description")}</p>
+            <h2>{t("landing.users.title")}</h2>
+            <p>{t("landing.users.description")}</p>
           </Link>
 
           <Link href="/admin/parts" className="admin-card">
             <div className="admin-card-icon"><HiWrenchScrewdriver /></div>
-            <h2>{t("landing.title")}</h2>
-            <p>{t("landing.description")}</p>
+            <h2>{t("landing.parts.title")}</h2>
+            <p>{t("landing.parts.description")}</p>
           </Link>
 
           <Link href="/admin/cars" className="admin-card">
             <div className="admin-card-icon"><IoCarSport /></div>
-            <h2>{t("landing.title")}</h2>
-            <p>{t("landing.description")}</p>
+            <h2>{t("landing.cars.title")}</h2>
+            <p>{t("landing.cars.description")}</p>
           </Link>
         </div>
       </div>

@@ -2,13 +2,22 @@
 
 import { FormEvent, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import GoogleAuth from "@/components/auth/GoogleButton";
 import Link from "next/link";
 import "../auth.scss";
 import "./login.scss";
 
 export default function LoginPage() {
+
+  useEffect(() => {
+    document.title = "Login | SEG";
+  }, []);
+
   const t = useTranslations("auth.login");
+  
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -44,7 +53,7 @@ export default function LoginPage() {
 
     let isValid = true;
 
-    const emailRegex = /^[^\s@]+@(gmail\.com|outlook\.com)$/i;
+    const emailRegex = /^[^\s@]+@(gmail\.com|outlook\.com|seg\.com)$/i;
 
     if (!formData.email.trim()) {
       newErrors.email = t("email.errorRequired");
@@ -82,7 +91,16 @@ export default function LoginPage() {
 
       const result = await response.json();
 
-      console.log(result);
+      if (!response.ok) {
+        console.error(result.error);
+        return;
+      }
+
+      if (result.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       console.error("Login error:", error);
     }

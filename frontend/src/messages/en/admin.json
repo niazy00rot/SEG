@@ -3,15 +3,15 @@
     "title": "Admin Dashboard",
     "description": "Manage your store data from one place.",
     "users": {
-      "title": "Users",
+      "title": "Users Management",
       "description": "Manage users and their account information."
     },
     "parts": {
-      "title": "Car Parts",
+      "title": "Car Parts Management",
       "description": "Add, edit, delete and manage car parts."
     },
     "cars": {
-      "title": "Cars",
+      "title": "Cars Management",
       "description": "Manage cars, brands, models and specifications."
     }
   }
