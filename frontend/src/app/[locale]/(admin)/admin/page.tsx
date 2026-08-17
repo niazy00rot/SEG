@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { FaUsers } from "react-icons/fa";
 import { HiWrenchScrewdriver } from "react-icons/hi2";
 import { IoCarSport } from "react-icons/io5";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import "./admin.scss";
 import Link from "next/link";
@@ -13,7 +13,6 @@ export default function Admin() {
   const t = useTranslations("admin");
 
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function checkAdmin() {
@@ -39,7 +38,6 @@ export default function Admin() {
           return;
         }
 
-        setLoading(false);
       } catch (error) {
         console.error("Authentication error:", error);
         router.replace("/login");
@@ -48,10 +46,6 @@ export default function Admin() {
 
     checkAdmin();
   }, [router]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <section className="admin" id="admin">
