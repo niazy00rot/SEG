@@ -47,9 +47,11 @@ router.post('/login', async(req, res)=>{
     
 })
 
-router.get('/user/:id/role', async(req, res)=>{
-    const {id} = req.params
+router.get('/me', async(req, res)=>{
     try{
+        const token = req.cookies.session
+        const decoded = jwt.verify(token, process.env.jwt_secret)
+        const id = decoded.id
         const role = await get_user_role(id)
         if(role.error){
             res.status(404).json({error: role.error})
