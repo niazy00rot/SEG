@@ -16,7 +16,12 @@ const google_call_back = async (req, res) => {
         );
         const role_name = await get_user_role(req.user.id)
 
-        res.status(200).json({message: 'Login successful', token, role: role_name})
+        res.status(200).cookie("session", token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "lax"
+            }).json({message: 'Login successful', role: role_name});
+        
 
         res.redirect("https://seg-navy.vercel.app/en");
 
