@@ -2,13 +2,18 @@
 
 import "../auth.scss";
 import "./signup.scss";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import GoogleAuth from "@/components/auth/GoogleButton";
 
 import Link from "next/link";
 
 export default function Signup() {
+
+    useEffect(() => {
+      document.title = "Signup | SEG";
+    }, []);
+
   const t = useTranslations("auth");
 
   const [formDataState, setFormDataState] = useState({
