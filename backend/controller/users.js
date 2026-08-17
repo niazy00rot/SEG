@@ -54,15 +54,15 @@ router.get('/me', async(req, res)=>{
         const id = decoded.id
         const role = await get_user_role(id)
         if(role.error){
-            res.status(404).json({error: role.error})
+            return res.status(404).json({error: role.error})
         }
         else{
-            res.status(200).json({role})
+            return res.status(200).json({role})
         }
     }
     catch(err){
         console.error('Error occurred while fetching user role:', err)
-        res.status(500).json({error: 'Error occurred while fetching user role'})
+        return res.status(500).json({error: 'Error occurred while fetching user role'})
     }
 })
 
