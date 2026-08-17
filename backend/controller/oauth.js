@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const {get_user_role} = require('../service/users.js');
 
 const google_call_back = async (req, res) => {
     try {
@@ -13,13 +14,9 @@ const google_call_back = async (req, res) => {
                 expiresIn: "15m"
             }
         );
+        const role_name = await get_user_role(req.user.id)
 
-        res.cookie("accessToken", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "none",
-            maxAge: 15 * 60 * 1000
-        });
+        res.status(200).json({message: 'Login successful', token, role: role_name})
 
         res.redirect("https://seg-navy.vercel.app/en");
 

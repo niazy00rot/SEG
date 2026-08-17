@@ -22,6 +22,7 @@ router.post('/vehicle', async(req,res)=>{
             }
             return res.status(201).json({message: 'Vehicle added successfully'})
         }
+        return
     }
     catch(err){
         return res.status(500).json({message: 'Something went wrong'})

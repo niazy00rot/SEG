@@ -17,29 +17,6 @@ async function initDB() {
         // Create tables and default data
         await client.query(sql);
 
-        // Hash admin password
-        const hashedPassword = await bcrypt.hash('adminpassword', 10);
-
-        // Get Admin role
-        const roleResult = await client.query(
-            'SELECT id FROM roles WHERE name = $1',
-            ['Admin']
-        );
-
-        const adminRoleId = roleResult.rows[0].id;
-
-        // Create admin
-        await client.query(
-            `INSERT INTO users (role_id, name, email, password)
-             VALUES ($1, $2, $3, $4)`,
-            [
-                adminRoleId,
-                'Admin',
-                'admin@seg.com',
-                hashedPassword
-            ]
-        );
-
         console.log('Database initialized successfully');
 
     } catch (err) {
