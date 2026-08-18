@@ -4,7 +4,7 @@ const {add_employee,delete_employee,get_employees} = require('../service/employe
 const {is_admin} = require('../service/admin.js')
 const {is_employee} = require('../service/employee.js')
 
-router.get('/employees', async(req,res)=>{
+router.get('/employee', async(req,res)=>{
     try{
         const token = req.cookies?.session;
         if (!token) {return res.status(401).json({error: "Not authenticated"});
