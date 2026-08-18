@@ -1,5 +1,5 @@
 const {pool} = require('../database/db.js')
-const 
+const bcrypt = require('bcrypt')
 
 async function get_employees(){
     const client = await pool.connect()
@@ -44,8 +44,9 @@ async function add_employee(name, email, password,phone){
     try{
         const role_result = await client.query(`SELECT id FROM roles WHERE name = 'employee'`)
         const role_id = role_result.rows[0].id
+        const hashedPassword = await bcrypt.hash(password, 10)
         const result = await client.query(`
-            INSERT INTO users (name, email, password, role_id) VALUES ($1, $2, $3, $4) returning id`, [name, email, password, role_id])
+            INSERT INTO users (name, email, password, role_id) VALUES ($1, $2, $3, $4) returning id`, [name, email, hashedPassword, role_id])
         if (result.rows.length === 0){
             return {err: 'Failed to add employee'}
         }

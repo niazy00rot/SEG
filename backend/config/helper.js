@@ -1,6 +1,6 @@
 const { get } = require("../controller/users");
 
-const jwt =requir('jsonwebtoken')
+const jwt =require('jsonwebtoken')
 
 function get_id(token){
     try{
