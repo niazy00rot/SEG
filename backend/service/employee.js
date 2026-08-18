@@ -1,21 +1,16 @@
 const {pool} = require('../database/db.js')
+const 
 
 async function get_employees(){
-    const client = pool.connect()
-    try{
-        const res = await client.query(``)
-    }
-    catch(err){}
-}
-
-async function is_employee(userId){
     const client = await pool.connect()
     try{
-        const result = await client.query(`
-            SELECT roles.name FROM users
-            JOIN roles on users.role_id = roles.id
-            WHERE users.id = $1`, [userId])
-        return result.rows[0].name === 'employee'    
+        const role_result = await client.query(`SELECT id FROM roles WHERE name = 'Employee'`)
+        const role_id = role_result.rows[0].id
+        const res = await client.query(`
+            SELECT users.name, users.email, users.phone FROM roles
+            JOIN users on users.role_id = roles.id
+            WHERE roles.id = $1`,[role_id])
+        return res.rows
     }
     catch(err){
         console.error('Error checking if user is employee:', err)
@@ -26,7 +21,25 @@ async function is_employee(userId){
     }
 }
 
-async function add_employee(name, email, password){
+async function is_employee(userId){
+    const client = await pool.connect()
+    try{
+        const result = await client.query(`
+            SELECT roles.name FROM users
+            JOIN roles on users.role_id = roles.id
+            WHERE users.id = $1`, [userId])
+        return result.rows[0].name === 'Employee'    
+    }
+    catch(err){
+        console.error('Error checking if user is employee:', err)
+        throw err
+    }
+    finally{
+        client.release()
+    }
+}
+
+async function add_employee(name, email, password,phone){
     const client = await pool.connect()
     try{
         const role_result = await client.query(`SELECT id FROM roles WHERE name = 'employee'`)
@@ -65,5 +78,6 @@ async function delete_employee(employee_id){
 module.exports={
     is_employee,
     add_employee,
-    delete_employee
+    delete_employee,
+    get_employees
 }
