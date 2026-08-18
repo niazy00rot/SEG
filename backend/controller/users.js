@@ -36,7 +36,8 @@ router.post('/login', async(req, res)=>{
             res.status(200).cookie("session", token, {
                 httpOnly: true,
                 secure: true,
-                sameSite: "lax"
+                sameSite: "none",
+                maxAge: 60 * 60 * 1000
             }).json({message: 'Login successful', role: role_name});
         }
     }
@@ -49,8 +50,18 @@ router.post('/login', async(req, res)=>{
 
 router.get('/me', async(req, res)=>{
     try{
-        const token = req.cookies.session
-        const decoded = jwt.verify(token, process.env.jwt_secret)
+        const token = req.cookies?.session;
+
+        if (!token) {
+            return res.status(401).json({
+                error: "Not authenticated"
+            });
+        }
+
+        const decoded = jwt.verify(
+            token,
+            process.env.jwt_secret
+        );
         const id = decoded.id
         const role = await get_user_role(id)
         if(role.error){
