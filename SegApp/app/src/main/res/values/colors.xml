@@ -5,5 +5,8 @@
     <color name="Secondary">#1A1A1A</color>
     <color name="Tertiary">#262626</color>
     <color name="black">#FF000000</color>
-
+    <color name="seg_red">#E21E25</color>
+    <color name="seg_white">#F5F5F5</color>
+    <color name="seg_gray">#8E8E8E</color>
+    <color name="seg_black">#050505</color>
 </resources>
