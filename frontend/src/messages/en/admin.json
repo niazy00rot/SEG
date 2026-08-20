@@ -14,5 +14,62 @@
       "title": "Cars Management",
       "description": "Manage cars, brands, models and specifications."
     }
+  },
+  "user": {
+    "title": "Users Management",
+    "description": "Manage users and their account information.",
+    "admin": {
+      "title": "Admin Users",
+      "description": "Manage admin users and their permissions."
+    },
+    "employee": {
+      "title": "Employee Users",
+      "description": "Manage employee users and their permissions."
+    },
+    "customer": {
+      "title": "Customer Users",
+      "description": "Manage customer users and their account information."
+    }
+  },
+
+
+  "employeePage": {
+    "title": "Employees",
+    "description": "Manage all employees in your organization.",
+    "employees": "Employees",
+
+    "loading": "Loading employees...",
+    "noEmployees": "No employees found.",
+
+    "edit": "Edit",
+    "delete": "Delete",
+
+    "deleteConfirm": "Are you sure you want to delete this employee?",
+
+    "addEmployee": "Add Employee",
+    "addEmployeeDescription": "Create a new employee account.",
+
+    "cancel": "Cancel",
+    "createEmployee": "Create Employee",
+    "adding": "Creating...",
+
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "actions": "Actions"
+    },
+
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "password": "Password",
+
+      "namePlaceholder": "Enter employee name",
+      "emailPlaceholder": "Enter employee email",
+      "phonePlaceholder": "Enter phone number",
+      "passwordPlaceholder": "Enter password"
+    }
   }
 }

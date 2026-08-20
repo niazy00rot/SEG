@@ -12,40 +12,40 @@ import Link from "next/link";
 export default function Admin() {
   const t = useTranslations("admin");
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  useEffect(() => {
-    async function checkAdmin() {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
-          credentials: "include",
-        });
+  // useEffect(() => {
+  //   async function checkAdmin() {
+  //     try {
+  //       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
+  //         credentials: "include",
+  //       });
 
-        if (response.status === 401) {
-          router.replace("/login");
-          return;
-        }
+  //       if (response.status === 401) {
+  //         router.replace("/login");
+  //         return;
+  //       }
 
-        if (!response.ok) {
-          router.replace("/");
-          return;
-        }
+  //       if (!response.ok) {
+  //         router.replace("/");
+  //         return;
+  //       }
 
-        const data = await response.json();
+  //       const data = await response.json();
 
-        if (data.role !== "Admin") {
-          router.replace("/");
-          return;
-        }
+  //       if (data.role !== "Admin") {
+  //         router.replace("/");
+  //         return;
+  //       }
 
-      } catch (error) {
-        console.error("Authentication error:", error);
-        router.replace("/login");
-      }
-    }
+  //     } catch (error) {
+  //       console.error("Authentication error:", error);
+  //       router.replace("/login");
+  //     }
+  //   }
 
-    checkAdmin();
-  }, [router]);
+  //   checkAdmin();
+  // }, [router]);
 
   return (
     <section className="admin" id="admin">
