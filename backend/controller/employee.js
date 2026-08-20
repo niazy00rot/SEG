@@ -24,7 +24,7 @@ router.post('/employee', authorize_roles("Admin"), async(req,res)=>{
         const results = await add_employee(name,email,password,phone)
         if (results.err){
             console.error('Error occurred while adding employee:', results.err)
-            res.status(500).json({error: results.error})
+            return res.status(500).json({error: results.err})
         }
         else{
             res.status(201).json({message: 'adding employee successfully'})
