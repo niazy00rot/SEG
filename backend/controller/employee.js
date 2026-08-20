@@ -1,10 +1,11 @@
 const router = require('express').Router()
 const {get_id} = require('../config/helper.js')
 const {add_employee,delete_employee,get_employees} = require('../service/employee.js')
+const {is_admin} = require('../service/admin.js')
 
 const {authorize_roles} = require('../middleware/auth.js')
 
-router.get('/employee', authorize_roles(['admin']), async(req,res)=>{
+router.get('/employee', authorize_roles('Admin'), async(req,res)=>{
     try{
         
         const employees = await get_employees();
@@ -17,7 +18,7 @@ router.get('/employee', authorize_roles(['admin']), async(req,res)=>{
     }
 })
 
-router.post('/employee', authorize_roles("admin"), async(req,res)=>{
+router.post('/employee', authorize_roles("Admin"), async(req,res)=>{
     const {name, email, password,phone} = req.body
     try{
         const token = req.cookies?.session;
@@ -27,7 +28,7 @@ router.post('/employee', authorize_roles("admin"), async(req,res)=>{
         if(!id){
             return res.status(401).json({error: "Invalid or expired token" });
         }
-        const admin = is_admin(id)
+        const admin = await is_admin(id)
         if(!admin){
             return res.status(403).json({ error: "Admin access required" });
         }
@@ -46,7 +47,7 @@ router.post('/employee', authorize_roles("admin"), async(req,res)=>{
     }
 })
 
-router.delete('/employee/:id', authorize_roles("admin"), async(req,res)=>{
+router.delete('/employee/:id', authorize_roles("Admin"), async(req,res)=>{
     try{
         const {id} = req.params
         const results = delete_employee(id)
