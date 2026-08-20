@@ -21,17 +21,6 @@ router.get('/employee', authorize_roles('Admin'), async(req,res)=>{
 router.post('/employee', authorize_roles("Admin"), async(req,res)=>{
     const {name, email, password,phone} = req.body
     try{
-        const token = req.cookies?.session;
-        if (!token) {return res.status(401).json({error: "Not authenticated"});
-        }
-        const id = get_id(token)
-        if(!id){
-            return res.status(401).json({error: "Invalid or expired token" });
-        }
-        const admin = await is_admin(id)
-        if(!admin){
-            return res.status(403).json({ error: "Admin access required" });
-        }
         const results = await add_employee(name,email,password,phone)
         if (results.err){
             console.error('Error occurred while adding employee:', results.err)
