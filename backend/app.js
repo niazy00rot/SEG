@@ -29,11 +29,13 @@ const root_router = require('./controller/root.js')
 const users_router = require('./controller/users.js')
 const oauth_router = require('./controller/oauth.js')
 const vehicles_router = require('./controller/brands.js')
+const employees_router = require('./controller/employee.js')
 
 app.use('/',root_router)
 app.use('/',users_router)
 app.use('/auth',oauth_router)
 app.use('/',vehicles_router)
+app.use('/',employees_router)
 
 
 const port = 3001

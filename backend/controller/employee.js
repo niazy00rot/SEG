@@ -1,4 +1,4 @@
-const router = require('express').Router
+const router = require('express').Router()
 const {get_id} = require('../config/helper.js')
 const {add_employee,delete_employee,get_employees} = require('../service/employee.js')
 const {is_admin} = require('../service/admin.js')
@@ -84,3 +84,5 @@ router.delete('/employee/:id', async(req,res)=>{
         res.status(500).json({error: 'Error occurred while deleting employee'})
     }
 })
+
+module.exports= router
