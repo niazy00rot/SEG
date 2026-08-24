@@ -13,8 +13,11 @@ app.use(helmet())
 
 app.use(
     cors({
-        origin: "https://seg-navy.vercel.app",
-        credentials: true
+        origin: [
+            "https://seg-navy.vercel.app",
+            "http://localhost:3000",
+        ],
+        credentials: true,
     })
 );
 app.use(cookieParser());
