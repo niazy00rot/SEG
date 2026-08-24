@@ -7,7 +7,7 @@ async function is_admin(userId){
             SELECT roles.name FROM users
             JOIN roles on users.role_id = roles.id
             WHERE users.id = $1`, [userId])
-        return result.rows[0].name === 'admin'    
+        return result.rows[0].name === 'Admin'    
     }
     catch(err){
         console.error('Error checking if user is admin:', err)

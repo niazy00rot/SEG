@@ -1,5 +1,7 @@
 const {pool} = require('../database/db.js')
 
+const {transaction} = require('../utils/transactions.js')
+
 async function add_brand(name){
     const client = await pool.connect()
     try{
@@ -22,7 +24,7 @@ async function get_brands(){
     const client = await pool.connect()
     try {
         const result = await client.query('SELECT * FROM brands')
-            return result.rows
+        return result.rows
     }
     catch(err){
         console.error('Error fetching brands:', err)
@@ -70,36 +72,23 @@ async function update_brand(id, name){
 }
 
 async function delete_brand(id){
-    const client = await pool.connect()
-    try{
-        // delete all vicals associated with the brand
+    return transaction(async (client)=>{
         await client.query('DELETE FROM vehicles WHERE brand_id = $1', [id])
-        // delete all models associated with the brand
         await client.query('DELETE FROM models WHERE brand_id = $1', [id])
-
         const result = await client.query('DELETE FROM brands WHERE id = $1 RETURNING *', [id])
-        if(result.rows.length > 0){
-            return result.rows[0]
+        if (result.rows.length === 0) {
+            throw new Error("Brand not found");
         }
-        return {error: 'Brand not found'}
-    }
-    catch(err){
-        console.error('Error deleting brand:', err)
-        throw err
-    }
-    finally{
-        client.release()
-    }
+        return result.rows[0];
+    })
 }
+
 
 async function add_model(brand_id, name){
     const client = await pool.connect()
     try{
-        const res = await client.query(`
-            INSERT INTO models 
-            (brand_id, name) 
-            VALUES ($1,$2) 
-            RETURNING *`)
+        const res = await client.query(`INSERT INTO models (brand_id, name) 
+            VALUES ($1,$2) RETURNING *`,[brand_id, name])
         if(res.rows.length > 0){
             return res.rows[0]
         }
@@ -153,23 +142,14 @@ async function update_model(id, name){
 }
 
 async function delete_model(id){
-    const client = await pool.connect()
-    try{
-        // delete all vehicles associated with the model
+    return transaction(async(client)=>{
         await client.query('DELETE FROM vehicles WHERE model_id = $1', [id])
-        const res = await client.query('DELETE FROM models WHERE id = $1 RETURNING *', [id])
-        if(res.rows.length > 0){
-            return res.rows[0]
+        const result = await client.query('DELETE FROM models WHERE id = $1 RETURNING *', [id])
+        if (result.rows.length === 0) {
+            throw new Error("Model not found");
         }
-        return {error: 'Model not found'}
-    }
-    catch(err){
-        console.error('Error deleting model:', err)
-        throw err
-    }
-    finally{
-        client.release()
-    }
+        return result.rows[0];
+    })
 }
 
 

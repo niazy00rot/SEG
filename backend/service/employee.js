@@ -42,7 +42,10 @@ async function is_employee(userId){
 async function add_employee(name, email, password,phone){
     const client = await pool.connect()
     try{
-        const role_result = await client.query(`SELECT id FROM roles WHERE name = 'employee'`)
+        const role_result = await client.query(`SELECT id FROM roles WHERE name = 'Employee'`)
+        if (role_result.rows.length === 0){
+            return {err: 'Employee role not found'}
+        }
         const role_id = role_result.rows[0].id
         const hashedPassword = await bcrypt.hash(password, 10)
         const result = await client.query(`

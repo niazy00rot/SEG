@@ -30,37 +30,27 @@ passport.use(
                 let userId;
 
                 if (await is_registered(email)) {
-
                     if (await is_google_id_registered(googleId)) {
-
                         userId = await get_user_id(googleId);
+                    } 
 
-                    } else {
-
+                    else {
                         await add_google_id(googleId, email);
-
                         userId = await get_user_id(googleId);
                     }
+                } 
 
-                } else {
-
+                else {
                     await add_user(googleId, name, email);
-
                     userId = await get_user_id(googleId);
                 }
 
-                const user = {
-                    id: userId,
-                    googleId,
-                    name,
-                    email
-                };
-
+                const user = {id: userId,googleId,name,email};
                 return done(null, user);
-
-            } catch (error) {
+            } 
+            
+            catch (error) {
                 console.error('Error in GoogleStrategy:', error);
-
                 return done(error, null);
             }
         }
