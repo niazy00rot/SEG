@@ -83,19 +83,8 @@ export default function Admin() {
         body: JSON.stringify(newEmployee),
       });
 
-      // if (!response.ok) {
-      //   throw new Error("Failed to add employee");
-      // }
-
-      const responseText = await response.text();
-
-      console.log("Status:", response.status);
-      console.log("Response:", responseText);
-
       if (!response.ok) {
-        throw new Error(
-          `Failed to add employee: ${response.status} - ${responseText}`
-        );
+        throw new Error("Failed to add employee");
       }
 
       const employee = await response.json();
