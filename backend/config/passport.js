@@ -1,13 +1,8 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-const {
-    is_registered,
-    add_user,
-    get_user_id,
-    is_google_id_registered,
-    add_google_id
-} = require('../service/oauth.js');
+const {is_registered,add_user,get_user_id,is_google_id_registered,
+    add_google_id} = require('../service/oauth.js');
 
 
 

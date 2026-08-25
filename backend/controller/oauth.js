@@ -2,6 +2,7 @@ const router = require('express').Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const {get_user_role} = require('../service/users.js');
+const {async_handler} = require('../middleware/handler.js')
 
 const google_call_back = async (req, res) => {
     try {

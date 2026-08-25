@@ -37,6 +37,9 @@ app.use('/auth',oauth_router)
 app.use('/',vehicles_router)
 app.use('/',employees_router)
 
+const {error_handler} = require('./middleware/handler.js')
+app.use(error_handler)
+
 
 const port = 3001
 app.listen(port, ()=>{
