@@ -28,7 +28,7 @@ async function is_employee(userId){
             SELECT roles.name FROM users
             JOIN roles on users.role_id = roles.id
             WHERE users.id = $1`, [userId])
-        return result.rows[0].name === 'Employee'    
+        return result.rows[0].name === 'Employee'
     }
     catch(err){
         console.error('Error checking if user is employee:', err)
@@ -39,7 +39,7 @@ async function is_employee(userId){
     }
 }
 
-async function add_employee(name, email, password,phone){
+async function add_employee(name, email, password, phone){
     const client = await pool.connect()
     try{
         const role_result = await client.query(`SELECT id FROM roles WHERE name = 'Employee'`)
@@ -49,7 +49,7 @@ async function add_employee(name, email, password,phone){
         const role_id = role_result.rows[0].id
         const hashedPassword = await bcrypt.hash(password, 10)
         const result = await client.query(`
-            INSERT INTO users (name, email, password, role_id) VALUES ($1, $2, $3, $4) returning id`, [name, email, hashedPassword, role_id])
+            INSERT INTO users (name, email, phone, password, role_id) VALUES ($1, $2, $3, $4) returning id`, [name, email, phone, hashedPassword, role_id])
         if (result.rows.length === 0){
             return {err: 'Failed to add employee'}
         }

@@ -32,44 +32,49 @@
     }
   },
 
+  "users": {
+    "employee": {
+      "title": "Employees",
+      "description": "Manage all employees in your organization.",
+      "employees": "Employees",
+  
+      "loading": "Loading employees...",
+      "noEmployees": "No employees found.",
 
-  "employeePage": {
-    "title": "Employees",
-    "description": "Manage all employees in your organization.",
-    "employees": "Employees",
+      "table": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "actions": "Actions",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+  
+  
+      "deleteConfirm": "Are you sure you want to delete this employee?",
+  
+      "addEmployee": "Add Employee",
+      "addEmployeeDescription": "Create a new employee account.",
+  
+      "cancel": "Cancel",
+      "createEmployee": "Create Employee",
+      "adding": "Creating...",
+  
 
-    "loading": "Loading employees...",
-    "noEmployees": "No employees found.",
-
-    "edit": "Edit",
-    "delete": "Delete",
-
-    "deleteConfirm": "Are you sure you want to delete this employee?",
-
-    "addEmployee": "Add Employee",
-    "addEmployeeDescription": "Create a new employee account.",
-
-    "cancel": "Cancel",
-    "createEmployee": "Create Employee",
-    "adding": "Creating...",
-
-    "table": {
-      "name": "Name",
-      "email": "Email",
-      "phone": "Phone",
-      "actions": "Actions"
-    },
-
-    "form": {
-      "name": "Name",
-      "email": "Email",
-      "phone": "Phone",
-      "password": "Password",
-
-      "namePlaceholder": "Enter employee name",
-      "emailPlaceholder": "Enter employee email",
-      "phonePlaceholder": "Enter phone number",
-      "passwordPlaceholder": "Enter password"
+  
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "password": "Password",
+  
+        "namePlaceholder": "Enter employee name",
+        "emailPlaceholder": "Enter employee email",
+        "phonePlaceholder": "Enter phone number",
+        "passwordPlaceholder": "Enter password"
+      }
     }
   }
+
+
 }

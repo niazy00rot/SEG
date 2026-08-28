@@ -10,7 +10,7 @@ router.get('/employee', authenticate,authorize_roles('Admin'), async_handler(asy
 }))
 
 router.post('/employee', authenticate, authorize_roles("Admin"), async_handler(async(req,res)=>{
-    const {name, email, password,phone} = req.body
+    const {name, email, password, phone} = req.body
     const results = await add_employee(name,email,password,phone)
     if (results.err){
         console.error('Error occurred while adding employee:', results.err)
