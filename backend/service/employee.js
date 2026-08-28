@@ -7,7 +7,7 @@ async function get_employees(){
         const role_result = await client.query(`SELECT id FROM roles WHERE name = 'Employee'`)
         const role_id = role_result.rows[0].id
         const res = await client.query(`
-            SELECT users.name, users.email, users.phone FROM roles
+            SELECT users.id, users.name, users.email, users.phone FROM roles
             JOIN users on users.role_id = roles.id
             WHERE roles.id = $1`,[role_id])
         return res.rows
