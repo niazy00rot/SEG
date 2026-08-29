@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AdminLayout({
@@ -11,7 +11,6 @@ export default function AdminLayout({
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
 
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkAdmin = async () => {
@@ -31,12 +30,11 @@ export default function AdminLayout({
 
         const data = await response.json();
 
-        if (data.user.role !== "Admin") {
+        if (data.role !== "Admin") {
           router.replace("/unauthorized");
           return;
         }
 
-        setLoading(false);
       } catch (error) {
         console.error("Authentication check failed:", error);
         router.replace("/login");
@@ -45,10 +43,6 @@ export default function AdminLayout({
 
     checkAdmin();
   }, [API_URL, router]);
-
-  if (loading) {
-    return <div>Checking authorization...</div>;
-  }
 
   return <>{children}</>;
 }
