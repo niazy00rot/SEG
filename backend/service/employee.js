@@ -65,7 +65,7 @@ async function add_employee(name, email, password, phone){
         const role_id = role_result.rows[0].id
         const hashedPassword = await bcrypt.hash(password, 10)
         const result = await client.query(`
-            INSERT INTO users (name, email, phone, password, role_id) VALUES ($1, $2, $3, $4) returning id`, [name, email, phone, hashedPassword, role_id])
+            INSERT INTO users (name, email, phone, password, role_id) VALUES ($1, $2, $3, $4, $5) returning id`, [name, email, phone, hashedPassword, role_id])
         if (result.rows.length === 0){
             return {err: 'Failed to add employee'}
         }
