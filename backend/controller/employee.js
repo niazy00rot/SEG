@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const {add_employee,delete_employee,get_employees, get_employee_by_id,update_employee} = require('../service/employee.js')
+const {add_employee,delete_employee,
+        get_employees, get_employee_by_id,update_employee} = require('../service/employee.js')
 const {async_handler} = require('../middleware/handler.js')
 
 const {authorize_roles,authenticate} = require('../middleware/auth.js')

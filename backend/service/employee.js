@@ -83,9 +83,21 @@ async function add_employee(name, email, password, phone){
 async function update_employee(employee_id, name, email, password, phone){
     const client = await pool.connect()
     try{
-        const hashedPassword = await bcrypt.hash(password, 10)
-        await client.query(`
-            UPDATE users SET name = $1, email = $2, phone = $3, password = $4 WHERE id = $5`, [name, email, phone, hashedPassword, employee_id])
+        let query = `UPDATE users SET name = $1, email = $2, phone = $3`
+        let params = [name, email, phone]
+        
+        if(password && password.trim() !== ''){
+            const hashedPassword = await bcrypt.hash(password, 10)
+            query += `, password = $4`
+            params.push(hashedPassword)
+            params.push(employee_id)
+            query += ` WHERE id = $${params.length}`
+        } else {
+            params.push(employee_id)
+            query += ` WHERE id = $${params.length}`
+        }
+        
+        await client.query(query, params)
         return {success: 'Employee updated successfully', id: employee_id}
     }
     catch(err){
@@ -101,7 +113,7 @@ async function delete_employee(employee_id){
     const client = await pool.connect()
     try{
         await client.query(`DELETE FROM users WHERE id = $1 `, [employee_id])
-        return {success: 'Employee deleted successfully', id }
+        return {success: 'Employee deleted successfully', id: employee_id}
     }
     catch(err){
         console.error('Error deleting employee:', err)
