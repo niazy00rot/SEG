@@ -4,57 +4,163 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      gap: 30px;
       padding-top: 50px;
+      margin-bottom: 25px;
+
       .title {
+        h1 {
+          margin: 0 0 8px;
+          font-size: 28px;
+          font-weight: 700;
+          color: #fff;
+        }
 
+        p {
+          margin: 0;
+          font-size: 14px;
+          color: var(--font-color);
+        }
       }
-      .count {
 
+      .headerActions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .count {
+          padding: 10px 16px;
+          border-radius: 8px;
+          background-color: #ffffff0f;
+          border: 1px solid #ffffff14;
+          color: var(--font-color);
+          font-size: 14px;
+          font-weight: 600;
+        }
+        
+        .addEmployee {
+          padding: 10px 16px;
+          border-radius: 8px;
+          background-color: var(--main-color);
+          color: #fff;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: 0.2s ease;
+
+          &:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+        }
       }
     }
 
     .employeeTable {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 10px;
+
       table {
         width: 100%;
+        min-width: 700px;
         background-color: var(--box-color);
         border-radius: 10px;
-        padding: 20px;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
 
         thead {
           background-color: rgba(255, 255, 255, 0.05);
+
           tr {
             th {
               padding: 16px 20px;
               text-align: left;
-              font-size: 14px;
+              font-size: 13px;
               font-weight: 600;
               color: var(--font-color);
               border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+              text-transform: uppercase;
+              letter-spacing: 0.3px;
             }
           }
         }
 
         tbody {
           tr {
-            transition: 0.2s ease;
+            background-color: rgba(255, 255, 255, 0.015);
+            transition:
+              background-color 0.2s ease,
+              transform 0.2s ease;
+
+            &:nth-child(even) {
+              background-color: rgba(255, 255, 255, 0.03);
+            }
 
             &:hover {
-              background-color: rgba(255, 255, 255, 0.04);
+              background-color: rgba(0, 119, 255, 0.08);
             }
 
             &:not(:last-child) {
-              border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+              td {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+              }
             }
 
             td {
-              padding: 15px 20px;
+              padding: 16px 20px;
               font-size: 14px;
               color: #fff;
               white-space: nowrap;
+
+              button {
+                border: none;
+                outline: none;
+                padding: 7px 12px;
+                margin-left: 8px;
+                border-radius: 6px;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: 0.2s ease;
+
+                &:first-child {
+                  background-color: rgba(0, 119, 255, 0.12);
+                  color: var(--main-color);
+                  margin-left: 0;
+
+                  &:hover {
+                    background-color: rgba(0, 119, 255, 0.2);
+                  }
+                }
+
+                &:last-child {
+                  background-color: rgba(255, 70, 70, 0.1);
+                  color: #ff6b6b;
+
+                  &:hover {
+                    background-color: rgba(255, 70, 70, 0.18);
+                  }
+                }
+              }
             }
           }
         }
+      }
+
+      .loading,
+      .noEmployees {
+        padding: 50px 20px;
+        text-align: center;
+        background-color: var(--box-color);
+        border-radius: 10px;
+        color: var(--font-color);
+        font-size: 14px;
       }
     }
   }

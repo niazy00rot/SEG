@@ -27,7 +27,7 @@ async function get_employees(){
             SELECT users.id, users.name, users.email, users.phone FROM roles
             JOIN users on users.role_id = roles.id
             WHERE users.id = $1`,[id])
-        return res.rows
+        return res.rows[0]
     }
     catch(err){
         console.error(err)
