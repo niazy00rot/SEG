@@ -16,16 +16,11 @@ export default function AdminLayout({
   useEffect(() => {
     const checkAdmin = async () => {
       try {
-        const response = await fetch(`${API_URL}/auth/me`, {
+        const response = await fetch(`${API_URL}/me`, {
           credentials: "include",
         });
 
-        if (response.status === 401) {
-          router.replace("/login");
-          return;
-        }
-
-        if (response.status === 403) {
+        if (response.status === 401 || response.status === 403) {
           router.replace("/unauthorized");
           return;
         }

@@ -5,12 +5,6 @@ const {async_handler} = require('../middleware/handler.js')
 
 const {authorize_roles,authenticate} = require('../middleware/auth.js')
 
-router.get('/me', authenticate, async_handler(async (req, res) => {
-    return res.status(200).json({
-        user: req.user
-    });
-}));
-
 router.get('/employee', authenticate,authorize_roles('Admin'), async_handler(async(req,res)=>{
         const employees = await get_employees();
         return res.status(200).json({ employees });
