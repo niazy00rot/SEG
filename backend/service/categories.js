@@ -41,7 +41,7 @@ async function add_category(name){
     try{
         const res = await client.query('INSERT INTO categories ($1) VALUES ($2) RETURNING *',[name])
         if (res.rows.length===0){
-            return {error: 'Model not added'}
+            return {error: 'Category not added'}
         }
         return res.rows[0]
     }
@@ -59,7 +59,7 @@ async function update_category(id, name){
     try{
         const res = await client.query('UPDATE categories SET name = $1 WHERE id = $2 RETURNING *',[name,id])
         if (res.rows.length===0){
-            return {error: 'Model not found'}
+            return {error: 'Category not found'}
         }
         return res.rows[0]
     }
