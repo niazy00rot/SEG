@@ -54,19 +54,47 @@ export default function EditEmployeePage() {
   }
 
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${API_URL}/employee/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          name: employee.name,
+          email: employee.email,
+          phone: employee.phone,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update employee");
+      }
+
+      router.push("/admin/users/employee");
+    } catch (error) {
+      console.error("Error updating employee:", error);
+    }
+  };
+
+
   return (
     <section className="editEmployeePage">
       <div className="container">
         <h1>Edit Employee</h1>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name">Name</label>
 
             <input
               id="name"
               type="text"
-              value={employee[0].name}
+              value={employee.name}
               onChange={(e) =>
                 setEmployee({
                   ...employee,

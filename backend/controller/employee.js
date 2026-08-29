@@ -9,15 +9,17 @@ router.get('/employee', authenticate,authorize_roles('Admin'), async_handler(asy
         return res.status(200).json({ employees });
 }))
 router.get('/employee/:id', authenticate,authorize_roles('Admin'), async_handler(async(req,res)=>{
-        const {id} = req.params;
-        const employee = await get_employee_by_id(id);
-        if(employee.length===0){
-            return res.status(404).json({err: 'no employee found'})
-        }
-        if(employee.error){
-            return res.status(500).json({error: employee.error});
-        }
-        return res.status(200).json({employee});
+    const {id} = req.params;
+    const employee = await get_employee_by_id(id);
+    if (!employee) {
+        return res.status(404).json({
+            error: 'No employee found'
+        });
+    }
+    if(employee.error){
+        return res.status(500).json({error: employee.error});
+    }
+    return res.status(200).json({employee});
 }))
 
 router.post('/employee', authenticate, authorize_roles("Admin"), async_handler(async(req,res)=>{
