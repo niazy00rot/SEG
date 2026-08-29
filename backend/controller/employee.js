@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {add_employee,delete_employee,get_employees, get_employees_by_id} = require('../service/employee.js')
+const {add_employee,delete_employee,get_employees, get_employee_by_id} = require('../service/employee.js')
 const {async_handler} = require('../middleware/handler.js')
 
 const {authorize_roles,authenticate} = require('../middleware/auth.js')
@@ -9,7 +9,7 @@ router.get('/employee', authenticate,authorize_roles('Admin'), async_handler(asy
         return res.status(200).json({ employees });
 }))
 router.get('/employee/:id', authenticate,authorize_roles('Admin'), async_handler(async(req,res)=>{
-        const employee = await get_employees_by_id();
+        const employee = await get_employee_by_id();
         if(employee.length===0){
             return  res.status(301).json({err: 'no employee found'})
         }
