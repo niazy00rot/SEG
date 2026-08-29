@@ -24,14 +24,14 @@ router.get('/employee/:id', authenticate,authorize_roles('Admin'), async_handler
 }))
 
 router.post('/employee', authenticate, authorize_roles("Admin"), async_handler(async(req,res)=>{
-    const {name,email,password,phone} = req.body
+    const {name, email, password, phone} = req.body
     const results = await add_employee(name,email,password,phone)
     if (results.err){
         console.error('Error occurred while adding employee:', results.err)
         res.status(500).json({error: 'Error occurred while adding employee'})
     }
     else{
-        res.status(201).json({message: 'adding employee successfully'})
+        res.status(201).json({message: 'Employee added successfully'})
     }
 }))
 
@@ -56,7 +56,7 @@ router.put('/employee/:id', authenticate, authorize_roles("Admin"), async_handle
         res.status(500).json({error: 'Error occurred while updating employee'})
     }
     else{
-        res.status(201).json({message: 'updating employee successfully'})
+        res.status(201).json({message: 'Employee updated successfully'})
     }
 }))
 

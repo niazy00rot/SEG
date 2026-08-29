@@ -58,22 +58,21 @@ async function is_employee(userId){
 async function add_employee(name, email, password, phone){
     const client = await pool.connect()
     try{
-        const role_result = await client.query(`SELECT id FROM roles WHERE name = 'Employee'`)
-        if (role_result.rows.length === 0){
-            return {err: 'Employee role not found'}
+        const email_check = await client.query('SELECT * FROM users WHERE email = $1', [email])
+        if(email_check.rows.length > 0){
+            return {err: 'Email already exists'}
         }
+        const role_result = await client.query(`SELECT id FROM roles WHERE name = 'Employee'`)
         const role_id = role_result.rows[0].id
         const hashedPassword = await bcrypt.hash(password, 10)
-        const result = await client.query(`
-            INSERT INTO users (name, email, phone, password, role_id) VALUES ($1, $2, $3, $4, $5) returning id`, [name, email, phone, hashedPassword, role_id])
-        if (result.rows.length === 0){
-            return {err: 'Failed to add employee'}
-        }
-        return result.rows[0].id
+        await client.query(`
+            INSERT INTO users (name, email, password, phone, role_id)
+            VALUES ($1, $2, $3, $4, $5)`, [name, email, hashedPassword, phone, role_id])
+        return {success: 'Employee added successfully', email: email}
     }
     catch(err){
         console.error('Error adding employee:', err)
-        return {err: 'Error adding employee', code: err.code}
+        return {err: 'Error adding employee'}
     }
     finally{
         client.release()
@@ -83,21 +82,11 @@ async function add_employee(name, email, password, phone){
 async function update_employee(employee_id, name, email, password, phone){
     const client = await pool.connect()
     try{
-        let query = `UPDATE users SET name = $1, email = $2, phone = $3`
-        let params = [name, email, phone]
-        
-        if(password && password.trim() !== ''){
-            const hashedPassword = await bcrypt.hash(password, 10)
-            query += `, password = $4`
-            params.push(hashedPassword)
-            params.push(employee_id)
-            query += ` WHERE id = $${params.length}`
-        } else {
-            params.push(employee_id)
-            query += ` WHERE id = $${params.length}`
-        }
-        
-        await client.query(query, params)
+        const hashedPassword = await bcrypt.hash(password, 10)
+        await client.query(`
+            UPDATE users
+            SET name = $1, email = $2, password = $3, phone = $4
+            WHERE id = $5`, [name, email, hashedPassword, phone, employee_id])
         return {success: 'Employee updated successfully', id: employee_id}
     }
     catch(err){
