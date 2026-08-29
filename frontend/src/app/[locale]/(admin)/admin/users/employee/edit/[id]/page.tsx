@@ -8,6 +8,7 @@ type Employee = {
   name: string;
   email: string;
   phone: string;
+  password: string;
 };
 
 export default function EditEmployeePage() {
@@ -131,6 +132,21 @@ export default function EditEmployeePage() {
                 setEmployee({
                   ...employee,
                   phone: e.target.value,
+                })
+              }
+            />
+          </div>
+
+          <div>
+            <label htmlFor="phone">Password</label>
+
+            <input
+              id="phone"
+              type="text"
+              onChange={(e) =>
+                setEmployee({
+                  ...employee,
+                  password: e.target.value,
                 })
               }
             />
