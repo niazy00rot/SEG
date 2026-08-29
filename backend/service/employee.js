@@ -20,7 +20,23 @@ async function get_employees(){
         client.release()
     }
 }
-
+ async function get_employee_by_id(id) {
+    const client = await pool.connect()
+    try{
+        const res = await client.query(`
+            SELECT users.id, users.name, users.email, users.phone FROM roles
+            JOIN users on users.role_id = roles.id
+            WHERE users.id = $1`,[id])
+        return res.rows
+    }
+    catch(err){
+        console.error(err)
+        return{error:'internal server error'}
+    }
+    finally{
+        client.release()
+    }
+ }
 async function is_employee(userId){
     const client = await pool.connect()
     try{
@@ -83,5 +99,5 @@ module.exports={
     is_employee,
     add_employee,
     delete_employee,
-    get_employees
+    get_employees,get_employee_by_id
 }
