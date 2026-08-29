@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {add_employee,delete_employee,get_employees, get_employee_by_id} = require('../service/employee.js')
+const {add_employee,delete_employee,get_employees, get_employee_by_id,update_employee} = require('../service/employee.js')
 const {async_handler} = require('../middleware/handler.js')
 
 const {authorize_roles,authenticate} = require('../middleware/auth.js')
@@ -23,14 +23,11 @@ router.get('/employee/:id', authenticate,authorize_roles('Admin'), async_handler
 }))
 
 router.post('/employee', authenticate, authorize_roles("Admin"), async_handler(async(req,res)=>{
-    const {name, email, password, phone} = req.body
+    const {name,email,password,phone} = req.body
     const results = await add_employee(name,email,password,phone)
     if (results.err){
         console.error('Error occurred while adding employee:', results.err)
-        if(results.code === '23505'){
-            return res.status(409).json({error: 'Email already exists'})
-        }
-        return res.status(500).json({error: results.err})
+        res.status(500).json({error: 'Error occurred while adding employee'})
     }
     else{
         res.status(201).json({message: 'adding employee successfully'})
@@ -46,6 +43,19 @@ router.delete('/employee/:id', authenticate, authorize_roles("Admin"), async_han
         }
     else{
         res.status(201).json({message: 'deleting employee successfully'})
+    }
+}))
+
+router.put('/employee/:id', authenticate, authorize_roles("Admin"), async_handler(async(req,res)=>{
+    const {id} = req.params
+    const {name, email, password, phone} = req.body
+    const results = await update_employee(id,name,email,password,phone)
+    if (results.err){
+        console.error('Error occurred while updating employee:', results.err)
+        res.status(500).json({error: 'Error occurred while updating employee'})
+    }
+    else{
+        res.status(201).json({message: 'updating employee successfully'})
     }
 }))
 

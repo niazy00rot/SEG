@@ -80,6 +80,23 @@ async function add_employee(name, email, password, phone){
     }
 }
 
+async function update_employee(employee_id, name, email, password, phone){
+    const client = await pool.connect()
+    try{
+        const hashedPassword = await bcrypt.hash(password, 10)
+        await client.query(`
+            UPDATE users SET name = $1, email = $2, phone = $3, password = $4 WHERE id = $5`, [name, email, phone, hashedPassword, employee_id])
+        return {success: 'Employee updated successfully', id: employee_id}
+    }
+    catch(err){
+        console.error('Error updating employee:', err)
+        return {err: 'Error updating employee'}
+    }
+    finally{
+        client.release()
+    }
+}
+
 async function delete_employee(employee_id){
     const client = await pool.connect()
     try{
@@ -99,5 +116,7 @@ module.exports={
     is_employee,
     add_employee,
     delete_employee,
-    get_employees,get_employee_by_id
+    update_employee,
+    get_employees,
+    get_employee_by_id
 }
