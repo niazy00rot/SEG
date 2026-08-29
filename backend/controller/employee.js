@@ -27,6 +27,9 @@ router.post('/employee', authenticate, authorize_roles("Admin"), async_handler(a
     const results = await add_employee(name,email,password,phone)
     if (results.err){
         console.error('Error occurred while adding employee:', results.err)
+        if(results.code === '23505'){
+            return res.status(409).json({error: 'Email already exists'})
+        }
         return res.status(500).json({error: results.err})
     }
     else{

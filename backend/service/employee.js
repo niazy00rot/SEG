@@ -73,7 +73,7 @@ async function add_employee(name, email, password, phone){
     }
     catch(err){
         console.error('Error adding employee:', err)
-        return {err: 'Error adding employee'}
+        return {err: 'Error adding employee', code: err.code}
     }
     finally{
         client.release()
