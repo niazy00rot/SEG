@@ -1,7 +1,8 @@
 
-function error_handler(err,req,res,next){
+function error_handler(err, req, res, next) {
     console.error(err)
-    return res.status(500).json({error: "Internal server error"});
+    const statusCode = err.statusCode || 500
+    return res.status(statusCode).json({error: err.message || "Internal server error"})
 }
 
 function async_handler(fn){

@@ -1,4 +1,4 @@
-const router = require('express').Router
+const router = require('express').Router()
 
 const {get_vehicles,add_vehicles,delete_vehicles} =require('../service/vehicles.js')
 
@@ -39,4 +39,4 @@ router.delete('/vehicle', authenticate,authorize_roles(['admin']),async_handler(
     return res.status(200).json({message: 'Vehicle deleted successfully'})
 }))
 
-module.exports = {router}
+module.exports = router
