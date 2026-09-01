@@ -48,11 +48,10 @@ async function update_product(pro_id, user_id, data){
 }
 
 async function delete_product(pro_id,user_id){
-    const product_exist = await is_product(pro_id)
-    if(!product_exist){
+    const result = await delete_product_db(pro_id, user_id)
+    if (!result) {
         throw new AppError("Product not found", 404)
     }
-    const result = await delete_product_db(pro_id, user_id)
     return result
 }
 

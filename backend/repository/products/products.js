@@ -3,7 +3,7 @@ const {pool} = require('../../database/db.js')
 async function is_sku(sku) {
     const client = await pool.connect()
     try{
-        const res = await client.query('SELECT id FROM products WHERE sku = $1',[sku])
+        const res = await client.query('SELECT id FROM products WHERE sku = $1 AND deleted_at IS NULL',[sku])
         return res.rows.length > 0
     }
     catch(err){
@@ -18,7 +18,7 @@ async function is_sku(sku) {
 async function is_product(id){
     const client = await pool.connect()
     try{
-        const res = await client.query('SELECT id FROM products WHERE id = $1',[id])
+        const res = await client.query('SELECT id FROM products WHERE id = $1 AND deleted_at IS NULL',[id])
         return res.rows.length > 0
     }
     catch(err){
@@ -72,7 +72,7 @@ async function update_product_db(pro_id,user_id,category_id,product_type_id,name
 async function is_sku_taken(sku, product_id) {
     const client = await pool.connect()
     try{
-        const res = await client.query('SELECT id FROM products WHERE sku = $1 AND id != $2',[sku, product_id])
+        const res = await client.query('SELECT id FROM products WHERE sku = $1 AND id != $2 AND deleted_at IS NULL',[sku, product_id])
         return res.rows.length > 0
     }
     catch(err){
