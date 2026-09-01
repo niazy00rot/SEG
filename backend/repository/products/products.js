@@ -84,10 +84,30 @@ async function is_sku_taken(sku, product_id) {
     }
 }
 
+async function delete_product_db(pro_id, user_id) {
+    const client = await pool.connect()
+    try {
+        const res = await client.query(
+            `UPDATE products
+             SET deleted_at = CURRENT_TIMESTAMP,
+                 updated_by = $1,
+                 updated_at = CURRENT_TIMESTAMP
+             WHERE id = $2
+             AND deleted_at IS NULL
+             RETURNING *`,
+            [user_id, pro_id]
+        )
+        return res.rows[0]
+    } finally {
+        client.release()
+    }
+}
+
 module.exports = {
     is_sku,
     is_product,
     create_product_db,
     update_product_db,
-    is_sku_taken
+    is_sku_taken,
+    delete_product_db
 }

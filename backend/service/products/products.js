@@ -1,7 +1,7 @@
 const { AppError } = require('../../middleware/handler.js')
 const {is_category}= require('./categories.js')
 const {is_product_type}= require('./product_types.js')
-const {is_sku, is_product, create_product_db, update_product_db, is_sku_taken} = require('../../repository/products/products.js')
+const {is_sku, is_product, create_product_db, update_product_db, is_sku_taken,delete_product_db} = require('../../repository/products/products.js')
 
 
 async function create_product(category_id,product_type_id,user_id,name,description,sku,price,quantity){
@@ -45,6 +45,15 @@ async function update_product(pro_id, user_id, data){
         }
     }   
     return await update_product_db(pro_id,user_id,category_id,product_type_id,name,description,sku,price,quantity)
+}
+
+async function delete_product(pro_id,user_id){
+    const product_exist = await is_product(pro_id)
+    if(!product_exist){
+        throw new AppError("Product not found", 404)
+    }
+    const result = await delete_product_db(pro_id, user_id)
+    return result
 }
 
 module.exports = {
