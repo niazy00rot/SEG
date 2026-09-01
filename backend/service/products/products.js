@@ -1,40 +1,10 @@
-const {pool} = require('../../database/db.js')
 const { AppError } = require('../../middleware/handler.js')
 const {is_category}= require('./categories.js')
 const {is_product_type}= require('./product_types.js')
+const {is_sku, is_product, create_product_db, update_product_db, is_sku_taken} = require('../../repository/products/products.js')
 
-async function is_sku(sku) {
-    const client = await pool.connect()
-    try{
-        const res = await client.query('SELECT id FROM products WHERE sku = $1',[sku])
-        return res.rows.length > 0
-    }
-    catch(err){
-        console.error('Error ckeck sku:', err)
-        throw err
-    }
-    finally{
-        client.release()
-    }
-}
-
- async function add_product(category_id, type_id, user_id, name, description, sku, price, quantity){
-    const client = await pool.connect()
-    try{
-        const res = await client.query('INSERT INTO products (category_id, product_type_id, created_by, name, description, sku, price, quantity) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',[category_id, type_id, user_id, name, description, sku, price, quantity])
-        return res.rows[0]
-    }
-    catch(err){
-        console.error('Error add product:', err)
-        throw err
-    }
-    finally{
-        client.release()
-    }
-}
 
 async function create_product(category_id,product_type_id,user_id,name,description,sku,price,quantity){
-
     const check_category = await is_category(category_id)
     if (!check_category) {
         throw new AppError("category not exist", 404)
@@ -47,12 +17,37 @@ async function create_product(category_id,product_type_id,user_id,name,descripti
     if (check_sku) {
         throw new AppError("sku already exist", 409)
     }
-    return await add_product(category_id,product_type_id,user_id,name,description,sku,price,quantity
+    return await create_product_db(category_id,product_type_id,user_id,name,description,sku,price,quantity
     )
 }
 
+async function update_product(pro_id, user_id, data){
+    const {category_id,product_type_id,name,description,sku,price,quantity} = data
+    if (!(await is_product(pro_id))) {
+        throw new AppError("product not exist", 404)
+    }
+    if (category_id !== undefined) {
+        const check_category = await is_category(category_id)
+        if (!check_category) {
+            throw new AppError("category not exist", 404)
+        }
+    }
+    if (product_type_id !== undefined) {
+        const check_product_type = await is_product_type(product_type_id)
+        if (!check_product_type) {
+            throw new AppError("product_type not exist", 404)
+        }
+    }
+    if (sku !== undefined) {
+        const check_sku = await is_sku_taken(sku, pro_id)
+        if (check_sku) {
+            throw new AppError("sku already exist", 409)
+        }
+    }   
+    return await update_product_db(pro_id,user_id,category_id,product_type_id,name,description,sku,price,quantity)
+}
+
 module.exports = {
-    add_product,
-    is_sku,
-    create_product
+    create_product,
+    update_product
 }

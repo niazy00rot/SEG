@@ -39,13 +39,13 @@ async function add_vehicles(brand_id, model_id, year){
 
 }
 
-async function delete_vehicles(brand_id, model_id, year){
+async function delete_vehicles(id){
     const client = await pool.connect()
     try{
         const res = await client.query(`
             DELETE FROM vehicles 
-            WHERE brand_id = $1 AND model_id = $2 AND year = $3 
-            RETURNING *`,[brand_id,model_id,year])
+            WHERE id= $1 
+            RETURNING *`,[id])
         if(res.rows.length > 0){
             return res.rows[0]
         }
