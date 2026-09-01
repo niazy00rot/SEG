@@ -4,7 +4,7 @@ const {async_handler} = require('../../middleware/handler.js')
 const {authorize_roles,authenticate} = require('../../middleware/auth.js')
 const {validate} = require('../../middleware/validation/validate.js')
 const {create_product_sc,update_product_sc} = require('../../middleware/validation/product.js')
-const {create_product,update_product_sc} = require("../../service/products/products.js");
+const {create_product,update_product} = require("../../service/products/products.js")
 
 router.post('/products', 
     authenticate, 
