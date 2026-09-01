@@ -74,7 +74,49 @@
         "passwordPlaceholder": "Enter password"
       }
     }
+  },
+
+  "cars": {
+    "title": "Vehicles",
+    "description": "Manage your vehicles and their information.",
+    "vehicles": "Vehicles",
+    "loading": "Loading vehicles...",
+    "noVehicles": "No vehicles found.",
+    "addVehicle": "Add Vehicle",
+    "editVehicle": "Edit Vehicle",
+    "deleteVehicle": "Delete Vehicle",
+    "brand": "Brand",
+    "model": "Model",
+    "year": "Year",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+
+    "alerts": {
+      "addTitle": "Add Vehicle",
+      "addSuccessTitle": "Added!",
+      "addSuccessText": "Vehicle has been added successfully.",
+      "addErrorTitle": "Error!",
+      "addErrorText": "Failed to add vehicle.",
+
+      "editTitle": "Edit Vehicle",
+      "editSuccessTitle": "Updated!",
+      "editSuccessText": "Vehicle has been updated successfully.",
+      "editErrorTitle": "Error!",
+      "editErrorText": "Failed to update vehicle.",
+
+      "deleteTitle": "Delete Vehicle?",
+      "deleteText": "You won't be able to revert this!",
+      "deleteConfirm": "Yes, delete it!",
+      "cancel": "Cancel",
+      "deletingTitle": "Deleting...",
+      "deletingText": "Please wait",
+      "deleteSuccessTitle": "Deleted!",
+      "deleteSuccessText": "Vehicle has been deleted successfully.",
+      "deleteErrorTitle": "Error!",
+      "deleteErrorText": "Failed to delete vehicle.",
+
+      "validation": "Please fill in all fields."
+    }
   }
-
-
 }

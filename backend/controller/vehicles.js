@@ -27,7 +27,7 @@ router.get('/vehicle', async_handler(async(req,res)=>{
     return res.status(200).json({vehicles: result})
 }))
 
-router.delete('/vehicle:id', authenticate,authorize_roles(['admin']),async_handler(async(req,res)=>{
+router.delete('/vehicle/:id', authenticate,authorize_roles(['admin']),async_handler(async(req,res)=>{
     const result = await delete_vehicles(brand_id,model_id,year)
     if(result.err){
         return res.status(400).json({message: result.err})
