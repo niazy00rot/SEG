@@ -87,7 +87,10 @@ export default function CarsPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to delete vehicle");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.message || errorData.error || "Failed to delete vehicle",
+        );
       }
 
       setCars((prevCars) =>
@@ -106,7 +109,10 @@ export default function CarsPage() {
 
       await Swal.fire({
         title: t("alerts.deleteErrorTitle"),
-        text: t("alerts.deleteErrorText"),
+        text:
+          error instanceof Error
+            ? error.message
+            : t("alerts.deleteErrorText"),
         icon: "error",
         confirmButtonText: "OK",
         theme: resolvedTheme as SweetAlertTheme,
