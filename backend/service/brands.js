@@ -151,8 +151,7 @@ async function delete_model(id){
         return result.rows[0];
     })
 }
-
-
+    
 
 module.exports = {
     add_brand,
@@ -161,8 +160,8 @@ module.exports = {
     update_brand,
     delete_brand,
     add_model,
-    get_models_by_brand,
     update_model,
-    delete_model
+    delete_model,
+    get_models_by_brand
 }       
 

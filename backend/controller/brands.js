@@ -77,4 +77,14 @@ router.delete('/brands/:brand_id/models/:model_id', authenticate, authorize_role
     }
     return res.status(200).json({message: 'Model deleted successfully'})
 }))
+
+router.get('/brands/:id/models', async_handler(async(req, res)=>{
+    const {id} = req.params
+    const models = await get_models_by_brand(id)
+    if (!models || models.length === 0) {
+        return res.status(404).json({message: 'No models found for this brand'});
+    }
+    return res.status(200).json(models);
+}));
+
 module.exports = router
