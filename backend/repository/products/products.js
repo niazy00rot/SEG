@@ -103,11 +103,37 @@ async function delete_product_db(pro_id, user_id) {
     }
 }
 
+async function get_product_by_id_db(pro_id){
+    const client = await pool.connect()
+    try{
+        const res =await client.query(`SELECT * FROM products 
+            WHERE id = $1 AND deleted_at IS NULL`,[pro_id])
+        return res.rows[0]
+    }
+    finally{
+        client.release()
+    }
+}
+
+async function get_products_db(){
+    const client = await pool.connect()
+    try{
+        const res =await client.query(`SELECT * FROM products 
+            WHERE  deleted_at IS NULL`)
+        return res.rows
+    }
+    finally{
+        client.release()
+    }
+}
+
 module.exports = {
     is_sku,
     is_product,
     create_product_db,
     update_product_db,
     is_sku_taken,
-    delete_product_db
+    delete_product_db,
+    get_product_by_id_db,
+    get_products_db
 }

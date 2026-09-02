@@ -1,7 +1,7 @@
 
-function validate(schema) {
+function validate(schema,src='body') {
     return (req, res, next) => {
-        const result = schema.safeParse(req.body)
+        const result = schema.safeParse(req[src])
 
         if (!result.success) {
             return res.status(400).json({
@@ -10,7 +10,7 @@ function validate(schema) {
             })
         }
 
-        req.body = result.data
+        req[src] = result.data
 
         next()
     }

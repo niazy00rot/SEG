@@ -4,7 +4,8 @@ const {async_handler} = require('../../middleware/handler.js')
 const {authorize_roles,authenticate} = require('../../middleware/auth.js')
 const {validate} = require('../../middleware/validation/validate.js')
 const {create_product_sc,update_product_sc} = require('../../middleware/validation/product.js')
-const {create_product,update_product} = require("../../service/products/products.js")
+const {create_product,update_product,delete_product, get_products,
+    get_product_by_id} = require("../../service/products/products.js")
 
 router.post('/products', 
     authenticate, 
@@ -27,6 +28,26 @@ router.patch('/products/:id',
         const user_id = req.user.id
         const result = await update_product(pro_id,user_id,req.body)
         return res.status(200).json({message: "Product updated successfully",product: result})
+}))
+
+router.delete('/products/:id', 
+    authenticate, 
+    authorize_roles("Admin"),
+    async_handler(async(req,res)=>{
+        const pro_id = req.params.id
+        const result = await delete_product(pro_id,req.user.id)
+        return res.status(200).json({message: "Product deleted successfully",product: result})
+}))
+
+router.get('/products/:id',async_handler(async(req,res)=>{
+    const pro_id = req.params.id
+    const result = await get_product_by_id(pro_id)
+    return res.status(200).json({message: "Product retrieved successfully",product: result})
+}))
+
+router.get('/products',async_handler(async(req,res)=>{
+    const result = await get_products()
+    return res.status(200).json({message: "Products retrieved successfully",product: result})
 }))
 
 module.exports=router
