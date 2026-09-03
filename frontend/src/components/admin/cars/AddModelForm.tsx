@@ -142,7 +142,7 @@ export default function AddModelForm() {
   };
 
   return (
-    <div className="addVehicleCard">
+    <div className="addCard">
       <div className="pageHeader">
         <h2>{t("title")}</h2>
         <p>{t("description")}</p>

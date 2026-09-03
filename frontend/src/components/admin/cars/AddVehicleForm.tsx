@@ -173,7 +173,7 @@ export default function AddVehicleForm() {
   };
 
   return (
-    <div className="addVehicleCard">
+    <div className="addCard">
       <div className="pageHeader">
         <h1>{t("addVehicle")}</h1>
 
