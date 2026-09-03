@@ -1,0 +1,178 @@
+// ==========================================
+// Seg Admin Dashboard - Add Cars Styling
+// ==========================================
+
+.addVehiclePage {
+  padding: 2rem 1.5rem;
+  min-height: calc(100vh - 80px);
+  background-color: var(--background);
+  color: var(--color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  // زر الرجوع
+  .backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: var(--p-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--main-color);
+    }
+  }
+
+  // شبكة النماذج لتنظيم الكاردات بجوار بعضها
+  .formsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+  }
+}
+
+// تصميم الكارد الموحد للنماذج
+.addVehicleCard {
+  background-color: var(--box-color);
+  border: 1px solid rgba(107, 109, 114, 0.15);
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+
+  .pageHeader {
+    margin-bottom: 1.5rem;
+
+    h1, h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color);
+      margin-bottom: 0.35rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: var(--p-color);
+    }
+  }
+
+  .loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--p-color);
+    font-size: 0.9rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    .formGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--color);
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 0.925rem;
+        border: 1px solid rgba(107, 109, 114, 0.25);
+        border-radius: 8px;
+        background-color: var(--background);
+        color: var(--color);
+        outline: none;
+        transition: all 0.2s ease;
+
+        &:focus {
+          border-color: var(--main-color);
+          box-shadow: 0 0 0 3px rgba(221, 32, 28, 0.15);
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        option {
+          background-color: var(--box-color);
+          color: var(--color);
+        }
+      }
+
+      select {
+        cursor: pointer;
+      }
+    }
+
+    .formActions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+
+      button {
+        flex: 1;
+      }
+    }
+
+    .submitButton {
+      width: 100%;
+      padding: 0.75rem 1.25rem;
+      background-color: var(--main-color);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.1s ease;
+
+      &:hover:not(:disabled) {
+        opacity: 0.9;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+
+    .cancelButton {
+      padding: 0.75rem 1.25rem;
+      background-color: transparent;
+      color: var(--p-color);
+      border: 1px solid rgba(107, 109, 114, 0.25);
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: var(--color);
+        color: var(--color);
+      }
+    }
+  }
+}

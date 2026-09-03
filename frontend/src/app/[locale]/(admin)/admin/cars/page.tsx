@@ -123,22 +123,20 @@ export default function CarsPage() {
   return (
     <section className="carsPage">
       <div className="container">
+
         <div className="header">
           <div className="title">
-            <h1>{t("title")}</h1>
-            <p>{t("description")}</p>
+            <h1>{t("header.title")}</h1>
+            <p>{t("header.description")}</p>
           </div>
 
           <div className="headerActions">
             <div className="count">
-              {numberOfCars} {t("vehicles")}
+              {numberOfCars} {t("header.vehicles")}
             </div>
 
-            <button
-              className="addVehicle"
-              onClick={handleAdd}
-            >
-              + {t("addVehicle")}
+            <button onClick={handleAdd}>
+              + {t("header.addVehicle")}
             </button>
           </div>
         </div>
@@ -166,7 +164,8 @@ export default function CarsPage() {
               <tbody>
                 {cars.map((car) => (
                   <tr key={car.id}>
-                    <td className="brand">
+
+                    <td>
                       {car.brand}
                     </td>
 

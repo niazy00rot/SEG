@@ -51,9 +51,9 @@ router.delete('/brands/:id', authenticate, authorize_roles("Admin","Employee") ,
 
 router.post('/brands/:id/models', authenticate, authorize_roles("Admin","Employee"), async_handler(async(req, res)=>{
     const {id} = req.params
-    const {name = req.body} = req.body
+    const {name } = req.body
     const model = await add_model(id, name)
-    if (model.length > 0){
+    if (model){
         return res.status(201).json(model)
     }
     return res.status(400).json({message: 'This model already exists for this brand'})

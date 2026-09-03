@@ -36,7 +36,8 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
-      className={`${cairo.variable}`}
+      className={cairo.variable}
+      suppressHydrationWarning
     >
       <body>
         <NextIntlClientProvider messages={messages}>

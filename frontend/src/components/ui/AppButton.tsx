@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "next-intl";
 import "./app.scss";
 
 export default function App() {
-  const isEnglish =
-    typeof window !== "undefined" &&
-    (window.location.pathname.includes("/en") ||
-      window.location.search.includes("lang=en"));
+  const locale = useLocale();
+  const isEnglish = locale === "en";
 
   const [showPopup, setShowPopup] = useState(true);
 
@@ -16,8 +15,10 @@ export default function App() {
       {showPopup && (
         <div className="mobile-app-popup">
           <div className="popup-content">
-
-            <button className="close-btn" onClick={() => setShowPopup(false)}>
+            <button
+              className="close-btn"
+              onClick={() => setShowPopup(false)}
+            >
               &times;
             </button>
 
@@ -27,10 +28,9 @@ export default function App() {
                 : "لتجربة أفضل، استخدم تطبيق الموبايل."}
             </p>
 
-            <a href="app/seg.apk" download>
+            <a href="/app/seg.apk" download>
               {isEnglish ? "Download App" : "تنزيل التطبيق"}
             </a>
-
           </div>
         </div>
       )}

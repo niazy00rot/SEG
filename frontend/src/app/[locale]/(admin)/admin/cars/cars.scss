@@ -2,11 +2,6 @@
   min-height: 100vh;
   padding: 40px 0;
 
-  .container {
-    width: min(1100px, 92%);
-    margin: auto;
-  }
-
   .header {
     display: flex;
     justify-content: space-between;
@@ -16,13 +11,8 @@
 
     .title {
       h1 {
-        margin: 0 0 8px;
+        margin: 0 0 5px;
         font-size: 32px;
-      }
-
-      p {
-        margin: 0;
-        color: var(--font-color);
       }
     }
 
@@ -30,30 +20,29 @@
       display: flex;
       align-items: center;
       gap: 15px;
-    }
 
-    .count {
-      padding: 10px 16px;
-      border-radius: 10px;
-      background: var(--box-color);
-      color: var(--font-color);
-      font-size: 14px;
-    }
+      .count {
+        padding: 10px 16px;
+        border-radius: 10px;
+        background: var(--box-color);
+        font-size: 14px;
+      }
 
-    .addVehicle {
-      border: none;
-      padding: 11px 18px;
-      border-radius: 10px;
-      background: var(--main-color);
-      color: white;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-
-      &:hover {
-        opacity: 0.9;
-        transform: translateY(-1px);
+      button {
+        border: none;
+        padding: 11px 18px;
+        border-radius: 10px;
+        background: var(--main-color);
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+  
+        &:hover {
+          opacity: 0.9;
+          transform: translateY(-1px);
+        }
       }
     }
   }
@@ -62,79 +51,100 @@
     overflow-x: auto;
     border-radius: 14px;
     background: var(--box-color);
-  }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-
-    th,
-    td {
-      padding: 18px 20px;
-      text-align: left;
-      border-bottom: 1px solid rgba(128, 128, 128, 0.15);
-    }
-
-    th {
-      font-size: 13px;
+    .loading,
+    .noVehicles {
+      padding: 60px 20px;
+      text-align: center;
       color: var(--font-color);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
-    td {
-      font-size: 15px;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    .brand {
-      font-weight: 600;
-    }
-
-    .actions {
-      display: flex;
-      gap: 8px;
-
-      button {
-        border: none;
-        padding: 8px 13px;
-        border-radius: 7px;
-        cursor: pointer;
-        font-size: 13px;
-        transition: 0.2s;
+    table {
+      width: 100%;
+      min-width: 700px;
+      background-color: var(--box-color);
+      border-radius: 10px;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+  
+      th,
+      td {
+        padding: 18px 20px;
+        text-align: start;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.15);
       }
 
-      .edit {
-        background: rgba(0, 119, 255, 0.1);
-        color: var(--main-color);
-
-        &:hover {
-          background: var(--main-color);
-          color: white;
+      thead {
+        background-color: rgba(255, 255, 255, 0.05);
+        th {
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
       }
 
-      .delete {
-        background: rgba(220, 53, 69, 0.1);
-        color: #dc3545;
+      tbody {
+        tr {
+          background-color: rgba(255, 255, 255, 0.015);
+          transition: background-color 0.2s ease, transform 0.2s ease;
 
-        &:hover {
-          background: #dc3545;
-          color: white;
+          &:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.03);
+          }
+
+          &:hover {
+            background-color: rgba(0, 119, 255, 0.08);
+          }
+          
+          td {
+            font-size: 15px;
+          }
+
+          &:last-child {
+            td {
+              border-bottom: none;
+            }
+          }
+        }
+
+        .actions {
+          display: flex;
+          gap: 8px;
+    
+          button {
+            border: none;
+            padding: 8px 13px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.2s;
+          }
+    
+          .edit {
+            background: rgba(0, 119, 255, 0.1);
+            color: var(--main-color);
+    
+            &:hover {
+              background: var(--main-color);
+              color: white;
+            }
+          }
+    
+          .delete {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+    
+            &:hover {
+              background: #dc3545;
+              color: white;
+            }
+          }
         }
       }
     }
   }
 
-  .loading,
-  .noVehicles {
-    padding: 60px 20px;
-    text-align: center;
-    color: var(--font-color);
-  }
 }
 
 @media (max-width: 700px) {
@@ -150,142 +160,6 @@
 
     table {
       min-width: 650px;
-    }
-  }
-}
-
-
-
-
-
-.addVehiclePage {
-  min-height: 100vh;
-  padding: 40px 0;
-
-  .container {
-    width: min(700px, 92%);
-    margin: auto;
-  }
-
-  .addVehicleCard {
-    padding: 30px;
-    border-radius: 16px;
-    background: var(--box-color);
-  }
-
-  .pageHeader {
-    margin-bottom: 30px;
-
-    .backButton {
-      border: none;
-      background: transparent;
-      color: var(--main-color);
-      cursor: pointer;
-      padding: 0;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-
-    h1 {
-      margin: 0 0 8px;
-      font-size: 30px;
-    }
-
-    p {
-      margin: 0;
-      color: var(--font-color);
-    }
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-  }
-
-  .formGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    label {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    input,
-    select {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 12px 14px;
-      border: 1px solid rgba(128, 128, 128, 0.25);
-      border-radius: 9px;
-      outline: none;
-      background: transparent;
-      color: inherit;
-      font-size: 14px;
-
-      &:focus {
-        border-color: var(--main-color);
-      }
-
-      &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-    }
-
-    option {
-      background: var(--box-color);
-      color: inherit;
-    }
-  }
-
-  .formActions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 10px;
-
-    button {
-      border: none;
-      padding: 11px 20px;
-      border-radius: 9px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .cancelButton {
-      background: transparent;
-      border: 1px solid rgba(128, 128, 128, 0.3);
-      color: inherit;
-    }
-
-    .submitButton {
-      background: var(--main-color);
-      color: white;
-
-      &:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .addVehiclePage {
-    .addVehicleCard {
-      padding: 22px;
-    }
-
-    .formActions {
-      flex-direction: column;
-
-      button {
-        width: 100%;
-      }
     }
   }
 }

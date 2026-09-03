@@ -1,5 +1,114 @@
 {
-  "home": {
-    "title": "Admin Dashboard"
+  "landing": {
+    "title": "لوحة تحكم المسؤول",
+    "description": "إدارة بيانات متجرك من مكان واحد.",
+    "users": {
+      "title": "إدارة المستخدمين",
+      "description": "إدارة المستخدمين ومعلومات حساباتهم."
+    },
+    "parts": {
+      "title": "إدارة قطع غيار السيارات",
+      "description": "إضافة وتعديل وحذف وإدارة قطع غيار السيارات."
+    },
+    "cars": {
+      "title": "إدارة السيارات",
+      "description": "إدارة السيارات، العلامات التجارية، الموديلات والمواصفات."
+    }
+  },
+  "user": {
+    "title": "إدارة المستخدمين",
+    "description": "إدارة المستخدمين ومعلومات حساباتهم.",
+    "admin": {
+      "title": "المستخدمون المسؤولون",
+      "description": "إدارة المستخدمين المسؤولين وصلاحياتهم."
+    },
+    "employee": {
+      "title": "المستخدمون الموظفون",
+      "description": "إدارة المستخدمين الموظفين وصلاحياتهم."
+    },
+    "customer": {
+      "title": "العملاء",
+      "description": "إدارة العملاء ومعلومات حساباتهم."
+    }
+  },
+
+  "users": {
+    "employee": {
+      "title": "الموظفون",
+      "description": "إدارة جميع الموظفين في مؤسستك.",
+      "employees": "الموظفون",
+  
+      "loading": "جاري تحميل الموظفين...",
+      "noEmployees": "لم يتم العثور على موظفين.",
+
+      "table": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
+        "actions": "الإجراءات",
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+  
+  
+      "deleteConfirm": "هل أنت متأكد أنك تريد حذف هذا الموظف؟",
+  
+      "addEmployee": "إضافة موظف",
+      "addEmployeeDescription": "إنشاء حساب موظف جديد.",
+  
+      "cancel": "إلغاء",
+      "createEmployee": "إنشاء الموظف",
+      "adding": "جاري الإنشاء...",
+  
+
+  
+      "form": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
+        "password": "كلمة المرور",
+  
+        "namePlaceholder": "أدخل اسم الموظف",
+        "emailPlaceholder": "أدخل البريد الإلكتروني للموظف",
+        "phonePlaceholder": "أدخل رقم الهاتف",
+        "passwordPlaceholder": "أدخل كلمة المرور"
+      }
+    }
+  },
+
+  "cars": {
+    "header": {
+      "title": "المركبات",
+      "description": "إدارة مركباتك ومعلوماتها.",
+      "vehicles": "المركبات",
+      "addVehicle": "إضافة مركبة"
+    },
+
+    "loading": "جاري تحميل المركبات...",
+    "noVehicles": "لم يتم العثور على مركبات.",
+
+    "brand": "العلامة التجارية",
+    "model": "الموديل",
+    "year": "السنة",
+    "actions": "الإجراءات",
+
+    "delete": "حذف",
+
+
+    "alerts": {
+      "deleteTitle": "حذف المركبة؟",
+      "deleteText": "لن تتمكن من التراجع عن هذا!",
+      "deleteConfirm": "نعم، قم بالحذف!",
+      "cancel": "إلغاء",
+
+      "deletingTitle": "جاري الحذف...",
+      "deletingText": "يرجى الانتظار",
+
+      "deleteSuccessTitle": "تم الحذف!",
+      "deleteSuccessText": "تم حذف المركبة بنجاح.",
+
+      "deleteErrorTitle": "خطأ!",
+      "deleteErrorText": "فشل حذف المركبة."
+    }
   }
 }
