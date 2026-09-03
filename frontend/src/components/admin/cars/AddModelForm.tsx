@@ -1,6 +1,5 @@
 "use client";
 
-// import "./AddModelForm.scss"
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Swal, { type SweetAlertTheme } from "sweetalert2";

@@ -1,6 +1,5 @@
 "use client";
 
-// import "./AddVehicleForm.scss";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";

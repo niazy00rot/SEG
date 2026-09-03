@@ -1,7 +1,3 @@
-// ==========================================
-// Seg Admin Dashboard - Add Cars Styling
-// ==========================================
-
 .addVehiclePage {
   padding: 2rem 1.5rem;
   min-height: calc(100vh - 80px);
@@ -17,7 +13,6 @@
     gap: 1.5rem;
   }
 
-  // زر الرجوع
   .backButton {
     display: inline-flex;
     align-items: center;
@@ -36,7 +31,6 @@
     }
   }
 
-  // شبكة النماذج لتنظيم الكاردات بجوار بعضها
   .formsGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -45,7 +39,6 @@
   }
 }
 
-// تصميم الكارد الموحد للنماذج
 .addVehicleCard {
   background-color: var(--box-color);
   border: 1px solid rgba(107, 109, 114, 0.15);

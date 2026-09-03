@@ -1,6 +1,5 @@
 "use client";
 
-// import "./AddBrandForm.scss";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Swal, { type SweetAlertTheme } from "sweetalert2";
