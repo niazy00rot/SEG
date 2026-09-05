@@ -9,6 +9,9 @@ import Link from "next/link";
 import "../auth.scss";
 import "./login.scss";
 
+import { FaEye, FaEyeSlash  } from "react-icons/fa";
+
+
 export default function LoginPage() {
 
   useEffect(() => {
@@ -27,7 +30,10 @@ export default function LoginPage() {
   const [errors, setErrors] = useState({
     email: "",
     password: "",
+    login: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -40,6 +46,7 @@ export default function LoginPage() {
     setErrors((prev) => ({
       ...prev,
       [name]: "",
+      login: "",
     }));
   };
 
@@ -49,6 +56,7 @@ export default function LoginPage() {
     const newErrors = {
       email: "",
       password: "",
+      login: "",
     };
 
     let isValid = true;
@@ -93,7 +101,11 @@ export default function LoginPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        console.error(result.error);
+        setErrors((prev) => ({
+          ...prev,
+          login: result.error || t("invalidCredentials"),
+        }));
+
         return;
       }
       
@@ -104,6 +116,11 @@ export default function LoginPage() {
       }
     } catch (error) {
       console.error("Login error:", error);
+
+      setErrors((prev) => ({
+        ...prev,
+        login: t("serverError"),
+      }));
     }
   }
 
@@ -170,18 +187,38 @@ export default function LoginPage() {
                 {t("password.label")}
               </label>
 
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder={t("password.placeholder")}
-                value={formData.password}
-                onChange={handleChange}
-              />
+
+              <div className="password-input">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  placeholder={t("password.placeholder")}
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+
 
               {errors.password && (
                 <span className="error-msg">
                   {errors.password}
+                </span>
+              )}
+
+
+              {errors.login && (
+                <span className="error-msg login-error">
+                  {errors.login}
                 </span>
               )}
             </div>
