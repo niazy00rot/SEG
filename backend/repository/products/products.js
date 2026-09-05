@@ -30,7 +30,7 @@ async function is_product(id){
     }
 }
 
- async function create_product_db(category_id, type_id, user_id, name, description, sku, price, quantity){
+async function create_product_db(category_id, type_id, user_id, name, description, sku, price, quantity){
     const client = await pool.connect()
     try{
         const res = await client.query('INSERT INTO products (category_id, product_type_id, created_by, name, description, sku, price, quantity) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',[category_id, type_id, user_id, name, description, sku, price, quantity])
@@ -90,8 +90,8 @@ async function delete_product_db(pro_id, user_id) {
         const res = await client.query(
             `UPDATE products
              SET deleted_at = CURRENT_TIMESTAMP,
-                 updated_by = $1,
-                 updated_at = CURRENT_TIMESTAMP
+             updated_by = $1,
+             updated_at = CURRENT_TIMESTAMP
              WHERE id = $2
              AND deleted_at IS NULL
              RETURNING *`,
@@ -115,11 +115,11 @@ async function get_product_by_id_db(pro_id){
     }
 }
 
-async function get_products_db(){
+async function get_products_db(offset = 0){
     const client = await pool.connect()
     try{
-        const res =await client.query(`SELECT * FROM products 
-            WHERE  deleted_at IS NULL`)
+        const res =await client.query(`SELECT * FROM products WHERE deleted_at IS NULL 
+            ORDER BY created_at DESC LIMIT 20 OFFSET $1;`, [offset])
         return res.rows
     }
     finally{
