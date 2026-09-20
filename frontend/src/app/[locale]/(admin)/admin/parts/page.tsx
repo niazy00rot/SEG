@@ -152,7 +152,7 @@ export default function ProductsManagementPage() {
       });
     }
 
-    if (type === "product") {
+    if (type === "product" && "sku" in item) {
       setEditingData({
         name: item.name,
         sku: item.sku,
