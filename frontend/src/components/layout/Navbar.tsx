@@ -9,10 +9,14 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
+import LogoutButton from "../ui/Logout";
+import { CgProfile } from "react-icons/cg";
 
 
 export default function Navbar(): ReactElement {
   const t = useTranslations("navbar");
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navRef = useRef<HTMLElement | null>(null);
   const previonsScrollY = useRef(0);
@@ -106,6 +110,31 @@ export default function Navbar(): ReactElement {
     };
   }, []);
 
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/me`,
+          {
+            credentials: "include",
+          },
+        );
+
+        if (response.ok) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error("Error checking authentication:", error);
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
   return (
     <>
       <div className="scroll" style={{ width: `${progress}%` }} />
@@ -157,10 +186,17 @@ export default function Navbar(): ReactElement {
             </div>
           </div>
 
-          <div className="accounts">
-            <Link href="/login">{t("accounts.login")}</Link>
-            <Link href="/signup">{t("accounts.signup")}</Link>
-          </div>
+          {isLoggedIn ? (
+            <div className="accounts">
+              <Link href="/profile"><CgProfile /></Link>
+              <LogoutButton />
+            </div>
+          ) : (
+            <div className="accounts">
+              <Link href="/login">{t("accounts.login")}</Link>
+              <Link href="/signup">{t("accounts.signup")}</Link>
+            </div>
+          )}
         </div>
       </nav>
     </>

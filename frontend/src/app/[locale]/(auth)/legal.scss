@@ -1,0 +1,54 @@
+.legal-page {
+  min-height: 100vh;
+  padding: 70px 0;
+  background-color: var(--background);
+  color: var(--color);
+
+  .container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    margin-bottom: 10px;
+    font-size: 42px;
+    font-weight: 700;
+  }
+
+
+  section {
+    margin-bottom: 35px;
+
+    h2 {
+      margin-bottom: 12px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      color: var(--p-color);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 70px 20px;
+
+    h1 {
+      font-size: 32px;
+    }
+
+    section {
+      h2 {
+        font-size: 19px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+}

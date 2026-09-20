@@ -261,6 +261,14 @@ nav {
       align-items: center;
       gap: 10px;
 
+      svg {
+        font-size: 18px;
+        transition: color 0.2s ease;
+        &:hover {
+          color: var(--main-color);
+        }
+      }
+
       a {
         font-size: 18px;
         font-weight: 500;

@@ -2,26 +2,27 @@
 
 import "../auth.scss";
 import "./signup.scss";
+
 import { FormEvent, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import GoogleAuth from "@/components/auth/GoogleButton";
-
 import Link from "next/link";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Signup() {
-
-    useEffect(() => {
-      document.title = "Signup | SEG";
-    }, []);
+  useEffect(() => {
+    document.title = "Signup | SEG";
+  }, []);
 
   const t = useTranslations("auth");
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [formDataState, setFormDataState] = useState({
     name: "",
     email: "",
     phone: "",
     password: "",
-    confirmPassword: "",
     terms: false,
   });
 
@@ -30,7 +31,6 @@ export default function Signup() {
     email: "",
     phone: "",
     password: "",
-    confirmPassword: "",
     terms: "",
   });
 
@@ -56,7 +56,6 @@ export default function Signup() {
       email: "",
       phone: "",
       password: "",
-      confirmPassword: "",
       terms: "",
     };
 
@@ -92,20 +91,6 @@ export default function Signup() {
       isValid = false;
     } else if (formDataState.password.length < 8) {
       newErrors.password = t("signup.password.errorMinLength");
-      isValid = false;
-    }
-
-    if (!formDataState.confirmPassword) {
-      newErrors.confirmPassword = t(
-        "signup.confirmPassword.errorRequired"
-      );
-      isValid = false;
-    } else if (
-      formDataState.password !== formDataState.confirmPassword
-    ) {
-      newErrors.confirmPassword = t(
-        "signup.confirmPassword.errorMismatch"
-      );
       isValid = false;
     }
 
@@ -149,11 +134,14 @@ export default function Signup() {
     <section className="auth signup">
       <div className="left">
         <div className="container">
-
           <h1>{t("signup.title.one")}</h1>
-          <h1><span>{t("signup.title.span")}</span> {t("signup.title.two")}</h1>
-          <h1>{t("signup.title.three")}</h1>
 
+          <h1>
+            <span>{t("signup.title.span")}</span>{" "}
+            {t("signup.title.two")}
+          </h1>
+
+          <h1>{t("signup.title.three")}</h1>
 
           <p>{t("signup.paragraph")}</p>
 
@@ -168,8 +156,8 @@ export default function Signup() {
 
       <div className="right">
         <div className="container">
-
           <h1>{t("signup.heading")}</h1>
+
           <p>{t("signup.description")}</p>
 
           <GoogleAuth />
@@ -179,9 +167,11 @@ export default function Signup() {
           </div>
 
           <form onSubmit={handleSubmit} noValidate>
-
+            {/* Name */}
             <div className="input-group">
-              <label htmlFor="name">{t("signup.name.label")}</label>
+              <label htmlFor="name">
+                {t("signup.name.label")}
+              </label>
 
               <input
                 type="text"
@@ -199,6 +189,7 @@ export default function Signup() {
               )}
             </div>
 
+            {/* Email */}
             <div className="input-group">
               <label htmlFor="email">
                 {t("signup.email.label")}
@@ -220,6 +211,7 @@ export default function Signup() {
               )}
             </div>
 
+            {/* Phone */}
             <div className="input-group">
               <label htmlFor="phone">
                 {t("signup.phone.label")}
@@ -241,19 +233,37 @@ export default function Signup() {
               )}
             </div>
 
+            {/* Password */}
             <div className="input-group">
               <label htmlFor="password">
                 {t("signup.password.label")}
               </label>
 
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder={t("signup.password.placeholder")}
-                value={formDataState.password}
-                onChange={handleChange}
-              />
+              <div className="password-input">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  placeholder={t("signup.password.placeholder")}
+                  value={formDataState.password}
+                  onChange={handleChange}
+                />
+
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() =>
+                    setShowPassword((prev) => !prev)
+                  }
+                  aria-label={
+                    showPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
 
               {errors.password && (
                 <span className="error-msg">
@@ -262,29 +272,7 @@ export default function Signup() {
               )}
             </div>
 
-            <div className="input-group">
-              <label htmlFor="confirmPassword">
-                {t("signup.confirmPassword.label")}
-              </label>
-
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder={t(
-                  "signup.confirmPassword.placeholder"
-                )}
-                value={formDataState.confirmPassword}
-                onChange={handleChange}
-              />
-
-              {errors.confirmPassword && (
-                <span className="error-msg">
-                  {errors.confirmPassword}
-                </span>
-              )}
-            </div>
-
+            {/* Terms */}
             <div className="terms-container">
               <div className="terms-group">
                 <input

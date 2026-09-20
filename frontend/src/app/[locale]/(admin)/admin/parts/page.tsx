@@ -13,34 +13,9 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <section className="admin" id="admin">
+    <section className="partsPage" id="partsPage">
       <div className="container">
-
-        <div className="admin-header">
-          <h1>{t("landing.title")}</h1>
-          <p>{t("landing.description")}</p>
-        </div>
-
-        <div className="admin-grid">
-
-          <Link href="/admin/users" className="admin-card">
-            <div className="admin-card-icon"><FaUsers /></div>
-            <h2>{t("landing.title")}</h2>
-            <p>{t("landing.description")}</p>
-          </Link>
-
-          <Link href="/admin/parts" className="admin-card">
-            <div className="admin-card-icon"><HiWrenchScrewdriver /></div>
-            <h2>{t("landing.title")}</h2>
-            <p>{t("landing.description")}</p>
-          </Link>
-
-          <Link href="/admin/cars" className="admin-card">
-            <div className="admin-card-icon"><IoCarSport /></div>
-            <h2>{t("landing.title")}</h2>
-            <p>{t("landing.description")}</p>
-          </Link>
-        </div>
+      
       </div>
     </section>
   );
