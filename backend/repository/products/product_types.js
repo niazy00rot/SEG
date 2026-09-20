@@ -4,7 +4,7 @@ async function get_type_by_category(category_id) {
     const client = await pool.connect()
     try {
         const res = await client.query('SELECT * FROM product_types WHERE category_id = $1',[category_id])
-        return res.rows
+        return res.rows 
     }
     catch (err) {
         console.error('Error repo get product types by category:',err)
