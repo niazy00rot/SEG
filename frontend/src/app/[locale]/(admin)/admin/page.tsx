@@ -4,48 +4,11 @@ import { useTranslations } from "next-intl";
 import { FaUsers } from "react-icons/fa";
 import { HiWrenchScrewdriver } from "react-icons/hi2";
 import { IoCarSport } from "react-icons/io5";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import "./admin.scss";
 import Link from "next/link";
 
 export default function Admin() {
   const t = useTranslations("admin");
-
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   async function checkAdmin() {
-  //     try {
-  //       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
-  //         credentials: "include",
-  //       });
-
-  //       if (response.status === 401) {
-  //         router.replace("/login");
-  //         return;
-  //       }
-
-  //       if (!response.ok) {
-  //         router.replace("/");
-  //         return;
-  //       }
-
-  //       const data = await response.json();
-
-  //       if (data.role !== "Admin") {
-  //         router.replace("/");
-  //         return;
-  //       }
-
-  //     } catch (error) {
-  //       console.error("Authentication error:", error);
-  //       router.replace("/login");
-  //     }
-  //   }
-
-  //   checkAdmin();
-  // }, [router]);
 
   return (
     <section className="admin" id="admin">
