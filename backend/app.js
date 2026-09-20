@@ -36,7 +36,7 @@ const employees_router = require('./controller/employee.js')
 const brands_router = require('./controller/brands.js')
 const categories_router = require('./route/products/categories')
 const product_types_router = require('./route/products/product_types.js')
-const products_router = require('./controller/products/products.js')
+const products_router = require('./route/products/product.js')
 
 app.use('/',root_router)
 app.use('/',users_router)

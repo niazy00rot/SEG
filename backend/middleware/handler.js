@@ -1,4 +1,12 @@
 
+class AppError extends Error {
+    constructor(message, statusCode = 500) {
+        super(message)
+        this.statusCode = statusCode
+        this.name = 'AppError'
+    }
+}
+
 function error_handler(err, req, res, next) {
     console.error(err)
     const statusCode = err.statusCode || 500
@@ -15,6 +23,7 @@ function async_handler(fn){
 
 
 module.exports = {
+    AppError,
     error_handler,
     async_handler
 }

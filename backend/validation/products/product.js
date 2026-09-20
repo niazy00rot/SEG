@@ -1,5 +1,9 @@
 const {z} = require('zod')
 
+const product_id_sc = z.object({
+    id: z.uuid('Invalid product ID')
+})
+
 const create_product_sc = z.object({
     category_id: z.uuid(),
     product_type_id: z.uuid(),
@@ -26,6 +30,7 @@ const update_product_sc = z.object({
 
 
 module.exports = {
+    product_id_sc,
     create_product_sc,
     update_product_sc
 }

@@ -1,3 +1,4 @@
+const { AppError } = require('../../middleware/handler.js')
 const {
     get_categories: get_categories_repo,
     get_category_by_id: get_category_by_id_repo,
@@ -14,9 +15,7 @@ async function is_category(id) {
 async function get_categories() {
     const categories = await get_categories_repo();
     if (categories.length === 0) {
-        return {
-            error: 'No categories found'
-        };
+        throw new AppError('No categories found', 404)
     }
     return categories;
 }
@@ -24,9 +23,7 @@ async function get_categories() {
 async function get_category_by_id(id) {
     const category = await get_category_by_id_repo(id);
     if (!category) {
-        return {
-            error: 'Category not found'
-        };
+        throw new AppError('Category not found', 404)
     }
     return category;
 }
@@ -37,38 +34,39 @@ async function add_category(name) {
     }
     catch (err) {
         if (err.code === '23505') {
-            return {
-                error: 'Category already exists'
-            };
+            throw new AppError('Category already exists', 409)
         }
         throw err;
     }
 }
 
 async function update_category(id, name) {
-    const category = await update_category_repo(id, name);
-    if (!category) {
-        return {
-            error: 'Category not found'
-        };
+    try {
+        const category = await update_category_repo(id, name)
+        if (!category) {
+            throw new AppError('Category not found', 404)
+        }
+        return category
     }
-    return category;
+    catch (err) {
+        if (err.code === '23505') {
+            throw new AppError('Category already exists', 409)
+        }
+        throw err
+    }
 }
+
 async function delete_category(id) {
     try {
         const category = await delete_category_repo(id);
         if (!category) {
-            return {
-                error: 'Category not found'
-            };
+            throw new AppError('Category not found', 404)
         }
         return category;
     }
     catch (err) {
         if (err.code === '23503') {
-            return {
-                error: 'Cannot delete category because it is being used'
-            };
+            throw new AppError('Cannot delete category because it is being used', 409)
         }
         throw err;
     }

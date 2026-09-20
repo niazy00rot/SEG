@@ -1,4 +1,4 @@
-
+const { AppError } = require('../../middleware/handler.js')
 const {
     get_type_by_category: get_types_by_category_repo,
     get_product_types: get_types_repo,
@@ -14,7 +14,7 @@ const {
 async function get_types_by_category(category_id) {
     const res = await get_types_by_category_repo(category_id)
     if (res.length === 0) {
-        return {error: 'No product types found for this category'}
+        throw new AppError('No product types found for this category', 404)
     }
     return res
 }
@@ -22,7 +22,7 @@ async function get_types_by_category(category_id) {
 async function get_product_types() {
     const res = await get_types_repo()
     if (res.length === 0) {
-        return {error: 'No product types found'}
+        throw new AppError('No product types found', 404)
     }
     return res
 }
@@ -30,7 +30,7 @@ async function get_product_types() {
 async function get_type_by_id(id) {
     const res = await get_type_by_id_repo(id)
     if (!res) {
-        return {error: 'Product type not found'}
+        throw new AppError('Product type not found', 404)
     }
     return res
 }
@@ -38,7 +38,7 @@ async function get_type_by_id(id) {
 async function add_type(category_id, name) {
     const is_name = await is_product_type_name_repo(category_id, name)
     if (is_name) {
-        return {error: 'Product type name already exists for this category'}
+        throw new AppError('Product type name already exists for this category', 409)
     }
     return await add_type_repo(name, category_id)
 }
@@ -46,12 +46,12 @@ async function add_type(category_id, name) {
 async function update_type(id, name) {
     const product_type = await get_type_by_id_repo(id)
     if (!product_type) {
-        return {error: 'Product type not found'}
+        throw new AppError('Product type not found', 404)
     }
 
     const is_name = await is_product_type_name_except_repo(product_type.category_id, name, id)
     if (is_name) {
-        return {error: 'Product type name already exists for this category'}
+        throw new AppError('Product type name already exists for this category', 409)
     }
     return await update_type_repo(id, name)
 }
@@ -59,7 +59,7 @@ async function update_type(id, name) {
 async function delete_type(id) {
     const is_type = await is_product_type_repo(id)  
     if (!is_type) {
-        return {error: 'Product type not found'}
+        throw new AppError('Product type not found', 404)
     }
     return await delete_type_repo(id)
 }
