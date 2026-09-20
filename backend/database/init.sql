@@ -186,6 +186,7 @@ CREATE TABLE categories (
     name TEXT NOT NULL UNIQUE
 );
 
+
 -- ======================================================
 -- PRODUCT TYPES
 -- ======================================================
@@ -194,8 +195,21 @@ CREATE TABLE product_types (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    name TEXT NOT NULL UNIQUE
+    category_id UUID NOT NULL,
+
+    name TEXT NOT NULL,
+
+    CONSTRAINT fk_product_types_category
+        FOREIGN KEY (category_id)
+        REFERENCES categories(id),
+
+    CONSTRAINT uq_product_types_category_name
+        UNIQUE(category_id, name),
+
+    CONSTRAINT uq_product_types_category_id
+        UNIQUE(category_id, id)
 );
+
 
 -- ======================================================
 -- PRODUCTS
@@ -229,21 +243,52 @@ CREATE TABLE products (
 
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
+
+    -- ==================================================
+    -- FOREIGN KEYS
+    -- ==================================================
+
     CONSTRAINT fk_product_category
-        FOREIGN KEY(category_id)
+        FOREIGN KEY (category_id)
         REFERENCES categories(id),
 
     CONSTRAINT fk_product_type
-        FOREIGN KEY(product_type_id)
+        FOREIGN KEY (product_type_id)
         REFERENCES product_types(id),
 
+
+    -- ==================================================
+    -- IMPORTANT:
+    -- Product Type must belong to the same Category
+    -- ==================================================
+
+    CONSTRAINT fk_product_category_type
+        FOREIGN KEY (category_id, product_type_id)
+        REFERENCES product_types(category_id, id),
+
+
+    -- ==================================================
+    -- USERS
+    -- ==================================================
+
     CONSTRAINT fk_product_creator
-        FOREIGN KEY(created_by)
+        FOREIGN KEY (created_by)
         REFERENCES users(id),
 
     CONSTRAINT fk_product_updater
-        FOREIGN KEY(updated_by)
-        REFERENCES users(id)
+        FOREIGN KEY (updated_by)
+        REFERENCES users(id),
+
+
+    -- ==================================================
+    -- VALIDATION
+    -- ==================================================
+
+    CONSTRAINT chk_product_price
+        CHECK (price >= 0),
+
+    CONSTRAINT chk_product_quantity
+        CHECK (quantity >= 0)
 );
 
 -- ======================================================

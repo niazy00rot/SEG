@@ -2,8 +2,8 @@ const router = require('express').Router()
 
 const {async_handler} = require('../../middleware/handler.js')
 const {authorize_roles,authenticate} = require('../../middleware/auth.js')
-const {validate} = require('../../middleware/validation/validate.js')
-const {create_product_sc,update_product_sc} = require('../../middleware/validation/product.js')
+const {validate} = require('../../validation/validate.js')
+const {create_product_sc,update_product_sc} = require('../../validation/products/product.js')
 const {create_product,update_product,delete_product, get_products,
     get_product_by_id} = require("../../service/products/products.js")
 

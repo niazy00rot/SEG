@@ -34,7 +34,7 @@ const oauth_router = require('./controller/oauth.js')
 const vehicles_router = require('./controller/vehicles.js')
 const employees_router = require('./controller/employee.js')
 const brands_router = require('./controller/brands.js')
-const categories_router = require('./controller/products/categories.js')
+const categories_router = require('./route/products/categories')
 const product_types_router = require('./controller/products/product_types.js')
 const products_router = require('./controller/products/products.js')
 

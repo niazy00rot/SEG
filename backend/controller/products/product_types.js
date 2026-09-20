@@ -3,9 +3,23 @@ const router = require('express').Router()
 const {async_handler} = require('../../middleware/handler.js')
 const {authorize_roles,authenticate} = require('../../middleware/auth.js')
 
-const {get_product_types,get_type_by_id,add_type,update_type} = require("../../service/products/product_types.js");
+const {
+    get_types,
+    get_type_by_id,
+    get_types_by_category,
+    add_type,
+    update_type,
+    delete_type} = require("../../service/products/product_types.js");
 
 router.get('/product_types', async_handler(async(req,res)=>{
+    const result = await get_product_types();
+    if (result.error) {
+        return res.status(500).json(result);
+    }
+    return res.status(200).json(result);
+}))
+
+router.get('/categories/:id/product_types', async_handler(async(req,res)=>{
     const result = await get_product_types();
     if (result.error) {
         return res.status(500).json(result);
