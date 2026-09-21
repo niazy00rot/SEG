@@ -1,5 +1,5 @@
 const { AppError } = require('../../middleware/handler.js')
-const {is_category}= require('./categories.js')
+const {is_category}= require('../../repository/products/categories.js')
 const {is_product_type}= require('../../repository/products/product_types.js')
 const {is_sku, is_product, create_product_db, 
     update_product_db,is_sku_taken, get_products_db,
