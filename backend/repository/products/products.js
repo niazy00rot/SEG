@@ -119,8 +119,20 @@ async function get_products_db(offset = 0){
     const client = await pool.connect()
     try{
         const res =await client.query(`SELECT * FROM products WHERE deleted_at IS NULL 
-            ORDER BY created_at DESC LIMIT 20 OFFSET $1;`, [offset])
+            ORDER BY created_at DESC LIMIT 2 OFFSET $1;`, [offset])
         return res.rows
+    }
+    finally{
+        client.release()
+    }
+}
+
+async function get_product_quantity(pro_id){
+    const client = await pool.connect()
+    try{
+        const res =await client.query(`SELECT quantity FROM products 
+            WHERE id = $1 AND deleted_at IS NULL`,[pro_id])
+        return res.rows[0]?.quantity || 0
     }
     finally{
         client.release()

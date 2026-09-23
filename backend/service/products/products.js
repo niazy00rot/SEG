@@ -65,8 +65,9 @@ async function get_product_by_id(pro_id){
     return res
 }
 
-async function get_products(){
-    const res = await get_products_db()
+async function get_products(offset = 0){
+    //handel the offecet
+    const res = await get_products_db(offset)
     if (!res || res.length === 0) {
         throw new AppError("No products found", 404)
     }

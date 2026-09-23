@@ -3,7 +3,9 @@ const {create_product,update_product,delete_product, get_products,
     get_product_by_id} = require("../../service/products/products.js")
 
 async function get_products_controller(req,res){
-    const result = await get_products()
+    //handle the offset
+    const {offset} = req.query
+    const result = await get_products(offset)
     return res.status(200).json(result)
 }
 
