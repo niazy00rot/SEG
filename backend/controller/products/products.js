@@ -5,7 +5,8 @@ const {create_product,update_product,delete_product, get_products,
 async function get_products_controller(req,res){
     //handle the offset
     const {offset} = req.query
-    const result = await get_products(offset)
+    const limit = offset ? parseInt(req.query.limit) || 15 : 15
+    const result = await get_products(offset, limit)
     return res.status(200).json(result)
 }
 
