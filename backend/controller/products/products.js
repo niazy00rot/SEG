@@ -3,8 +3,10 @@ const {create_product,update_product,delete_product, get_products,
     get_product_by_id} = require("../../service/products/products.js")
 
 async function get_products_controller(req,res){
-    //handle the offset
-    const offset = Number(req.query.offset) || 0;
+    const parsed_offset = Number.parseInt(req.query.offset, 10)
+    const offset = Number.isInteger(parsed_offset) && parsed_offset >= 0
+        ? parsed_offset
+        : 0
     const limit = 15;
     const result = await get_products(offset, limit)
     return res.status(200).json(result)

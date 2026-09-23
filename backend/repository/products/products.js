@@ -119,7 +119,7 @@ async function get_products_db(offset = 0, limit = 15){
     const client = await pool.connect()
     try{
         const res =await client.query(`SELECT * FROM products WHERE deleted_at IS NULL 
-            ORDER BY created_at DESC LIMIT $2 OFFSET $1;`, [offset, limit])
+            ORDER BY created_at DESC, id DESC LIMIT $2 OFFSET $1;`, [offset, limit])
         return res.rows
     }
     finally{
