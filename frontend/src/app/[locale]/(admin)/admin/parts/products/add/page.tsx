@@ -1,7 +1,9 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { IoMdClose } from "react-icons/io";
 import "../../parts.scss";
 
 type Category = {
@@ -12,6 +14,11 @@ type Category = {
 type ProductType = {
   id: string;
   name: string;
+};
+
+type SelectedImage = {
+  file: File;
+  previewUrl: string;
 };
 
 export default function AddProductPage() {
@@ -28,6 +35,8 @@ export default function AddProductPage() {
   const [sku, setSku] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [images, setImages] = useState<SelectedImage[]>([]);
+  const imagesRef = useRef<SelectedImage[]>([]);
 
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
@@ -35,6 +44,14 @@ export default function AddProductPage() {
   const [error, setError] = useState("");
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+  useEffect(() => {
+    return () => {
+      imagesRef.current.forEach((image) =>
+        URL.revokeObjectURL(image.previewUrl),
+      );
+    };
+  }, []);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -194,6 +211,44 @@ export default function AddProductPage() {
     }
   };
 
+  const handleImagesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImages = Array.from(event.target.files || []);
+    const invalidImage = selectedImages.find(
+      (image) => !image.type.startsWith("image/"),
+    );
+
+    if (invalidImage) {
+      setError("Please select image files only.");
+      event.target.value = "";
+      return;
+    }
+
+    setError("");
+    const nextImages = [
+      ...imagesRef.current,
+      ...selectedImages.map((file) => ({
+        file,
+        previewUrl: URL.createObjectURL(file),
+      })),
+    ];
+    imagesRef.current = nextImages;
+    setImages(nextImages);
+    event.target.value = "";
+  };
+
+  const removeImage = (imageIndex: number) => {
+    const imageToRemove = imagesRef.current[imageIndex];
+      if (imageToRemove) {
+        URL.revokeObjectURL(imageToRemove.previewUrl);
+      }
+
+    const nextImages = imagesRef.current.filter(
+      (_, index) => index !== imageIndex,
+    );
+    imagesRef.current = nextImages;
+    setImages(nextImages);
+  };
+
   return (
     <main className="products-management">
       <div className="container">
@@ -334,6 +389,44 @@ export default function AddProductPage() {
                 step="1"
                 disabled={loading}
               />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="product-images">Product Images</label>
+
+              <input
+                id="product-images"
+                name="images"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImagesChange}
+              />
+
+              {images.length > 0 && (
+                <ul className="selected-images" aria-label="Selected images">
+                  {images.map((image, index) => (
+                    <li key={`${index}-${image.file.name}`}>
+                      <Image
+                        src={image.previewUrl}
+                        alt={image.file.name}
+                        width={120}
+                        height={120}
+                        className="selected-image-preview"
+                      />
+                      <span>{image.file.name}</span>
+                      <button
+                        type="button"
+                        onClick={() => removeImage(index)}
+                        disabled={loading}
+                        aria-label={`Remove ${image.file.name}`}
+                      >
+                        <IoMdClose />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             {error && <p className="form-error">{error}</p>}

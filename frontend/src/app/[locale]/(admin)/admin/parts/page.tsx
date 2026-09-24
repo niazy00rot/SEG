@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { FaArrowRight, FaArrowLeft  } from "react-icons/fa";
 import "./parts.scss";
 
 type Category = {
@@ -40,6 +41,11 @@ export default function ProductsManagementPage() {
   const [productTypes, setProductTypes] = useState<ProductType[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
 
+  const [page, setPage] = useState(1);
+
+  const limit = 15;
+  const offset = (page - 1) * limit;
+
   const [loading, setLoading] = useState(true);
 
   const [editingType, setEditingType] =
@@ -54,6 +60,7 @@ export default function ProductsManagementPage() {
     price: "",
     quantity: "",
   });
+
 
   const fetchData = useCallback(async () => {
     try {
@@ -70,7 +77,7 @@ export default function ProductsManagementPage() {
           credentials: "include",
         }),
 
-        fetch(`${API_URL}/products`, {
+        fetch(`${API_URL}/products?offset=${offset}`, {
           credentials: "include",
         }),
       ]);
@@ -79,42 +86,32 @@ export default function ProductsManagementPage() {
       const productTypesData = await productTypesResponse.json();
       const productsData = await productsResponse.json();
 
+      console.log("Products API response:", productsData);
+      console.log("Products count:", productsData.length);
+      console.log("Current page:", page);
+      console.log("Current offset:", offset);
+
       // Categories
       if (categoriesData.error === "No categories found") {
         setCategories([]);
       } else {
-        setCategories(
-          categoriesData.categories ||
-            categoriesData.category ||
-            (Array.isArray(categoriesData)
-              ? categoriesData
-              : []),
-        );
+        setCategories(categoriesData);
       }
 
       // Product Types
       if (productTypesData.error === "No product types found") {
         setProductTypes([]);
       } else {
-        setProductTypes(
-          productTypesData.product_types ||
-            productTypesData.types ||
-            (Array.isArray(productTypesData)
-              ? productTypesData
-              : []),
-        );
+        setProductTypes(productTypesData);
       }
 
       // Products
       if (productsData.error === "No products found") {
         setProducts([]);
       } else {
-        setProducts(
-          productsData.product ||
-            productsData.products ||
-            [],
-        );
+        setProducts(productsData);
       }
+
     } catch (error) {
       console.error(
         "Failed to fetch products data:",
@@ -123,7 +120,7 @@ export default function ProductsManagementPage() {
     } finally {
       setLoading(false);
     }
-  }, [API_URL]);
+  }, [API_URL, offset]);
 
   useEffect(() => {
     const fetchTimer = window.setTimeout(() => {
@@ -333,6 +330,9 @@ export default function ProductsManagementPage() {
       </main>
     );
   }
+
+  console.log(products.length);
+  
 
   return (
     <main className="products-management">
@@ -744,6 +744,26 @@ export default function ProductsManagementPage() {
                 )}
               </tbody>
             </table>
+          </div>
+
+          <div className="pagination">
+            <button
+              type="button"
+              disabled={page === 1}
+              onClick={() => setPage((current) => current - 1)}
+            >
+              <FaArrowLeft />
+            </button>
+
+            <span>Page {page}</span>
+
+            <button
+              type="button"
+              disabled={products.length < limit}
+              onClick={() => setPage((current) => current + 1)}
+            >
+              <FaArrowRight />
+            </button>
           </div>
         </section>
 

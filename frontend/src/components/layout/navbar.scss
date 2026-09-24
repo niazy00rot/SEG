@@ -134,7 +134,7 @@ nav {
         a {
           position: relative;
           font-size: 20px;
-          color: var(--p-color);
+          color: #AAAAAC;
           transition: 0.3s all;
           padding: 2px 10px;
           border-radius: 15px;
@@ -200,7 +200,7 @@ nav {
           transition: all 0.25s ease;
   
           &::placeholder {
-            color: var(--p-color);
+            color: #AAAAAC;
           }
   
           &:focus {
@@ -220,7 +220,7 @@ nav {
           transform: translateY(-50%);
           background: transparent;
           border: none;
-          color: var(--p-color);
+          color: #AAAAAC;
           font-size: 15px;
           cursor: pointer;
           padding: 5px;
@@ -242,7 +242,7 @@ nav {
   
         button {
           font-size: 18px;
-          color: var(--p-color);
+          color: #AAAAAC;
           background: transparent;
           border: none;
           cursor: pointer;

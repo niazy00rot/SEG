@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import "./landing.scss";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
@@ -79,6 +79,53 @@ export default function Home() {
               </p>
               <p>{t("home.ranks.four")}</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="categories">
+        <div className="container">
+          <h1>{t("categories.title")}</h1>
+          <div className="boxContainer">
+            <Link href="/engine" className="box">
+              <h3>{t("categories.boxes.engine.title")}</h3>
+              <p>{t("categories.boxes.engine.num")}</p>
+            </Link>
+
+            <Link href="/gearbox" className="box">
+              <h3>{t("categories.boxes.gearbox.title")}</h3>
+              <p>{t("categories.boxes.gearbox.num")}</p>
+            </Link>
+
+            <Link href="/suspension" className="box">
+              <h3>{t("categories.boxes.suspension.title")}</h3>
+              <p>{t("categories.boxes.suspension.num")}</p>
+            </Link>
+
+            <Link href="/electrical" className="box">
+              <h3>{t("categories.boxes.electrical.title")}</h3>
+              <p>{t("categories.boxes.electrical.num")}</p>
+            </Link>
+
+            <Link href="/body" className="box">
+              <h3>{t("categories.boxes.body.title")}</h3>
+              <p>{t("categories.boxes.body.num")}</p>
+            </Link>
+
+            <Link href="/brake" className="box">
+              <h3>{t("categories.boxes.brake.title")}</h3>
+              <p>{t("categories.boxes.brake.num")}</p>
+            </Link>
+
+            <Link href="/wheels" className="box">
+              <h3>{t("categories.boxes.wheels.title")}</h3>
+              <p>{t("categories.boxes.wheels.num")}</p>
+            </Link>
+
+            <Link href="/accessories" className="box">
+              <h3>{t("categories.boxes.accessories.title")}</h3>
+              <p>{t("categories.boxes.accessories.num")}</p>
+            </Link>
           </div>
         </div>
       </section>
