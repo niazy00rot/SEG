@@ -12,5 +12,42 @@
       "three": "Orders Delivered",
       "four": "Customer Rating"
     }
+  },
+  "categories": {
+    "title": "Explore Our Categories",
+    "boxes": {
+      "engine": {
+        "title": "Engine Parts",
+        "num": "2,400+ parts"
+      },
+      "gearbox": {
+        "title": "Gearbox Parts",
+        "num": "1,200+ parts"
+      },
+      "suspension": {
+        "title": "Suspension Parts",
+        "num": "800+ parts"
+      },
+      "electrical": {
+        "title": "Automotive Electrical",
+        "num": "1,100+ parts"
+      },
+      "body": {
+        "title": "Body Parts",
+        "num": "1,500+ parts"
+      },
+      "brake": {
+        "title": "Brake Parts",
+        "num": "1,000+ parts"
+      },
+      "wheels": {
+        "title": "Wheels",
+        "num": "500+ parts"
+      },
+      "accessories": {
+        "title": "Car Accessories",
+        "num": "1,500+ parts"
+      }
+    }
   }
 }
