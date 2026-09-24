@@ -11,6 +11,8 @@ const {get_products_controller,
     delete_product_controller
 } = require("../../controller/products/products.js")
 
+const upload = require('../../middleware/upload.js')
+
 router.get('/products/:id',
     validate(product_id_sc, 'params'),
     async_handler(get_product_by_id_controller))
@@ -20,6 +22,7 @@ router.get('/products',async_handler(get_products_controller))
 router.post('/products', 
     authenticate, 
     authorize_roles("Admin", "Employee"),
+    upload.array('images', 5),
     validate(create_product_sc),
     async_handler(create_product_controller))
 

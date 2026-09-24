@@ -4,7 +4,6 @@ const {async_handler} = require('../../middleware/handler.js');
 const { validate } = require('../../validation/validate.js'); 
 const { create_category_schema, update_category_schema, category_id_schema } = require('../../validation/products/categories.js');
 const {get_categories,get_category_by_id,add_category,update_category,delete_category} = require('../../controller/products/categories.js');
-
 router.get('/categories',async_handler(get_categories));
 
 router.get(

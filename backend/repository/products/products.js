@@ -18,7 +18,8 @@ async function is_sku(sku) {
 async function is_product(id){
     const client = await pool.connect()
     try{
-        const res = await client.query('SELECT id FROM products WHERE id = $1 AND deleted_at IS NULL',[id])
+        const res = await client.query(`SELECT id FROM products 
+            WHERE id = $1 AND deleted_at IS NULL`,[id])
         return res.rows.length > 0
     }
     catch(err){
@@ -30,10 +31,17 @@ async function is_product(id){
     }
 }
 
-async function create_product_db(category_id, type_id, user_id, name, description, sku, price, quantity){
+async function create_product_db(data, user_id){
     const client = await pool.connect()
     try{
-        const res = await client.query('INSERT INTO products (category_id, product_type_id, created_by, name, description, sku, price, quantity) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',[category_id, type_id, user_id, name, description, sku, price, quantity])
+        const res = await client.query(`
+            INSERT INTO products 
+            (category_id, product_type_id, created_by, name, description, sku, price, quantity)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            RETURNING id, category_id, product_type_id, name, description, sku, price, quantity`, 
+            [data.category_id, data.product_type_id, user_id, data.name, 
+                data.description, data.sku, data.price, data.quantity])
+
         return res.rows[0]
     }
     catch(err){
@@ -42,6 +50,24 @@ async function create_product_db(category_id, type_id, user_id, name, descriptio
     }
     finally{
         client.release()
+    }
+}
+
+async function add_product_images(product_id,image_path,is_primary,display_order){
+    const client = await pool.connect();
+    try {
+        await client.query(`
+            INSERT INTO product_images
+                (product_id,image_path,is_primary,display_order)
+            VALUES ($1, $2, $3, $4)`,[product_id,image_path,is_primary,display_order]
+        );
+    } 
+    catch (err) {
+        console.error("Error adding product image:", err);
+        throw err;
+    } 
+    finally {
+        client.release();
     }
 }
 
@@ -58,7 +84,9 @@ async function update_product_db(pro_id,user_id,category_id,product_type_id,name
             quantity = COALESCE($7, quantity),
             updated_by = $8,
             updated_at = CURRENT_TIMESTAMP
-            WHERE id = $9 RETURNING *`,[category_id,product_type_id,name,description,sku,price,quantity,user_id,pro_id])
+            WHERE id = $9 
+            RETURNING id, category_id, product_type_id, name, description, sku, price, quantity`
+            ,[category_id,product_type_id,name,description,sku,price,quantity,user_id,pro_id])
         return res.rows[0]
     }
     catch(err){
@@ -69,6 +97,7 @@ async function update_product_db(pro_id,user_id,category_id,product_type_id,name
         client.release()
     }
 }
+
 async function is_sku_taken(sku, product_id) {
     const client = await pool.connect()
     try{
@@ -94,7 +123,7 @@ async function delete_product_db(pro_id, user_id) {
              updated_at = CURRENT_TIMESTAMP
              WHERE id = $2
              AND deleted_at IS NULL
-             RETURNING *`,
+             RETURNING id, category_id, product_type_id, name, description, sku, price, quantity`,
             [user_id, pro_id]
         )
         return res.rows[0]
@@ -118,9 +147,25 @@ async function get_product_by_id_db(pro_id){
 async function get_products_db(offset = 0, limit = 15){
     const client = await pool.connect()
     try{
-        const res =await client.query(`SELECT * FROM products WHERE deleted_at IS NULL 
-            ORDER BY created_at DESC, id DESC LIMIT $2 OFFSET $1;`, [offset, limit])
+        const res =await client.query(`
+            SELECT pi.image_url, p.id, p.category_id, p.product_type_id, 
+            p.name, p.description, p.sku, p.price, p.quantity FROM products p
+            JOIN product_images pi ON p.id = pi.product_id
+            WHERE p.deleted_at IS NULL and pi.is_primary = true
+            ORDER BY p.created_at DESC, p.id DESC LIMIT $2 OFFSET $1;`, [offset, limit])
         return res.rows
+    }
+    finally{
+        client.release()
+    }
+}
+
+async function get_product_images(pro_id){
+    const client = await pool.connect()
+    try{
+        const res =await client.query(`SELECT image_url FROM product_images 
+            WHERE product_id = $1`,[pro_id])
+        return res.rows.map(row => row.image_url)
     }
     finally{
         client.release()
@@ -147,5 +192,8 @@ module.exports = {
     is_sku_taken,
     delete_product_db,
     get_product_by_id_db,
-    get_products_db
+    get_products_db,
+    get_product_quantity,
+    add_product_images,
+    get_product_images
 }
