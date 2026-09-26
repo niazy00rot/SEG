@@ -12,7 +12,6 @@ import { FaSearch } from "react-icons/fa";
 import LogoutButton from "../ui/Logout";
 import { CgProfile } from "react-icons/cg";
 
-
 export default function Navbar(): ReactElement {
   const t = useTranslations("navbar");
 
@@ -110,16 +109,12 @@ export default function Navbar(): ReactElement {
     };
   }, []);
 
-
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/me`,
-          {
-            credentials: "include",
-          },
-        );
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
+          credentials: "include",
+        });
 
         if (response.ok) {
           setIsLoggedIn(true);
@@ -152,19 +147,44 @@ export default function Navbar(): ReactElement {
           </div>
 
           <div className="linksBox">
-            <div className={`closeButton ${isMenuOpen ? "toggle" : ""}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <div
+              className={`closeButton ${isMenuOpen ? "toggle" : ""}`}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
               <div className="bar"></div>
               <div className="bar"></div>
               <div className="bar"></div>
             </div>
             <div className="links">
-              <Link href="/" onClick={() => setIsMenuOpen(false)} className={pathname === "/" && activeSection === "home" || 1 ? "active" : "" }>
+              <Link
+                href="/"
+                onClick={() => setIsMenuOpen(false)}
+                className={
+                  (pathname === "/" && activeSection === "home") || 1
+                    ? "active"
+                    : ""
+                }
+              >
                 {t("links.home")}
               </Link>
-              <Link href="/#shop" onClick={() => setIsMenuOpen(false)} className={pathname === "/" && activeSection === "shop" ? "active" : "" }>
+              <Link
+                href="/#shop"
+                onClick={() => setIsMenuOpen(false)}
+                className={
+                  pathname === "/" && activeSection === "shop" ? "active" : ""
+                }
+              >
                 {t("links.shop")}
               </Link>
-              <Link href="/#categories" onClick={() => setIsMenuOpen(false)} className={pathname === "/" && activeSection === "categories" ? "active" : "" }>
+              <Link
+                href="/#categories"
+                onClick={() => setIsMenuOpen(false)}
+                className={
+                  pathname === "/" && activeSection === "categories"
+                    ? "active"
+                    : ""
+                }
+              >
                 {t("links.categories")}
               </Link>
 
@@ -177,7 +197,9 @@ export default function Navbar(): ReactElement {
           <div className="group">
             <div className="search">
               <input type="text" placeholder={t("search")} />
-              <button><FaSearch /></button>
+              <button>
+                <FaSearch />
+              </button>
             </div>
 
             <div className="buttons">
@@ -188,8 +210,10 @@ export default function Navbar(): ReactElement {
 
           {isLoggedIn ? (
             <div className="accounts">
-              <Link href="/profile"><CgProfile /></Link>
-              <LogoutButton />
+              <Link href="/profile">
+                <CgProfile />
+              </Link>
+              <LogoutButton onLoggedOut={() => setIsLoggedIn(false)} />
             </div>
           ) : (
             <div className="accounts">

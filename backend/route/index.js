@@ -5,6 +5,7 @@ router.post('/logout', (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        maxAge: 0,
         path: "/",
     }).json({message: "Logged out successfully"})
 })
