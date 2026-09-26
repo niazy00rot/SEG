@@ -20,7 +20,7 @@ router.post('/login', async_handler(async(req, res)=>{
     const {email,password}= req.body
     const results = await login(email,password)
     if(results.error){
-        res.status(401).json({error: results.error})
+        return res.status(401).json({ error: results.error });
     }
     else{
         const role_name = await get_user_role(results.user.id)
@@ -32,8 +32,9 @@ router.post('/login', async_handler(async(req, res)=>{
             httpOnly: true,
             secure: true,
             sameSite: "none",
-            maxAge: 60 * 60 * 1000
-            }).json({message: 'Login successful', role: role_name});
+            maxAge: 60 * 60 * 1000,
+            path: "/",
+        }).json({message: 'Login successful', role: role_name});
     }
 }))
 
