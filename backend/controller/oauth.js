@@ -10,7 +10,8 @@ const google_call_back = async (req, res) => {
         return res.cookie("session", token, {
                 httpOnly: true,
                 secure: true,
-                sameSite: "lax"
+                sameSite: "lax",
+                maxAge: 60 * 60 * 1000
             }).redirect(`${frontend_url}/en`);
 
     } 
