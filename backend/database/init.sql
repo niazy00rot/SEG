@@ -385,46 +385,28 @@ CREATE TABLE cart_items (
 -- ======================================================
 -- ORDER STATUS
 -- ======================================================
-
 CREATE TABLE order_statuses (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     name TEXT NOT NULL UNIQUE
 );
 
 -- ======================================================
 -- ORDERS
 -- ======================================================
-
 CREATE TABLE orders (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     user_id UUID NOT NULL,
-
     order_status_id UUID NOT NULL,
-
     order_number TEXT NOT NULL UNIQUE,
-
     phone TEXT NOT NULL,
-
     country TEXT NOT NULL,
-
     city TEXT NOT NULL,
-
     street TEXT NOT NULL,
-
     building TEXT,
-
     floor TEXT,
-
     address_notes TEXT,
-
     total_price NUMERIC(10,2) NOT NULL,
-
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
     CONSTRAINT fk_orders_user
@@ -439,19 +421,12 @@ CREATE TABLE orders (
 -- ======================================================
 -- ORDER ITEMS
 -- ======================================================
-
 CREATE TABLE order_items (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     order_id UUID NOT NULL,
-
     product_id UUID NOT NULL,
-
     quantity INTEGER NOT NULL,
-
     unit_price NUMERIC(10,2) NOT NULL,
-
     subtotal NUMERIC(10,2) NOT NULL,
 
     CONSTRAINT fk_order_items_order
@@ -467,36 +442,23 @@ CREATE TABLE order_items (
 -- ======================================================
 -- PART REQUEST STATUS
 -- ======================================================
-
 CREATE TABLE part_request_statuses (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     name TEXT NOT NULL UNIQUE
 );
 
 -- ======================================================
 -- PART REQUESTS
 -- ======================================================
-
 CREATE TABLE part_requests (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     user_id UUID NOT NULL,
-
     brand_id UUID NOT NULL,
-
     model_id UUID NOT NULL,
-
     status_id UUID NOT NULL,
-
     vehicle_year INTEGER NOT NULL,
-
     description TEXT NOT NULL,
-
     image_path TEXT,
-
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
     CONSTRAINT fk_pr_user
