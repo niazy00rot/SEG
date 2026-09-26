@@ -4,7 +4,7 @@ router.post('/logout', (req, res) => {
     res.clearCookie('session', {
         httpOnly: true, 
         secure: true,
-        sameSite: 'lax',
+        sameSite: 'none',
         maxAge: 60 * 60 * 1000
     }).json({message: "Logged out successfully"})
 })

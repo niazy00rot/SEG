@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { IoIosLogOut } from "react-icons/io";
-import { IoLogOut } from "react-icons/io5";
 
 export default function LogoutButton() {
   const router = useRouter();
