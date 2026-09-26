@@ -5,11 +5,14 @@ import "./signup.scss";
 
 import { FormEvent, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import GoogleAuth from "@/components/auth/GoogleButton";
 import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Signup() {
+  const router = useRouter();
+
   useEffect(() => {
     document.title = "Signup | SEG";
   }, []);
@@ -118,13 +121,20 @@ export default function Signup() {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify(data),
-        }
+        },
       );
 
       const result = await response.json();
 
-      console.log(result);
+      if (!response.ok) {
+        console.error(result);
+        return;
+      }
+
+      router.push("/");
+      router.refresh();
     } catch (error) {
       console.error("Registration error:", error);
     }
@@ -137,8 +147,7 @@ export default function Signup() {
           <h1>{t("signup.title.one")}</h1>
 
           <h1>
-            <span>{t("signup.title.span")}</span>{" "}
-            {t("signup.title.two")}
+            <span>{t("signup.title.span")}</span> {t("signup.title.two")}
           </h1>
 
           <h1>{t("signup.title.three")}</h1>
@@ -162,16 +171,12 @@ export default function Signup() {
 
           <GoogleAuth />
 
-          <div className="email">
-            {t("signup.orEmail")}
-          </div>
+          <div className="email">{t("signup.orEmail")}</div>
 
           <form onSubmit={handleSubmit} noValidate>
             {/* Name */}
             <div className="input-group">
-              <label htmlFor="name">
-                {t("signup.name.label")}
-              </label>
+              <label htmlFor="name">{t("signup.name.label")}</label>
 
               <input
                 type="text"
@@ -182,18 +187,12 @@ export default function Signup() {
                 onChange={handleChange}
               />
 
-              {errors.name && (
-                <span className="error-msg">
-                  {errors.name}
-                </span>
-              )}
+              {errors.name && <span className="error-msg">{errors.name}</span>}
             </div>
 
             {/* Email */}
             <div className="input-group">
-              <label htmlFor="email">
-                {t("signup.email.label")}
-              </label>
+              <label htmlFor="email">{t("signup.email.label")}</label>
 
               <input
                 type="email"
@@ -205,17 +204,13 @@ export default function Signup() {
               />
 
               {errors.email && (
-                <span className="error-msg">
-                  {errors.email}
-                </span>
+                <span className="error-msg">{errors.email}</span>
               )}
             </div>
 
             {/* Phone */}
             <div className="input-group">
-              <label htmlFor="phone">
-                {t("signup.phone.label")}
-              </label>
+              <label htmlFor="phone">{t("signup.phone.label")}</label>
 
               <input
                 type="tel"
@@ -227,17 +222,13 @@ export default function Signup() {
               />
 
               {errors.phone && (
-                <span className="error-msg">
-                  {errors.phone}
-                </span>
+                <span className="error-msg">{errors.phone}</span>
               )}
             </div>
 
             {/* Password */}
             <div className="input-group">
-              <label htmlFor="password">
-                {t("signup.password.label")}
-              </label>
+              <label htmlFor="password">{t("signup.password.label")}</label>
 
               <div className="password-input">
                 <input
@@ -252,23 +243,15 @@ export default function Signup() {
                 <button
                   type="button"
                   className="password-toggle"
-                  onClick={() =>
-                    setShowPassword((prev) => !prev)
-                  }
-                  aria-label={
-                    showPassword
-                      ? "Hide password"
-                      : "Show password"
-                  }
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
 
               {errors.password && (
-                <span className="error-msg">
-                  {errors.password}
-                </span>
+                <span className="error-msg">{errors.password}</span>
               )}
             </div>
 
@@ -285,34 +268,23 @@ export default function Signup() {
 
                 <label htmlFor="terms">
                   {t("signup.terms.text")}{" "}
-                  <Link href="/terms">
-                    {t("signup.terms.terms")}
-                  </Link>{" "}
+                  <Link href="/terms">{t("signup.terms.terms")}</Link>{" "}
                   {t("signup.terms.and")}{" "}
-                  <Link href="/privacy">
-                    {t("signup.terms.privacy")}
-                  </Link>
-                  .
+                  <Link href="/privacy">{t("signup.terms.privacy")}</Link>.
                 </label>
               </div>
 
               {errors.terms && (
-                <span className="error-msg">
-                  {errors.terms}
-                </span>
+                <span className="error-msg">{errors.terms}</span>
               )}
             </div>
 
-            <button type="submit">
-              {t("signup.submit")}
-            </button>
+            <button type="submit">{t("signup.submit")}</button>
           </form>
 
           <p>
             {t("signup.loginPrompt")}{" "}
-            <Link href="/login">
-              {t("signup.login")}
-            </Link>
+            <Link href="/login">{t("signup.login")}</Link>
           </p>
         </div>
       </div>
