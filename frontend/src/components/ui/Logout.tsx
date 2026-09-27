@@ -2,8 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { IoIosLogOut } from "react-icons/io";
+import Swal from "sweetalert2";
 
-export default function LogoutButton() {
+type LogoutButtonProps = {
+  onLoggedOut?: () => void;
+};
+
+export default function LogoutButton({ onLoggedOut }: LogoutButtonProps) {
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -20,10 +25,27 @@ export default function LogoutButton() {
         throw new Error("Logout failed");
       }
 
+      onLoggedOut?.();
+
+      await Swal.fire({
+        icon: "success",
+        title: "Logged out successfully",
+        text: "You have been logged out.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
       router.push("/");
       router.refresh();
     } catch (error) {
       console.error("Error logging out:", error);
+
+      await Swal.fire({
+        icon: "error",
+        title: "Logout failed",
+        text: "Something went wrong. Please try again.",
+        confirmButtonText: "OK",
+      });
     }
   };
 
