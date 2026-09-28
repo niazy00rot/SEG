@@ -32,7 +32,7 @@ router.post('/login', async_handler(async(req, res)=>{
             httpOnly: true,
             secure: true,
             sameSite: "none",
-            maxAge: 60 * 60 * 1000,
+            maxAge: 48 * 60 * 60 * 1000,
             path: "/",
         }).json({message: 'Login successful', role: role_name});
     }

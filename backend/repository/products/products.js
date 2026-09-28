@@ -184,6 +184,26 @@ async function get_product_quantity(pro_id){
     }
 }
 
+async function get_product_price(client, pro_id){ 
+    try{
+        const res = await client.query(`SELECT price FROM products WHERE id = $1 AND deleted_at IS NULL`, [pro_id]);
+        return res.rows[0]?.price || 0;
+
+    }
+    finally{
+        client.release();
+    }
+}
+
+async function reduce_product_quantity(client, pro_id, quantity) {
+    const res = await client.query(
+        `UPDATE products SET quantity = quantity - $1, updated_at = CURRENT_TIMESTAMP 
+        WHERE id = $2 AND deleted_at IS NULL RETURNING id AND quantity >= $1`,
+        [quantity, pro_id]
+    );
+    return res.rows[0]; 
+}
+
 module.exports = {
     is_sku,
     is_product,
@@ -195,5 +215,7 @@ module.exports = {
     get_products_db,
     get_product_quantity,
     add_product_images,
-    get_product_images
+    get_product_images,
+    get_product_price,
+    reduce_product_quantity
 }

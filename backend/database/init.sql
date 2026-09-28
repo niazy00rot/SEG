@@ -214,33 +214,19 @@ CREATE TABLE product_types (
 -- ======================================================
 -- PRODUCTS
 -- ======================================================
-
 CREATE TABLE products (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     category_id UUID NOT NULL,
-
     product_type_id UUID NOT NULL,
-
     created_by UUID,
-
     updated_by UUID,
-
     name TEXT NOT NULL,
-
     description TEXT,
-
     sku TEXT NOT NULL UNIQUE,
-
     price NUMERIC(10,2) NOT NULL,
-
     quantity INTEGER NOT NULL DEFAULT 0,
-
     deleted_at TIMESTAMP,
-
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
 
@@ -294,19 +280,12 @@ CREATE TABLE products (
 -- ======================================================
 -- PRODUCT IMAGES
 -- ======================================================
-
 CREATE TABLE product_images (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     product_id UUID NOT NULL,
-
     image_path TEXT NOT NULL,
-
     is_primary BOOLEAN DEFAULT FALSE,
-
     display_order INTEGER DEFAULT 0,
-
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
     CONSTRAINT fk_product_images_product
@@ -318,13 +297,9 @@ CREATE TABLE product_images (
 -- ======================================================
 -- PRODUCT COMPATIBILITY
 -- ======================================================
-
 CREATE TABLE product_compatibility (
-
     product_id UUID NOT NULL,
-
     vehicle_id UUID NOT NULL,
-
     PRIMARY KEY(product_id, vehicle_id),
 
     CONSTRAINT fk_pc_product
@@ -341,17 +316,11 @@ CREATE TABLE product_compatibility (
 -- ======================================================
 -- CARTS
 -- ======================================================
-
 CREATE TABLE carts (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     user_id UUID NOT NULL UNIQUE,
-
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
-
     CONSTRAINT fk_cart_user
         FOREIGN KEY(user_id)
         REFERENCES users(id)
@@ -361,17 +330,11 @@ CREATE TABLE carts (
 -- ======================================================
 -- CART ITEMS
 -- ======================================================
-
 CREATE TABLE cart_items (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     cart_id UUID NOT NULL,
-
     product_id UUID NOT NULL,
-
     quantity INTEGER NOT NULL,
-
     CONSTRAINT fk_cart_items_cart
         FOREIGN KEY(cart_id)
         REFERENCES carts(id)
@@ -393,11 +356,15 @@ CREATE TABLE order_statuses (
 -- ======================================================
 -- ORDERS
 -- ======================================================
+
+CREATE SEQUENCE order_number_seq START 1;
+
 CREATE TABLE orders (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
     order_status_id UUID NOT NULL,
-    order_number TEXT NOT NULL UNIQUE,
+    order_number TEXT NOT NULL UNIQUE
+    DEFAULT 'ORD-' || LPAD(nextval('order_number_seq')::TEXT, 4, '0'),
     phone TEXT NOT NULL,
     city TEXT NOT NULL,
     location TEXT ,
@@ -478,25 +445,15 @@ CREATE TABLE part_requests (
 -- ======================================================
 -- LOGS
 -- ======================================================
-
 CREATE TABLE logs (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     user_id UUID,
-
     action TEXT NOT NULL,
-
     entity_type TEXT NOT NULL,
-
     entity_id UUID,
-
     ip_address TEXT,
-
     user_agent TEXT,
-
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-
     CONSTRAINT fk_logs_user
         FOREIGN KEY(user_id)
         REFERENCES users(id)
@@ -506,33 +463,20 @@ CREATE TABLE logs (
 -- ======================================================
 -- INDEXES
 -- ======================================================
-
 CREATE INDEX idx_users_email ON users(email);
-
 CREATE INDEX idx_products_name ON products(name);
-
 CREATE INDEX idx_products_sku ON products(sku);
-
 CREATE INDEX idx_orders_user ON orders(user_id);
-
 CREATE INDEX idx_orders_status ON orders(order_status_id);
-
 CREATE INDEX idx_cart_items_cart ON cart_items(cart_id);
-
 CREATE INDEX idx_order_items_order ON order_items(order_id);
-
 CREATE INDEX idx_product_images_product ON product_images(product_id);
-
-CREATE INDEX idx_product_compatibility_vehicle
-ON product_compatibility(vehicle_id);
-
-CREATE INDEX idx_part_requests_user
-ON part_requests(user_id);
+CREATE INDEX idx_product_compatibility_vehicle ON product_compatibility(vehicle_id);
+CREATE INDEX idx_part_requests_user ON part_requests(user_id);
 
 -- ======================================================
 -- DEFAULT ROLES
 -- ======================================================
-
 INSERT INTO roles (name)
 VALUES
     ('Client'),

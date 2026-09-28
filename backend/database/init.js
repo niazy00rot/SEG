@@ -13,10 +13,7 @@ async function initDB() {
             path.join(__dirname, 'init.sql'),
             'utf8'
         );
-
-        // Create tables and default data
         await client.query(sql);
-
         console.log('Database initialized successfully');
 
     } catch (err) {

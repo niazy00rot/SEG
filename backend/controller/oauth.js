@@ -11,7 +11,7 @@ const google_call_back = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "none",
-            maxAge: 60 * 60 * 1000,
+            maxAge: 48* 60 * 60 * 1000,
             path: "/",
         }).redirect(`${frontend_url}/en`);
 
