@@ -4,7 +4,7 @@ async function get_cart_id_by_user_id(user_id) {
     const client = await pool.connect()
     try{
         const res = await client.query(`SELECT id FROM carts WHERE user_id = $1`,[user_id])
-        return res.rows[0] || null
+        return res.rows[0]?.id || null
     }
     catch(err){
         console.error('Error fetching cart ID by user ID:', err)
@@ -43,7 +43,7 @@ async function add_item_to_cart(cart_id, product_id, quantity) {
             `INSERT INTO cart_items (cart_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *`,
             [cart_id, product_id, quantity]
         )
-        return res.rows[0]
+        return res.rows[0].id
     } 
     catch (err) {
         console.error('Error adding item to cart:', err)
