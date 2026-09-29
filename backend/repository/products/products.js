@@ -147,12 +147,18 @@ async function get_product_by_id_db(pro_id){
 async function get_products_db(offset = 0, limit = 15){
     const client = await pool.connect()
     try{
-        const res =await client.query(`
-            SELECT pi.image_path, p.id, p.category_id, p.product_type_id, 
+        // const res =await client.query(`
+        //     SELECT pi.image_path, p.id, p.category_id, p.product_type_id, 
+        //     p.name, p.description, p.sku, p.price, p.quantity FROM products p
+        //     JOIN product_images pi ON p.id = pi.product_id
+        //     WHERE p.deleted_at IS NULL 
+        //     ORDER BY p.created_at DESC, p.id DESC LIMIT $1 OFFSET $2;`, [limit, offset])
+        // return res.rows
+         const res =await client.query(`
+            SELECT p.id, p.category_id, p.product_type_id, 
             p.name, p.description, p.sku, p.price, p.quantity FROM products p
-            JOIN product_images pi ON p.id = pi.product_id
             WHERE p.deleted_at IS NULL 
-            ORDER BY p.created_at DESC, p.id DESC LIMIT $2 OFFSET $1;`, [offset, limit])
+            ORDER BY p.created_at DESC, p.id DESC LIMIT $1 OFFSET $2;`, [limit, offset])
         return res.rows
     }
     finally{
