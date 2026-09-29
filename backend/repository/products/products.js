@@ -170,7 +170,7 @@ async function get_product_images(pro_id){
     const client = await pool.connect()
     try{
         const res =await client.query(`
-            SELECT image_url,is_primary,display_order FROM product_images 
+            SELECT image_path,is_primary,display_order FROM product_images 
             WHERE product_id = $1`,[pro_id])
         return res.rows
     }
