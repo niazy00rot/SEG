@@ -11,6 +11,9 @@ import { usePathname } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
 import LogoutButton from "../ui/Logout";
 import { CgProfile } from "react-icons/cg";
+import { FaCartShopping } from "react-icons/fa6";
+import CartNum from "../ui/CartNum";
+
 
 export default function Navbar(): ReactElement {
   const t = useTranslations("navbar");
@@ -213,10 +216,14 @@ export default function Navbar(): ReactElement {
               <Link href="/profile">
                 <CgProfile />
               </Link>
+              <Link href="/cart">
+                <CartNum />
+                <FaCartShopping />
+              </Link>
               <LogoutButton onLoggedOut={() => setIsLoggedIn(false)} />
             </div>
           ) : (
-            <div className="accounts">
+            <div className="accounts notLoggedIn">
               <Link href="/login">{t("accounts.login")}</Link>
               <Link href="/signup">{t("accounts.signup")}</Link>
             </div>

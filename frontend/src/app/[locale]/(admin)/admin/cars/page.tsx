@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 import Swal, { type SweetAlertTheme } from "sweetalert2";
 import { useTheme } from "next-themes";
+import Loading from "@/components/ui/Loading";
 
 type Car = {
   id: string;
@@ -143,9 +144,7 @@ export default function CarsPage() {
 
         <div className="carsTable">
           {loading ? (
-            <div className="loading">
-              {t("loading")}
-            </div>
+            <Loading title={t("loading")} />
           ) : numberOfCars === 0 ? (
             <div className="noVehicles">
               {t("noVehicles")}
