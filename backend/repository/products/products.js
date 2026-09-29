@@ -169,9 +169,10 @@ async function get_products_db(offset = 0, limit = 15){
 async function get_product_images(pro_id){
     const client = await pool.connect()
     try{
-        const res =await client.query(`SELECT image_url FROM product_images 
+        const res =await client.query(`
+            SELECT image_url,is_primary,display_order FROM product_images 
             WHERE product_id = $1`,[pro_id])
-        return res.rows.map(row => row.image_url)
+        return res.rows
     }
     finally{
         client.release()

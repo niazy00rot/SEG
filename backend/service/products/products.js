@@ -1,8 +1,14 @@
 const { AppError } = require('../../middleware/handler.js')
 const {is_category}= require('../../repository/products/categories.js')
 const {is_product_type}= require('../../repository/products/product_types.js')
-const {is_sku, is_product, create_product_db, 
-    update_product_db,is_sku_taken, get_products_db,
+const {
+    is_sku, 
+    is_product, 
+    create_product_db, 
+    update_product_db,
+    is_sku_taken, 
+    get_products_db,
+    get_product_images,
     delete_product_db, get_product_by_id_db, add_product_images} = require('../../repository/products/products.js')
 
 const {upload_image} = require('../cloudinar.js')
@@ -90,10 +96,12 @@ async function get_product_by_id(pro_id){
 
 async function get_products(offset = 0,limit = 15){
     const res = await get_products_db(offset, limit)
-    console.log("Products fetched:", res.length)
-    console.log("Products fetched:", res)
     if (!res || res.length === 0) {
         throw new AppError("No products found", 404)
+    }
+    for (const product of res) {
+        const images = await get_product_images(product.id)
+        product.images = images
     }
     return res
 }
