@@ -151,7 +151,7 @@ async function get_products_db(offset = 0, limit = 15){
             SELECT pi.image_path, p.id, p.category_id, p.product_type_id, 
             p.name, p.description, p.sku, p.price, p.quantity FROM products p
             JOIN product_images pi ON p.id = pi.product_id
-            WHERE p.deleted_at IS NULL and pi.is_primary = true
+            WHERE p.deleted_at IS NULL 
             ORDER BY p.created_at DESC, p.id DESC LIMIT $2 OFFSET $1;`, [offset, limit])
         return res.rows
     }
