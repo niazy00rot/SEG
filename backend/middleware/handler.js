@@ -8,9 +8,26 @@ class AppError extends Error {
 }
 
 function error_handler(err, req, res, next) {
-    console.error(err)
     const statusCode = err.statusCode || 500
-    return res.status(statusCode).json({error: err.message || "Internal server error"})
+
+    if (statusCode >= 500) {
+        console.error(JSON.stringify({
+            event: 'http_error',
+            method: req.method,
+            path: req.originalUrl,
+            statusCode,
+            name: err.name,
+            message: err.message,
+            code: err.code,
+            constraint: err.constraint,
+            detail: err.detail,
+            stack: err.stack
+        }))
+    }
+
+    return res.status(statusCode).json({
+        error: statusCode >= 500 ? "Internal server error" : err.message || "Request failed"
+    })
 }
 
 function async_handler(fn){
