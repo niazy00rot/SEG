@@ -33,7 +33,6 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 -- ======================================================
 -- ROLES
 -- ======================================================
-
 CREATE TABLE roles (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL UNIQUE
@@ -42,30 +41,18 @@ CREATE TABLE roles (
 -- ======================================================
 -- USERS
 -- ======================================================
-
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     role_id UUID NOT NULL,
-
     name TEXT NOT NULL,
-
     email TEXT NOT NULL UNIQUE,
-
     password TEXT,
-
     phone TEXT,
-
     google_id TEXT,
-
     is_email_verified BOOLEAN NOT NULL DEFAULT FALSE,
-
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
-
     last_login TIMESTAMP,
-
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
     CONSTRAINT fk_users_role
@@ -76,17 +63,11 @@ CREATE TABLE users (
 -- ======================================================
 -- REFRESH TOKENS
 -- ======================================================
-
 CREATE TABLE refresh_tokens (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     user_id UUID NOT NULL,
-
     token TEXT NOT NULL,
-
     expires_at TIMESTAMP NOT NULL,
-
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
     CONSTRAINT fk_refresh_tokens_user
@@ -98,21 +79,13 @@ CREATE TABLE refresh_tokens (
 -- ======================================================
 -- OTP
 -- ======================================================
-
 CREATE TABLE otp (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     user_id UUID NOT NULL,
-
     code TEXT NOT NULL,
-
     purpose TEXT NOT NULL,
-
     expires_at TIMESTAMP NOT NULL,
-
     is_used BOOLEAN NOT NULL DEFAULT FALSE,
-
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
     CONSTRAINT fk_otp_user
@@ -124,24 +97,17 @@ CREATE TABLE otp (
 -- ======================================================
 -- BRANDS
 -- ======================================================
-
 CREATE TABLE brands (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     name TEXT NOT NULL UNIQUE
 );
 
 -- ======================================================
 -- MODELS
 -- ======================================================
-
 CREATE TABLE models (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     brand_id UUID NOT NULL,
-
     name TEXT NOT NULL,
 
     CONSTRAINT fk_models_brand
@@ -156,7 +122,6 @@ CREATE TABLE models (
 -- ======================================================
 -- VEHICLES
 -- ======================================================
-
 CREATE TABLE vehicles (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     brand_id UUID NOT NULL,
@@ -180,9 +145,7 @@ CREATE TABLE vehicles (
 -- ======================================================
 
 CREATE TABLE categories (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     name TEXT NOT NULL UNIQUE
 );
 
@@ -190,13 +153,9 @@ CREATE TABLE categories (
 -- ======================================================
 -- PRODUCT TYPES
 -- ======================================================
-
 CREATE TABLE product_types (
-
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
     category_id UUID NOT NULL,
-
     name TEXT NOT NULL,
 
     CONSTRAINT fk_product_types_category
@@ -356,7 +315,6 @@ CREATE TABLE order_statuses (
 -- ======================================================
 -- ORDERS
 -- ======================================================
-
 CREATE SEQUENCE order_number_seq START 1;
 
 CREATE TABLE orders (

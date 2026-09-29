@@ -2,7 +2,16 @@ const {AppError} = require('../middleware/handler.js')
 const {transaction} = require('../utils/transactions.js')
 const {is_product,get_product_quantity,get_product_price,reduce_product_quantity} = require('../repository/products/products.js')
 
-const {create_order,add_order_items,get_order_status_id,get_user_orders
+const {create_order,
+    add_order_items,
+    get_order_status_id,
+    get_user_orders,
+    get_order_by_id,
+    get_order_items,
+    cancel_order,
+    get_all_orders,
+    get_order_by_id_admin,
+    update_order_status
     } = require('../repository/order')
 
 
@@ -39,9 +48,63 @@ async function get_user_orders_service(user_id) {
         return orders;
     })
 }
-gjk
+
+async function get_orders_by_id_service(id,user_id) {
+    return transaction(async (client) => {
+        const orders = await get_order_by_id(client, id, user_id)
+        if (!orders) {
+            throw new AppError('Order not found', 404);
+        }
+        const result = await get_order_items(client,id)
+        orders.items = result
+        return orders
+    })
+}
+
+async function cancel_order_service(id, user_id) {
+    return transaction(async (client) => {
+        const order = await get_order_by_id(client, id, user_id);
+        if (!order) {
+            throw new AppError('Order not found', 404);
+        }
+        const cancelledOrder = await cancel_order(client, id, user_id);
+        return cancelledOrder;
+    })
+}
+
+async function get_all_orders_service(status, limit, offset) {
+    return transaction(async (client) => {
+        const orders = await get_all_orders(client, status, limit, offset);
+        return orders;
+    })
+}
+
+async function get_orders_by_id_admin_service(id) {
+    return transaction(async (client) => {
+        const order = await get_order_by_id_admin(client, id);
+        if (!order) {
+            throw new AppError('Order not found', 404);
+        }
+        const result = await get_order_items(client, id);
+        order.items = result;
+        return order;
+    })
+}
+
+async function update_order_status_service(id, status) {
+    return transaction(async (client) => {
+        const status_id = await get_order_status_id(client, status);
+        const updatedOrder = await update_order_status(client, id, status_id);
+        return updatedOrder;
+    })
+}
 
 module.exports = {
     create_order_service,
-    get_user_orders_service
+    get_user_orders_service,
+    get_orders_by_id_service,
+    cancel_order_service,
+    get_all_orders_service,
+    get_orders_by_id_admin_service,
+    update_order_status_service
 }

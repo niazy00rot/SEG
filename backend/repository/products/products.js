@@ -148,7 +148,7 @@ async function get_products_db(offset = 0, limit = 15){
     const client = await pool.connect()
     try{
         const res =await client.query(`
-            SELECT pi.image_url, p.id, p.category_id, p.product_type_id, 
+            SELECT pi.image_path, p.id, p.category_id, p.product_type_id, 
             p.name, p.description, p.sku, p.price, p.quantity FROM products p
             JOIN product_images pi ON p.id = pi.product_id
             WHERE p.deleted_at IS NULL and pi.is_primary = true

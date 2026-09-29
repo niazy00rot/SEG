@@ -11,6 +11,11 @@ const create_order_sc = z.object({
     })).min(1, 'At least one item is required')
 })
 
+const order_id_sc = z.object({
+    id: z.string().uuid('Invalid order ID')
+})
+
 module.exports = {
-    create_order_sc
+    create_order_sc,
+    order_id_sc
 }
