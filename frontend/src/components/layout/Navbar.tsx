@@ -171,24 +171,11 @@ export default function Navbar(): ReactElement {
                 {t("links.home")}
               </Link>
               <Link
-                href="/#shop"
+                href="/shop"
                 onClick={() => setIsMenuOpen(false)}
-                className={
-                  pathname === "/" && activeSection === "shop" ? "active" : ""
-                }
+                className={pathname === "/shop" ? "active" : ""}
               >
                 {t("links.shop")}
-              </Link>
-              <Link
-                href="/#categories"
-                onClick={() => setIsMenuOpen(false)}
-                className={
-                  pathname === "/" && activeSection === "categories"
-                    ? "active"
-                    : ""
-                }
-              >
-                {t("links.categories")}
               </Link>
 
               {/* <Link href="/products" onClick={() => setIsMenuOpen(false)} className={pathname === "/products" ? "active" : ""}>
