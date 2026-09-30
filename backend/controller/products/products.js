@@ -19,9 +19,9 @@ async function get_product_by_id_controller(req,res){
 }
 
 async function create_product_controller(req,res){
-    const {category_id, product_type_id, name, description, sku, price, quantity} = req.body
+    const {category_id, product_type_id, name, description, sku, price, quantity, primary_image_index} = req.body
     const images = req.files || []
-    const data = {category_id, product_type_id, name, description, sku, price, quantity}
+    const data = {category_id, product_type_id, name, description, sku, price, quantity, primary_image_index}
     const user_id = req.user.id
     const result = await create_product(user_id, data, images)
     return res.status(201).json({message: "Product created successfully",product: result})

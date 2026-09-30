@@ -10,8 +10,9 @@ const create_product_sc = z.object({
     name: z.string().min(1),
     description: z.string().optional(),
     sku: z.string().min(1),
-    price: z.number().min(0),
-    quantity: z.int().min(0)
+    price: z.coerce.number().min(0),
+    quantity: z.coerce.number().int().min(0),
+    primary_image_index: z.coerce.number().int().min(0).optional()
 })
 
 const update_product_sc = z.object({
