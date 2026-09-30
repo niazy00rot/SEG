@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaArrowRight, FaArrowLeft  } from "react-icons/fa";
 import "./parts.scss";
+import Loading from "@/components/ui/Loading";
 
 type Category = {
   id: number;
@@ -325,14 +326,11 @@ export default function ProductsManagementPage() {
 
   if (loading) {
     return (
-      <main>
-        <p>Loading...</p>
+      <main className="loading-container">
+        <Loading title="Loading..." />
       </main>
     );
   }
-
-  console.log(products.length);
-  
 
   return (
     <main className="products-management">

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   FiArrowLeft,
   FiArrowRight,
@@ -20,6 +21,7 @@ interface CartItem {
   quantity: number;
   name: string;
   price: number;
+  image: string;
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -291,7 +293,7 @@ export default function CartPage() {
                     return (
                       <article className="cartItem" key={item.id}>
                         <div className="image">
-                          <span>SEG</span>
+                          <Image src={item.image} alt={item.name} />
                         </div>
   
                         <div className="content">

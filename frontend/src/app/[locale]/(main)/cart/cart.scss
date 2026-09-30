@@ -287,11 +287,10 @@ header {
 
           background: var(--background);
 
-          span {
-            color: var(--main-color);
-            font-size: 13px;
-            font-weight: 800;
-            letter-spacing: 1px;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
           }
         }
 

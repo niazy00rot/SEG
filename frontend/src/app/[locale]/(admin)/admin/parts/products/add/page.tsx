@@ -19,6 +19,7 @@ type ProductType = {
 type SelectedImage = {
   file: File;
   previewUrl: string;
+  isPrimary: boolean;
 };
 
 export default function AddProductPage() {
@@ -177,21 +178,38 @@ export default function AddProductPage() {
     setError("");
 
     try {
+      const formData = new FormData();
+
+      formData.append("category_id", categoryId);
+      formData.append("product_type_id", productTypeId);
+      formData.append("name", name.trim());
+      formData.append("sku", sku.trim());
+      formData.append("price", price);
+      formData.append("quantity", quantity);
+
+      if (description.trim()) {
+        formData.append("description", description.trim());
+      }
+
+      images.forEach((image) => {
+        formData.append("images", image.file);
+      });
+
+      const primaryImageIndex = images.findIndex(
+        (image) => image.isPrimary,
+      );
+
+      if (primaryImageIndex !== -1) {
+        formData.append(
+          "primary_image_index",
+          String(primaryImageIndex),
+        );
+      }
+
       const response = await fetch(`${API_URL}/products`, {
         method: "POST",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          category_id: categoryId,
-          product_type_id: productTypeId,
-          name: name.trim(),
-          description: description.trim() || undefined,
-          sku: sku.trim(),
-          price: Number(price),
-          quantity: Number(quantity),
-        }),
+        body: formData,
       });
 
       const data = await response.json();
@@ -213,6 +231,13 @@ export default function AddProductPage() {
 
   const handleImagesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedImages = Array.from(event.target.files || []);
+
+    if (imagesRef.current.length + selectedImages.length > 5) {
+      setError("You can select up to 5 images.");
+      event.target.value = "";
+      return;
+    }
+
     const invalidImage = selectedImages.find(
       (image) => !image.type.startsWith("image/"),
     );
@@ -224,27 +249,53 @@ export default function AddProductPage() {
     }
 
     setError("");
+
     const nextImages = [
       ...imagesRef.current,
       ...selectedImages.map((file) => ({
         file,
         previewUrl: URL.createObjectURL(file),
+        isPrimary: imagesRef.current.length === 0,
       })),
     ];
+
     imagesRef.current = nextImages;
     setImages(nextImages);
+
     event.target.value = "";
+  };
+
+  const setPrimaryImage = (imageIndex: number) => {
+    const nextImages = imagesRef.current.map((image, index) => ({
+      ...image,
+      isPrimary: index === imageIndex,
+    }));
+
+    imagesRef.current = nextImages;
+    setImages(nextImages);
   };
 
   const removeImage = (imageIndex: number) => {
     const imageToRemove = imagesRef.current[imageIndex];
-      if (imageToRemove) {
-        URL.revokeObjectURL(imageToRemove.previewUrl);
-      }
 
-    const nextImages = imagesRef.current.filter(
+    if (imageToRemove) {
+      URL.revokeObjectURL(imageToRemove.previewUrl);
+    }
+
+    let nextImages = imagesRef.current.filter(
       (_, index) => index !== imageIndex,
     );
+
+    if (
+      imageToRemove?.isPrimary &&
+      nextImages.length > 0
+    ) {
+      nextImages = nextImages.map((image, index) => ({
+        ...image,
+        isPrimary: index === 0,
+      }));
+    }
+
     imagesRef.current = nextImages;
     setImages(nextImages);
   };
@@ -415,12 +466,20 @@ export default function AddProductPage() {
                         className="selected-image-preview"
                       />
                       <span>{image.file.name}</span>
-                      <button
-                        type="button"
-                        onClick={() => removeImage(index)}
-                        disabled={loading}
-                        aria-label={`Remove ${image.file.name}`}
-                      >
+
+                      <label>
+                        <input
+                          type="radio"
+                          name="primary-image"
+                          checked={image.isPrimary}
+                          onChange={() => setPrimaryImage(index)}
+                          disabled={loading}
+                        />
+
+                        Primary
+                      </label>
+
+                      <button type="button" onClick={() => removeImage(index)} disabled={loading} aria-label={`Remove ${image.file.name}`}>
                         <IoMdClose />
                       </button>
                     </li>
