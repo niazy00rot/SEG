@@ -20,6 +20,7 @@ type ProductType = {
 type Product = {
   id: number;
   name: string;
+  description: string;
   sku: string;
   price: number;
   quantity: number;
@@ -36,6 +37,7 @@ type DeleteType = "category" | "product_type" | "product";
 
 type EditData = {
   name: string;
+  description: string;
   sku: string;
   price: string;
   quantity: string;
@@ -65,6 +67,7 @@ export default function ProductsManagementPage() {
 
   const [editingData, setEditingData] = useState<EditData>({
     name: "",
+    description: "",
     sku: "",
     price: "",
     quantity: "",
@@ -152,6 +155,7 @@ export default function ProductsManagementPage() {
     ) {
       setEditingData({
         name: item.name,
+        description: "",
         sku: "",
         price: "",
         quantity: "",
@@ -161,6 +165,7 @@ export default function ProductsManagementPage() {
     if (type === "product" && "sku" in item) {
       setEditingData({
         name: item.name,
+        description: item.description,
         sku: item.sku,
         price: String(item.price),
         quantity: String(item.quantity),
@@ -174,6 +179,7 @@ export default function ProductsManagementPage() {
 
     setEditingData({
       name: "",
+      description: "",
       sku: "",
       price: "",
       quantity: "",
@@ -244,6 +250,7 @@ export default function ProductsManagementPage() {
 
       body = {
         name: editingData.name.trim(),
+        description: editingData.description.trim(),
         sku: editingData.sku.trim(),
         price: Number(editingData.price),
         quantity: Number(editingData.quantity),
@@ -605,7 +612,9 @@ export default function ProductsManagementPage() {
             <table>
               <thead>
                 <tr>
+                  <th>Image</th>
                   <th>Name</th>
+                  <th>Description</th>
                   <th>SKU</th>
                   <th>Price</th>
                   <th>Quantity</th>
@@ -658,6 +667,23 @@ export default function ProductsManagementPage() {
                             />
                           ) : (
                             product.name
+                          )}
+                        </td>
+
+                        <td>
+                          {isEditing ? (
+                            <input
+                              type="text"
+                              value={editingData.description}
+                              onChange={(event) =>
+                                setEditingData({
+                                  ...editingData,
+                                  description: event.target.value,
+                                })
+                              }
+                            />
+                          ) : (
+                            product.description
                           )}
                         </td>
 
