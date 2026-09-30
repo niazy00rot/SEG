@@ -30,6 +30,24 @@ async function is_product_type(id) {
     }
 }
 
+async function is_product_type_for_category(category_id, id) {
+    const client = await pool.connect()
+    try {
+        const res = await client.query(
+            'SELECT id FROM product_types WHERE category_id = $1 AND id = $2',
+            [category_id, id]
+        )
+        return res.rows.length > 0
+    }
+    catch (err) {
+        console.error('Error check product_type category:', err)
+        throw err
+    }
+    finally {
+        client.release()
+    }
+}
+
 async function get_product_types() {
     const client = await pool.connect()
     try {
@@ -174,6 +192,7 @@ module.exports = {
     update_type,
     delete_type,
     is_product_type,
+    is_product_type_for_category,
     is_product_type_name,
     is_product_type_name_except
 }

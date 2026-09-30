@@ -1,6 +1,6 @@
 const { AppError } = require('../../middleware/handler.js')
 const {is_category}= require('../../repository/products/categories.js')
-const {is_product_type}= require('../../repository/products/product_types.js')
+const {is_product_type_for_category}= require('../../repository/products/product_types.js')
 const {
     is_sku, 
     is_product, 
@@ -18,9 +18,12 @@ async function create_product(user_id, data, images) {
     if (!check_category) {
         throw new AppError("category not exist", 404);
     }
-    const check_product_type = await is_product_type(data.product_type_id);
+    const check_product_type = await is_product_type_for_category(
+        data.category_id,
+        data.product_type_id
+    );
     if (!check_product_type) {
-        throw new AppError("product_type not exist", 404);
+        throw new AppError("product_type does not belong to category or does not exist", 400);
     }
     const check_sku = await is_sku(data.sku);
     if (check_sku) {
