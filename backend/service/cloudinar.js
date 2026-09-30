@@ -2,6 +2,10 @@ const cloudinary = require('../config/cloudinary');
 
 function upload_image(file) {
     return new Promise((resolve, reject) => {
+        if (!file || !file.buffer) {
+            return reject(new Error('Uploaded image buffer is missing'));
+        }
+
         const stream = cloudinary.uploader.upload_stream(
             {
                 folder: 'seg/products',
@@ -15,6 +19,7 @@ function upload_image(file) {
             }
         );
 
+        stream.on('error', reject);
         stream.end(file.buffer);
     });
 }

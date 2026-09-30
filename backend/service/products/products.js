@@ -38,16 +38,24 @@ async function create_product(user_id, data, images) {
             throw new AppError("primary_image_index must point to one of the uploaded images",400);
         }
     }
-    const product = await create_product_db(data, user_id);
-    const product_id = product.id;
+    const uploaded_images = [];
     for (let index = 0; index < images.length; index++) {
         const image = images[index];
         const upload_result = await upload_image(image);
+        uploaded_images.push({
+            image_path: upload_result.secure_url,
+            is_primary: index === data.primary_image_index,
+            display_order: index,
+        });
+    }
+
+    const product = await create_product_db(data, user_id);
+    for (const image of uploaded_images) {
         await add_product_images(
-            product_id,
-            upload_result.secure_url,
-            index === data.primary_image_index,
-            index
+            product.id,
+            image.image_path,
+            image.is_primary,
+            image.display_order
         );
     }
     return product;

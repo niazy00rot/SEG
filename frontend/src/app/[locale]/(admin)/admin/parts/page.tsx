@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { FaArrowRight, FaArrowLeft  } from "react-icons/fa";
 import "./parts.scss";
 import Loading from "@/components/ui/Loading";
@@ -22,6 +23,13 @@ type Product = {
   sku: string;
   price: number;
   quantity: number;
+  images?: ProductImage[];
+};
+
+type ProductImage = {
+  image_path: string;
+  is_primary: boolean;
+  display_order: number;
 };
 
 type DeleteType = "category" | "product_type" | "product";
@@ -121,7 +129,7 @@ export default function ProductsManagementPage() {
     } finally {
       setLoading(false);
     }
-  }, [API_URL, offset]);
+  }, [API_URL, offset, page]);
 
   useEffect(() => {
     const fetchTimer = window.setTimeout(() => {
@@ -368,6 +376,7 @@ export default function ProductsManagementPage() {
             <table>
               <thead>
                 <tr>
+                  <th>Image</th>
                   <th>Name</th>
                   <th>Action</th>
                 </tr>
@@ -616,9 +625,25 @@ export default function ProductsManagementPage() {
                     const isEditing =
                       editingType === "product" &&
                       editingId === product.id;
+                    const primaryImage =
+                      product.images?.find((image) => image.is_primary) ??
+                      product.images?.[0];
 
                     return (
                       <tr key={product.id}>
+                        <td>
+                          {primaryImage ? (
+                            <Image
+                              src={primaryImage.image_path}
+                              alt={product.name}
+                              width={56}
+                              height={56}
+                              className="product-thumbnail"
+                            />
+                          ) : (
+                            "-"
+                          )}
+                        </td>
                         <td>
                           {isEditing ? (
                             <input
