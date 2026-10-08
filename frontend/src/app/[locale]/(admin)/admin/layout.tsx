@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/ui/Loading";
 
 export default function AdminLayout({
   children,
@@ -11,6 +12,7 @@ export default function AdminLayout({
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkAdmin = async () => {
@@ -35,6 +37,7 @@ export default function AdminLayout({
           return;
         }
 
+        setLoading(false);
       } catch (error) {
         console.error("Authentication check failed:", error);
         router.replace("/login");
@@ -43,6 +46,10 @@ export default function AdminLayout({
 
     checkAdmin();
   }, [API_URL, router]);
+
+  if (loading) {
+    return <div><Loading title="Loading..." /></div>;
+  }
 
   return <>{children}</>;
 }
