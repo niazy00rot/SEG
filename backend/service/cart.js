@@ -35,7 +35,7 @@ async function add_item_to_cart_service(user_id, product_id, quantity) {
     const cart_id = await get_cart_id_by_user_id(user_id)
     if (!cart_id) {
         const new_cart = await add_cart(user_id)
-        return await add_item_to_cart(new_cart, product_id, quantity)
+        return await add_item_to_cart(new_cart.id, product_id, quantity)
     }
     return await add_item_to_cart(cart_id, product_id, quantity)
 }

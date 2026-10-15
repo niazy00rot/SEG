@@ -1,15 +1,27 @@
 
 const {create_product,update_product,delete_product, get_products,
     get_product_by_id} = require("../../service/products/products.js")
+const { AppError } = require("../../middleware/handler.js")
 
 async function get_products_controller(req,res){
     const parsed_offset = Number.parseInt(req.query.offset, 10)
     const offset = Number.isInteger(parsed_offset) && parsed_offset >= 0
         ? parsed_offset
         : 0
+    const category_id = parse_optional_id(req.query.category_id, 'category_id')
+    const product_type_id = parse_optional_id(req.query.product_type_id, 'product_type_id')
     const limit = 15;
-    const result = await get_products(offset, limit)
+    const result = await get_products(offset, limit, category_id, product_type_id)
     return res.status(200).json(result)
+}
+
+function parse_optional_id(value, name) {
+    if (value === undefined) return undefined
+    const id = String(value)
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)) {
+        throw new AppError(`${name} must be a valid UUID`, 400)
+    }
+    return id
 }
 
 async function get_product_by_id_controller(req,res){

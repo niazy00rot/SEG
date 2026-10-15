@@ -105,8 +105,8 @@ async function get_product_by_id(pro_id){
     return res
 }
 
-async function get_products(offset = 0,limit = 15){
-    const res = await get_products_db(offset, limit)
+async function get_products(offset = 0, limit = 15, category_id, product_type_id){
+    const res = await get_products_db(offset, limit, category_id, product_type_id)
     if (!res || res.length === 0) {
         throw new AppError("No products found", 404)
     }

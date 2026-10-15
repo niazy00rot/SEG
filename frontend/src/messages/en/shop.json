@@ -1,0 +1,18 @@
+{
+  "title": "Shop",
+  "categories": "Categories",
+  "productTypes": "Product types",
+  "chooseCategory": "Choose a category to browse its product types.",
+  "chooseProductType": "Choose a product type to see available products.",
+  "products": "Products",
+  "noProducts": "No products found for this product type.",
+  "noTypes": "No product types found for this category.",
+  "loading": "Loading...",
+  "error": "Something went wrong while loading the shop.",
+  "addToCart": "Add to cart",
+  "adding": "Adding...",
+  "added": "Added to cart",
+  "productDetails": "Product details",
+  "backToShop": "Back to shop",
+  "sku": "SKU"
+}

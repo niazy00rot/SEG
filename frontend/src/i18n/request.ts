@@ -5,12 +5,14 @@ import enFooter from "../messages/en/footer.json";
 import enLanding from "../messages/en/landing.json";
 import enAuth from "../messages/en/auth.json";
 import enAdmin from "../messages/en/admin.json";
+import enShop from "../messages/en/shop.json";
 
 import arNavbar from "../messages/ar/navbar.json";
 import arFooter from "../messages/ar/footer.json";
 import arLanding from "../messages/ar/landing.json";
 import arAuth from "../messages/ar/auth.json";
 import arAdmin from "../messages/ar/admin.json";
+import arShop from "../messages/ar/shop.json";
 
 export default getRequestConfig(async ({ requestLocale }) => {
   const locale = await requestLocale;
@@ -24,6 +26,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
         landing: enLanding,
         auth: enAuth,
         admin: enAdmin,
+        shop: enShop,
       },
     };
   }
@@ -38,6 +41,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
             landing: arLanding,
             auth: arAuth,
             admin: arAdmin,
+            shop: arShop,
           }
         : {
             navbar: enNavbar,
@@ -45,6 +49,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
             landing: enLanding,
             auth: enAuth,
             admin: enAdmin,
+            shop: enShop,
           },
   };
 });

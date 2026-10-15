@@ -16,8 +16,8 @@ import "./cart.scss";
 import Loading from "@/components/ui/Loading";
 
 interface CartItem {
-  id: number;
-  product_id: number;
+  id: string;
+  product_id: string;
   quantity: number;
   name: string;
   price: number;
@@ -42,7 +42,7 @@ async function getCart(): Promise<CartItem[]> {
 }
 
 async function updateCartItem(
-  productId: number,
+  productId: string,
   quantity: number,
 ): Promise<CartItem> {
   const response = await fetch(`${API_URL}/cart/${productId}`, {
@@ -63,7 +63,7 @@ async function updateCartItem(
   return data;
 }
 
-async function removeCartItem(productId: number): Promise<void> {
+async function removeCartItem(productId: string): Promise<void> {
   const response = await fetch(`${API_URL}/cart/${productId}`, {
     method: "DELETE",
     credentials: "include",
@@ -92,7 +92,7 @@ async function clearCart(): Promise<void> {
 export default function CartPage() {
   const [items, setItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [updatingProduct, setUpdatingProduct] = useState<number | null>(null);
+  const [updatingProduct, setUpdatingProduct] = useState<string | null>(null);
   const [clearing, setClearing] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
@@ -116,7 +116,7 @@ export default function CartPage() {
     return () => clearTimeout(timeoutId);
   }, [fetchCart]);
 
-  async function handleUpdateQuantity(productId: number, quantity: number) {
+  async function handleUpdateQuantity(productId: string, quantity: number) {
     if (quantity < 1) {
       return;
     }
@@ -141,7 +141,7 @@ export default function CartPage() {
     }
   }
 
-  async function handleRemove(productId: number) {
+  async function handleRemove(productId: string) {
     try {
       setUpdatingProduct(productId);
 
