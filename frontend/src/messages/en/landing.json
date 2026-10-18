@@ -17,15 +17,15 @@
     "title": "Explore Our Categories",
     "boxes": {
       "engine": {
-        "title": "Engine Parts",
+        "title": "Engine",
         "num": "2,400+ parts"
       },
       "gearbox": {
-        "title": "Gearbox Parts",
+        "title": "Gearbox",
         "num": "1,200+ parts"
       },
       "suspension": {
-        "title": "Suspension Parts",
+        "title": "Suspension",
         "num": "800+ parts"
       },
       "electrical": {
@@ -33,11 +33,11 @@
         "num": "1,100+ parts"
       },
       "body": {
-        "title": "Body Parts",
+        "title": "Body",
         "num": "1,500+ parts"
       },
       "brake": {
-        "title": "Brake Parts",
+        "title": "Brake",
         "num": "1,000+ parts"
       },
       "wheels": {

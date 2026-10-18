@@ -145,6 +145,15 @@ async function get_product_by_id_db(pro_id){
 }
 
 async function get_products_db(offset = 0, limit = 15, category_id, product_type_id){
+
+    if (!Number.isSafeInteger(offset) || offset < 0) {
+        throw new Error('Invalid offset');
+    }
+
+    if (!Number.isSafeInteger(limit) || limit < 1 || limit > 100) {
+        throw new Error('Invalid limit');
+    }
+
     const client = await pool.connect()
     try{
         const conditions = ['p.deleted_at IS NULL']

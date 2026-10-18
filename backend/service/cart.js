@@ -27,6 +27,13 @@ async function add_item_to_cart_service(user_id, product_id, quantity) {
     if (!product_exists) {
         throw new AppError("Product not found", 404)
     }
+
+    if (!Number.isInteger(quantity) || quantity <= 0) {
+        throw new AppError(
+            "Quantity must be a positive integer", 400
+        );
+    }
+
     const available_quantity = await get_product_quantity(product_id)
     if (available_quantity < quantity) {
         throw new AppError("Insufficient product quantity", 400)
